@@ -392,7 +392,7 @@
                      <img src="{{asset('assets/img/default/900x600.png')}}" alt="video" id="v_image" />
                      <div class="banner-image">
                         <i class="fas fa-camera upload-button"  onClick="document.getElementById('v_file').click();"></i>
-                        <input id="v_file" class="file_upload"  required type="file" name="vImage" accept="image/*" onchange="loadFile(event,'v_image',1)"/>
+                        <input id="v_file" class="file_upload"   type="file" name="vImage" accept="image/*" onchange="loadFile(event,'v_image',1)"/>
                         
                      </div>
                     
@@ -400,8 +400,8 @@
                         <input class="form-check-input" type="checkbox" id="is_url" name="is_url" value="1" checked>
                         <label class="form-check-label">Is Url</label>
                       </div>
-                     <input id="vUrl"  class="form-control mt-20" required name="vUrl" type="text" placeholder="Youtube URL" style="display: block" />
-                     <input id="vdo" class=""  required type="file" name="video" style="display: none"/>
+                     <input id="vUrl"  class="form-control mt-20"  name="vUrl" type="text" placeholder="Youtube URL" style="display: block" />
+                     <input id="vdo" class=""   type="file" name="video" style="display: none"/>
                   </div>
                   <a href="https://www.youtube.com/watch?v=QSwvg9Rv2EI" class="youtube-popup video-btn">
                      <i class='bx bx-right-arrow'></i>

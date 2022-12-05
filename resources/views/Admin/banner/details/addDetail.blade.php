@@ -867,7 +867,7 @@
                                     <label for="exampleFormControlFile1">Page Type</label>
 
                                     <select class="form-control" name="page_type" id="page_type">
-                                        <option value="new">New</option>
+                                        <option value="new" >New</option>
                                         <option value="Existing">Existing</option>
                                     </select>
                                 </div>
@@ -905,7 +905,7 @@
 							<div class="col-md-6" id="tags">
 								<div class="form-group">
 									<label for="exampleFormControlFile1">Tags Selection</label>
-								   <select class="form-control" id="example-getting-started" multiple="multiple" name="tags">
+								   <select class="form-control" id="example-getting-started" multiple="multiple" name="tags[]">
 									<option value="product">Product</option>
 									<option value="place">Place</option>
 									<option value="destination">Destination</option>
@@ -1016,6 +1016,7 @@
 
 			$("#banner_id").change(function (){
 			$("#page_dropdown").show();
+            $("#page_type").val("new").change();
 
 			});
 			$("#page_type").change(function (){
@@ -1207,6 +1208,8 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 	  $('#example-getting-started').multiselect();
+      
+     
 	//   $('.ckeditor').ckeditor();
  });
   </script>
