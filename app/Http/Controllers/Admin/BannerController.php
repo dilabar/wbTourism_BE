@@ -420,18 +420,19 @@ class BannerController extends Controller
         //    $image_list->push($image_array);
 
         // } 
+        $page_list = Item::where([['type', 'detailpage'], ['page_type', 'detail'], ['is_active', 1], ['is_approved', 1]])->whereIn('main_type', ['place', 'banner', 'product'])->get();
 
         return view('Admin/banner/details/addDetail', [
             'template_type' => $template_type,
             'banner_list' => $banner_details,
-            // 'image_list' =>  $image_list
+            'page_list' =>  $page_list
         ]);
         // dd('ok');
     }
 
     public function detailspageAddPost(Request $request)
     {
-
+        // dd($request);
 
         try {
             $this->validate($request, [
