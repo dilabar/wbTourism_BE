@@ -40,6 +40,8 @@ Route::prefix('admin')->group(function () {
     Route::post('/banner/details/insert', 'Admin\BannerController@detailspageAddPost')->name('bannerdetaisladd');
     Route::post('/banner/details/update', 'Admin\BannerController@detailspageUpdate')->name('bannerdetaislupdate');
     Route::resource('/product', 'Admin\ProductController');
+    Route::get('/product/details/Add', 'Admin\ProductController@productAdd');
+    Route::post('/product/details/insert', 'Admin\ProductController@storeProduct')->name('addProductDetail');
     Route::post('/product/delete', 'Admin\ProductController@delete');
     Route::resource('/destination', 'Admin\DestinationController');
     Route::post('/destination/place/add', 'Admin\DestinationController@storePlace')->name('addplace');
