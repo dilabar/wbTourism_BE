@@ -872,6 +872,20 @@
                                     </select>
                                 </div>
                             </div>
+							<div class="col-md-6" id="page_list">
+                                <div class="form-group">
+                                    <label for="exampleFormControlFile1">Select Page</label>
+									<select class="form-control" id="page_id" name="page_id">
+										<option value="0">-- Select Page  --</option>
+
+										@foreach ($page_list as $page)
+											<option value="{{ $page->_id }}">{{ $page->name }}
+											</option>
+										@endforeach
+
+									</select>
+                                </div>
+                            </div>
                             <div class="col-md-6" id="template_dropdown">
                                 <div class="form-group">
                                     <label for="exampleFormControlFile1">Template Type</label>
@@ -888,7 +902,19 @@
 
                                 </div>
                             </div>
-
+							<div class="col-md-6" id="tags">
+								<div class="form-group">
+									<label for="exampleFormControlFile1">Tags Selection</label>
+								   <select class="form-control" id="example-getting-started" multiple="multiple" name="tags">
+									<option value="product">Product</option>
+									<option value="place">Place</option>
+									<option value="destination">Destination</option>
+									<option value="events & festivals">Events & Festivals</option>
+									<option value="gallery">Gallery</option>
+									
+								   </select>
+								  </div>
+							 </div>
 
 
                         </div>
@@ -983,12 +1009,35 @@
         $(document).ready(function() {
 			$("#page_dropdown").hide();
 			$("#template_dropdown").hide();
+			$('#page_list').hide();
+			$('#tags').hide();
+
+
+
 			$("#banner_id").change(function (){
 			$("#page_dropdown").show();
 
 			});
-			$("#page_id").change(function (){
-				$("#template_dropdown").show();
+			$("#page_type").change(function (){
+				
+				if($("#page_type").val() == 'new'){
+					$("#template_dropdown").show();
+					$('#ajax_template_content').show();
+					$('#tags').show();
+					$('#page_list').hide();
+
+
+				}else{
+					$("#template_dropdown").hide();
+					$('#ajax_template_content').hide();
+					$('#page_list').show();
+					$('#tags').hide();
+
+
+				
+
+
+				}
 
 			});
 
@@ -1155,7 +1204,12 @@
         }
     </script>
 
-
+<script type="text/javascript">
+	$(document).ready(function() {
+	  $('#example-getting-started').multiselect();
+	//   $('.ckeditor').ckeditor();
+ });
+  </script>
 
 </body>
 

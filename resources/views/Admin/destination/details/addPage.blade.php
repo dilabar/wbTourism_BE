@@ -853,18 +853,7 @@ img{
 
                         </div>
                      </div>
-					 <div class="col-md-6">
-						<div class="form-group">
-							<label for="exampleFormControlFile1">Tags Selection</label>
-						   <select id="example-getting-started" multiple="multiple" name="tags">
-							<option value="product">Product</option>
-							<option value="destination">Destination</option>
-							<option value="events & festivals">Events & Festivals</option>
-							<option value="gallery">Gallery</option>
-							
-						   </select>
-						  </div>
-					 </div>
+					
 					 <div id="destination_dropdown" class="col-md-6">
 					</div>
 					  
@@ -883,6 +872,18 @@ img{
 
                         </div>
                      </div>
+					 <div class="col-md-6" id="tags">
+						<div class="form-group">
+							<label for="exampleFormControlFile1">Tags Selection</label>
+						   <select id="example-getting-started" multiple="multiple" name="tags">
+							<option value="product">Product</option>
+							<option value="destination">Destination</option>
+							<option value="events & festivals">Events & Festivals</option>
+							<option value="gallery">Gallery</option>
+							
+						   </select>
+						  </div>
+					 </div>
 
 
 
