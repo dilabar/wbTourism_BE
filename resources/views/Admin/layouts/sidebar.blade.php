@@ -71,7 +71,7 @@
          
             <a class="collapse-item" href="{{url('/admin/product/create')}}">Upload Product</a>
             <a class="collapse-item" href="{{url('/admin/product/list')}}">Edit Product</a>
-          
+            <a class="collapse-item"  href="{{url('/admin/product/details/Add')}}">Add Details Page</a>
         </div>
     </div>
 </li>
