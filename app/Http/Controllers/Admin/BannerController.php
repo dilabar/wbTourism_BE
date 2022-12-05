@@ -196,7 +196,7 @@ class BannerController extends Controller
                 })->addColumn('id', function ($banner_list) {
                     return $banner_list->id;
                 })->addColumn('img', function ($banner_list) {
-                    return '<img width="100" height="100" src="' . $banner_list->img . '">';
+                    return '<img width="100" height="70" src="' . $banner_list->img . '">';
                 })->addColumn('title', function ($banner_list) {
                     return $banner_list->name;
                 })
@@ -433,17 +433,27 @@ class BannerController extends Controller
     public function detailspageAddPost(Request $request)
     {
         // dd($request);
-
-        try {
-            $this->validate($request, [
-                'title' => 'required|max:100',
-                'banner_image'=>'required',
-                'about.*'=>'required|min:1',
-                'vImage'=>'required',
-               
-            ]);
+        // $this->validate($request, [
+        //     'title' => 'required|max:100',
+        //     'banner_image'=>'required',
+        //     'about.*'=>'required|min:1',
+        //     'vImage'=>'required',
+           
+        // ]);
+   
+           
         $banner_model=new Item();
-        if($request->is_url =='1'){
+        if($request->page_type == 'Existing'){
+            $banner_detail1 = Item::where('_id', $request->banner_id)->first();
+            $banner_detail1->reference = $request->page_id;
+            $banner_detail1->save();
+            $url = "http://127.0.0.1:8000/banner/details?template_id=1&id=" . $request->page_id;
+            return redirect("/admin/banner/list")->with('success', 'Detail Page added successfully ' . $url);
+        }else{
+
+        
+
+        if($request->is_url !='1'){
             if ($request->file('video')) {
                 // dd("thgere");
                 $video = $request->file('video');
@@ -452,7 +462,7 @@ class BannerController extends Controller
                 if (!in_array($video_extenstion, $allow_extentions)) {
                     return Redirect::back()->withErrors(['msg' => 'Video format is not allowed only MP4 is allowed format']);
                 }
-                $filename = $request->name.'_'.time().rand(11111,9999). '.';
+                $filename = $request->title.'_'.time().rand(11111,9999). '.';
                 $video_path = $filename.$video_extenstion;
                 $video_url = $video->move('uploads/video/', $video_path);
                 $banner_model->video_url=$video_path;
@@ -749,6 +759,7 @@ class BannerController extends Controller
         $banner_model->is_approved=1;
         $banner_model->type='detailpage';
         $banner_model->main_type='banner';
+        $banner_model->tags=$request->tags;
         $banner_model->template_id=trim($request->template_type);
         if(!empty(trim($request->slogan))){
             $banner_model->banner_short_info=trim($request->slogan);
@@ -785,21 +796,21 @@ class BannerController extends Controller
                 $banner_model->banner_image = new MongoObjectId($model2->getKey());
             }
             $banner_model->image_slider = $slider->all();
+            $is_banner_save=$banner_model->save();
+            if($is_banner_save){
 
-
-            if ($banner_model->save()) {
                 $banner_detail = Item::where('_id', $request->banner_id)->first();
                 $banner_detail->reference = $banner_model->getKey();
                 $banner_detail->save();
-
-
                 $url = "http://127.0.0.1:8000/banner/details?template_id=1&id=" . $banner_model->getKey();
-
                 return redirect("/admin/banner/list")->with('success', 'Detail Page Uploaded successfully ' . $url);
             }
-        } catch (Throwable $e) {
-            return false;
         }
+            
+
+            
+            
+       
 
         //return redirect()->route('product/index')->with('success','Product created successfully.');
     }
