@@ -56,10 +56,7 @@
                             <input class="input100" type="text" name="description" placeholder="Item Short Description">
                        <span class="focus-input100"></span>
                       </div>
-                      {{-- <div class="wrap-input100 validate-input" data-validate="Item Full Description is required">
-                        <textarea class="input100 ckeditor" name="message" placeholder="Item Full Description..."></textarea>
-                        <span class="focus-input100"></span>
-                      </div> --}}
+                    
                       <div class="form-group">
                         <label for="exampleFormControlFile1">Thumbnail Image</label>
                         <input type="file" class="form-control-file" id="exampleFormControlFile1" name="thumbnail_image">
@@ -68,7 +65,10 @@
                         <label for="exampleFormControlFile1">Full Image</label>
                         <input type="file" class="form-control-file" id="exampleFormControlFile1" name="full_image">
                       </div>
-                    
+                    <div class="wrap-input100 validate-input" data-validate="Url">
+                       <input type="text" class="input100" id="url" name="url" placeholder="Page URL">
+                        <span class="focus-input100"></span>
+                      </div> 
                      
                       <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                            <input class="btn btn-primary" type="submit" name="" id="" value="Add"/>

@@ -44,7 +44,7 @@
 
                     </div>
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-6 border m-1 p-1">
 
                             <form class="contact100-form validate-form" action="{{ route('product.store') }}"
                                 method="POST" enctype="multipart/form-data">
@@ -58,10 +58,7 @@
                                         placeholder="Product Short Description">
                                     <span class="focus-input100"></span>
                                 </div>
-                                {{-- <div class="wrap-input100 validate-input" data-validate="Product Full Description is required">
-                        <textarea class="input100 ckeditor" name="message" placeholder="Product Full Description..."> </textarea>
-                        <span class="focus-input100"></span>
-                      </div> --}}
+                              
                                 <div class="form-group">
                                     <label for="exampleFormControlFile1">Thumbnail Image</label>
                                     <input type="file" class="form-control-file" id="exampleFormControlFile1"
@@ -72,18 +69,15 @@
                                     <input type="file" class="form-control-file" id="exampleFormControlFile1"
                                         name="full_image">
                                 </div>
-                                {{-- <div class="form-group">
-                                    <label for="exampleFormControlFile1">Front Page Selection</label>
-                                    <select id="example-getting-started" multiple="multiple">
-                                        <option value="cheese">Banner Slider</option>
-                                        <option value="tomatoes">Top Ten Destination</option>
-                                        <option value="mozarella">Explore in West Bengal</option>
-
-                                    </select>
-                                </div> --}}
+                    
                                 <div class="wrap-input100 validate-input" data-validate="Product Gradient">
-                                    <input class="input100" type="text" name="gradient"
+                                    <input class="input100" type="text" name="gradient" value="90deg, #1673cd 45%, rgb(71 101 111 / 11%) 100%"
                                         placeholder="Product Gradient">
+                                    <span class="focus-input100"></span>
+                                </div>
+                                <div class="wrap-input100 validate-input" data-validate="Reference">
+                                    <input class="input100" type="text" name="reference" value=""
+                                        placeholder="Product Reference URL">
                                     <span class="focus-input100"></span>
                                 </div>
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />

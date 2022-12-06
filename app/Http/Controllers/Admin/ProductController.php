@@ -86,6 +86,8 @@ class ProductController extends Controller
         $product_model->short_desc=trim($request->description);
         if(!empty(trim($request->message)))
         $product_model->desc=trim($request->message);
+        if(!empty(trim($request->reference)))
+        $product_model->reference=trim($request->reference);
         $product_model->is_active=1;
         $product_model->is_approved=1;
         //dd($objectId);

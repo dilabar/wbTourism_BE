@@ -84,6 +84,8 @@ class FestivalController extends Controller
         $model->short_desc=trim($request->description);
         if(!empty(trim($request->message)))
         $model->desc=trim($request->message);
+        if(!empty(trim($request->url)))
+        $model->reference=$request->url;
         $model->is_active=1;
         $model->is_approved=1;
         //dd($objectId);

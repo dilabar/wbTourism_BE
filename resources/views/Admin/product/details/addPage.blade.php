@@ -981,7 +981,7 @@
     <script src="/ckeditor/adapters/jquery.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('.ckeditor').ckeditor();
+            // $('.ckeditor').ckeditor();
         });
     </script>
 
@@ -1059,7 +1059,7 @@
                             $('#ajax_template_content').html(data.html);
                             if (data.gallery_visible) {
                                 $('#ajax_template_content').show();
-                                $('.ckeditor').ckeditor();
+                                // $('.ckeditor').ckeditor();
 
 
                             } else {

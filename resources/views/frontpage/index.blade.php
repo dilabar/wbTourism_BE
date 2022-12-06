@@ -59,7 +59,7 @@
                <div class="tours-slider top-style-two owl-carousel mb-30">
                @foreach($product_list as $product_item)
                   <div class="boxes">
-                     <a href="product/details?template_id={{$product_item->template_id}}&id={{$product_item->id}}">
+                     <a href="{{$product_item->reference?$product_item->reference:'#'}}">
                         <div class="grid_4">
                            <div class="figure">
                               <div><img src="{{$product_item->img}}" alt="" width="auto"></div>
@@ -141,6 +141,7 @@
        @if(count($festival_list1)>0)
          <div class="owl-carousel slider-up mb-2">
           @foreach($festival_list1 as $festival_item1)
+          <a href="{{$festival_item1->reference?$festival_item1->reference:'#'}}">
             <div class="item">
                <div class="card">
                   <img src="{{$festival_item1->img}}">
@@ -149,12 +150,14 @@
                   </div>
                </div>
             </div>
+            </a>
             @endforeach  
          </div>
          @endif
          @if(count($festival_list2)>0)
          <div class="owl-carousel slider-down">
           @foreach($festival_list2 as $festival_item2)
+          <a href="{{$festival_item2->reference?$festival_item2->reference:'#'}}">
             <div class="item">
                <div class="card">
                   <img src="{{$festival_item2->img}}">
@@ -163,6 +166,7 @@
                   </div>
                </div>
             </div>
+            </a>
             @endforeach  
          </div>
          @endif
@@ -218,7 +222,7 @@
                            {{$section_item->name}}
                            </div>
                            <div class="content-text">
-                              <p>{{$section_item->desc}}</p>
+                              <p>{!! $section_item->desc !!}</p>
                            </div>
                            <div class="cta-btn">
                               <a href="tabs/wbtdc_llist.html" class="btn-primary">Read More</a>
