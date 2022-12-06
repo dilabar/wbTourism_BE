@@ -90,6 +90,7 @@ class FrontPageController extends Controller
             $img = 'data:' . $type . ';base64,' . base64_encode($img_content->img_data); 
             $festival_array->img=$img;
             $festival_array->gradient_text='';
+            $festival_array->reference=$festival->reference;;
             $festival_list->push($festival_array);
         }    
         $festival_half = ceil($festival_list->count() / 2);
