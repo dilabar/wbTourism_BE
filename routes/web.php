@@ -15,6 +15,7 @@ Route::get('/', 'FrontPageController@index');
 Route::get('/banner/details', 'BannerPageController@details');
 Route::get('/product/details', 'ProductPageController@details');
 Route::get('/destination/details', 'DestinationPageController@details');
+Route::get('/all-destination/details', 'DestinationPageController@allDestination')->name('all-destination');
 Route::get('/place/details', 'PlacePageController@details');
 Route::get('/product/heritage', 'ProductPageController@heritage');
 Route::get('/product/details', 'ProductPageController@details');

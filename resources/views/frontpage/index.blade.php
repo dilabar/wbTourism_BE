@@ -116,7 +116,7 @@
             </div>
             @endforeach
             <div class="cta-btn text-center">
-               <a href="#" class="btn-primary">Show More</a>
+               <a href="{{route('all-destination')}}" class="btn-primary">Show More</a>
             </div>
          </div>
       </div>
