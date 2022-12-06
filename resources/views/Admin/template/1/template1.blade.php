@@ -486,7 +486,7 @@
       countAbout++;
       $('#newRowAbout').append(html);
       // $('.ckeditor').ckeditor();
-      CKEDITOR.replace( 'replace_about_'+countAbout );
+      // CKEDITOR.replace( 'replace_about_'+countAbout );
     
      
       
@@ -520,7 +520,7 @@
       html += '</div>';
       countHtr++;
       $('#newRowHtr').append(html);
-      $('.ckeditor').ckeditor();
+      // $('.ckeditor').ckeditor();
 
 
    });
@@ -555,7 +555,7 @@
       html += '</div>';
       countAttractions++;
       $('#newRowAttraction').append(html);
-      $('.ckeditor').ckeditor();
+      // $('.ckeditor').ckeditor();
 
 
    });
@@ -587,7 +587,7 @@ var countStay = 1;
       html += '</div>';
       countStay++;
       $('#newRowStay').append(html);
-      $('.ckeditor').ckeditor();
+      // $('.ckeditor').ckeditor();
 
       
 
@@ -621,7 +621,7 @@ var countAmenties = 1;
       html += '</div>';
       countAmenties++;
       $('#newRowAmenties').append(html);
-      $('.ckeditor').ckeditor();
+      // $('.ckeditor').ckeditor();
 
       
 

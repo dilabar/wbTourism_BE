@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Item;
+use App\helpers;
 class FrontPageController extends Controller
 {
 
@@ -14,7 +15,9 @@ class FrontPageController extends Controller
     public function index(Request $request)
     {
         $banner_list_db = Item::where('is_active', 1)->where('is_approved', 1)->where('section_type', 'banner')->where('type', 'banner')->get();
-        $popular=Item::where('is_popular',1)->where('page_type','detail')->get();
+        // $popular=Item::where('is_popular',1)->where('page_type','detail')->get();
+        $popular =getMostpupular();
+        
         $banner_list=collect([]);
         $i=1;
         foreach($banner_list_db as $banner){

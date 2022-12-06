@@ -22,7 +22,12 @@
                      <p>
                      {{$banner_item->short_desc}}
                      </p>
+                     @if ($banner_item->reference)
                      <a href="banner/details?template_id={{$banner_item->template_id}}&id={{$banner_item->reference}}" class="btn-primary">Destinations</a>
+                     @else
+                     <a href="#" class="btn-primary">Destinations</a>
+
+                     @endif
                   </div>
                </div>
             </div>
@@ -306,7 +311,7 @@
    <div class="s-box">
       <div id="s-form">
          <div id="expand-s-box">
-            <div id="expand-contract">
+            <div id="expand-contract" class="collasped">
                <div class="booking-form">
                   <form>
 
@@ -340,7 +345,7 @@
             </div>
          </div>
 
-         <div id="bottom-section" class="btns">
+         <div id="bottom-section" class="btns hide">
             <button class="btn btn-success " onclick="expandContract()">Customise Your Experience <i
                   class='bx bx-chevrons-up'></i></button>
          </div>

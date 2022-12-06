@@ -23,6 +23,7 @@ class DestinationPageController extends Controller
         $id=new MongoObjectId($request->id);
         // $main_item_db= Item::where('_id', $id)->where('is_active', 1)->where('is_approved', 1)->where('type', 'destination')->first();
         $list_db = Item::where('parent_destination', $id)->where('is_active', 1)->where('is_approved', 1)->get();
+        $details=Item::where('_id', $id)->where('is_active', 1)->where('is_approved', 1)->first();
         
         // dd($list_db);
        
@@ -54,6 +55,7 @@ class DestinationPageController extends Controller
         [
             'place_list' => $place_list,
             'most_popular'=>[],
+            'details'=>$details
         ]);
     }
 }

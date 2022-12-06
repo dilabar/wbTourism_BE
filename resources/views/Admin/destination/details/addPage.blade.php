@@ -856,8 +856,18 @@ img{
 					
 					 <div id="destination_dropdown" class="col-md-6">
 					</div>
-					  
-                     <div class="col-md-6">
+					<div class="col-md-6" id="page_dropdown">
+						<div class="form-group">
+							<label for="exampleFormControlFile1">Page Type</label>
+
+							<select class="form-control" name="page_type" id="page_type">
+								<option value="new" >New</option>
+								<option value="Existing">Existing</option>
+							</select>
+						</div>
+					</div>
+
+                     <div class="col-md-6" id="template_dropdown">
                         <div class="form-group">
                            <label for="exampleFormControlFile1">Template Type</label>
                            <select class="form-control" id="template_type" name="template_type" >
@@ -872,6 +882,20 @@ img{
 
                         </div>
                      </div>
+					 <div class="col-md-6" id="page_list">
+						<div class="form-group">
+							<label for="exampleFormControlFile1">Select Page</label>
+							<select class="form-control" id="page_id" name="page_id">
+								<option value="0">-- Select Page  --</option>
+
+								@foreach ($page_list as $page)
+									<option value="{{ $page->_id }}">{{ $page->name }}
+									</option>
+								@endforeach
+
+							</select>
+						</div>
+					</div>
 					 <div class="col-md-6" id="tags">
 						<div class="form-group">
 							<label for="exampleFormControlFile1">Tags Selection</label>
@@ -977,7 +1001,7 @@ img{
    <script src="/ckeditor/adapters/jquery.js"></script>
   <script type="text/javascript">
 	$(document).ready(function() {
-	  $('.ckeditor').ckeditor();
+	//   $('.ckeditor').ckeditor();
  	});
   </script>
 
@@ -988,10 +1012,45 @@ img{
 
    <script type="text/javascript">
       $(document).ready(function () {
+		$('#tags').hide();
+		$('#page_list').hide();
+		$('#page_dropdown').hide();
+		$('#template_dropdown').hide();
+
+
+
+
+		
+		$("#page_type").change(function (){
+			
+			if($("#page_type").val() == 'new'){
+				$("#template_dropdown").show();
+				// $('#ajax_template_content').show();
+				$('#tags').show();
+				$('#page_list').hide();
+				// $('#template_type').change()
+				// $('#template_type').attr('disabled',false)
+			}else{
+				$("#template_dropdown").hide();
+				$('#ajax_template_content').hide();
+				$('#tags').hide();
+
+				$('#page_list').show();
+
+
+			}
+
+		});
+
+
 		$("#destination_id").change(function () {
 			var id = $(this).val()
 			if(id ==0){
 				$('#destination_dropdown').hide();
+				$('#page_dropdown').hide();
+				$('#template_dropdown').hide();
+				$('#tags').hide();
+
 			}else{
 				$.ajax({
                url: "{{ url('/admin/destination/get/getsubcat') }}",
@@ -1008,13 +1067,36 @@ img{
                   $('#destination_dropdown').html(data.html);
                   if (data.status ==1) {
                      $('#destination_dropdown').show();
-	  				
-
+					 $('#page_dropdown').show();
+					 $("#page_type").val("new").change();
+					// $('#page_list').hide();
+					
+					// $("#page_type").val("new").change();
                   }
                   else {
+					// alert("Create list page first")
+
                      $('#destination_dropdown').hide();
+					$('#page_list').hide();
+					$('#page_dropdown').hide();
+					$('#tags').hide();
+					$('#template_dropdown').hide();
+					// $('#template_type').val('2').change();
+					// $('#template_type').attr('disabled',true)
+					swal({
+					title: "No place found",
+					text: "Please create a place first  !",
+					icon: "info",
+					buttons: true,
+					dangerMode: true,
+					})
+					.then((willDelete) => {
+					if (willDelete) {
+						window.location.href='/admin/destination/create'
+					}
+					});
                   }
-				  $('#template_type').val('0')
+				  
 				  $('#ajax_template_content').hide();
 
                },
@@ -1025,6 +1107,7 @@ img{
 			}
            
          });
+
          $("#template_type").change(function () {
 			var id =$(this).val()  
 			console.log(id);
@@ -1036,7 +1119,7 @@ img{
                url: "{{ url('/admin/template/getHtml') }}",
                type: 'GET',
                cache: false,
-               data: { 'id': $(this).val(), _token: '{{ csrf_token() }}' }, //see the $_token
+               data: { 'id': $(this).val(),'dtype':'detail', _token: '{{ csrf_token() }}' }, //see the $_token
                datatype: 'json',
                beforeSend: function () {
                   //something before send
@@ -1050,7 +1133,7 @@ img{
                   $('#ajax_template_content').html(data.html);
                   if (data.gallery_visible) {
                      $('#ajax_template_content').show();
-					 $('.ckeditor').ckeditor();
+					//  $('.ckeditor').ckeditor();
 					
 					 
                   }
@@ -1069,9 +1152,8 @@ img{
 							$('#destination_dropdown').show();
 
 						}
+						
 
-
-					
 
 				  }
 
@@ -1243,7 +1325,9 @@ img{
 	//   $('.ckeditor').ckeditor();
  });
   </script>
-   
+  
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 
 </body>
 

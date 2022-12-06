@@ -48,6 +48,34 @@
                     <div class="col-lg-12">
                        
                     <form class="contact100-form validate-form" action="{{ route('destination.store') }}" method="POST" enctype="multipart/form-data">
+                      <div class="row">
+                      <div class="col-md-6" id="cat">
+                        <div class="form-group">
+                          <label for="exampleFormControlFile1">Category Type</label>
+            
+                          <select class="form-control" name="cat_type" id="cat_type">
+                            <option value="main" >Main</option>
+                            <option value="sub">Sub Category</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6" id="pcat">
+                        <div class="form-group">
+                          <label for="exampleFormControlFile1">Select Category</label>
+                          <select class="form-control" name="pcat_type" id="pcat_type">
+                            <option value="0">-- Select Page  --</option>
+
+                              @foreach ($category as $cat)
+                                <option value="{{ $cat->_id }}">{{ $cat->name }}
+                                </option>
+                              @endforeach
+
+                          </select>
+                        </div>
+                      </div>
+                      </div>
+                      
+
                       <div class="wrap-input100 validate-input" data-validate="Destination Name/Title">
                             <input class="input100" type="text" name="name" placeholder="Name/Title">
                        <span class="focus-input100"></span>
@@ -117,6 +145,19 @@
 
     <script type="text/javascript">
        $(document).ready(function() {
+        $("#pcat").hide()
+
+        $("#cat_type").change(function (){
+          
+          var id =$(this).val()  
+			    console.log(id);
+          if(id =='main'){
+            $("#pcat").hide();
+          }else{
+            $("#pcat").show();
+
+          }
+        })
          $('#example-getting-started').multiselect();
          $('.ckeditor').ckeditor();
     });

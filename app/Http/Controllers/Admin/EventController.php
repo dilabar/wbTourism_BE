@@ -27,9 +27,9 @@ class EventController extends Controller
     }
     public function store(Request $request)
     { 
-        $array=array();
+        $event_array=array();
         if(!empty($request->name)){
-        array_push( $array,$request->name);
+        array_push( $event_array,$request->name);
         }
         $model1=new Item();
         if($thumbnail_image=$request->file('thumbnail_image')){
@@ -45,8 +45,8 @@ class EventController extends Controller
             $model1->mimType=$mimeType;
             $model1->type='Image';
             $model1->image_type='Thumbnail';
-            if(count($array)>0){
-            $model1->event_tag=$array;
+            if(count($event_array)>0){
+            $model1->event_tag=$event_array;
             }
             $model1->img_data=$binary_thumbnail;
             $model1->is_active=1;
@@ -67,8 +67,8 @@ class EventController extends Controller
             $model2->mimType=$mimeType;
             $model2->type='Image';
             $model2->image_type='Full';
-            if(count($festival_array)>0){
-            $model2->festival_tag=$festival_array;
+            if(count($event_array)>0){
+            $model2->event_tag=$event_array;
             }
             $model2->img_data=$binary_full;
             $model2->is_active=1;
