@@ -260,7 +260,15 @@
                               <div class="gallery-info">
                                  <div class="gallery-item">
                                     <span><i class="bx bx-map"></i>{{$place_item->desc}}</span>
-                                    <h3><a href="../place/details?template_id=1&id={{($place_item->reference) ? $place_item->reference:$place_item->id}}">{{$place_item->name}}</a></h3>
+                                    <h3>
+                                       @if($place_item->template_id == 1)
+                                          <a href="../place/details?template_id=1&id={{($place_item->reference) ? $place_item->reference:$place_item->id}}">{{$place_item->name}}</a>
+
+                                       
+                                       @else
+                                       <a href="/destination/details?template_id=2&id={{$place_item->id}}">{{$place_item->name}} </a>
+                                       @endif
+                                    </h3>
                                  </div>
                               </div>
                         </div>
