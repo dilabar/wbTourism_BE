@@ -25,11 +25,25 @@ class DestinationController extends Controller
     }
     public function create(Request $request)
     {
-        return view('Admin/destination/create');
+        $destination_list=Item::where('type', 'destination')->where('is_active', 1)->where('is_approved', 1)->get();
+        return view('Admin/destination/create',[
+            'category'=>$destination_list
+        ]);
     }
     public function store(Request $request)
     { 
 
+        $destination_model=new Item();
+        if($request->cat_type == 'sub'){
+            $destination_model->parent_destination=new MongoObjectId($request->pcat_type);
+            $destination_model->type='place';
+            $destination_model->page_type='detail';
+        }else{
+            $destination_model->type='destination';
+            $destination_model->page_type='home';
+            $destination_model->section_type='destination';
+        }
+       
         $destination_array=array();
         if(!empty($request->name)){
         array_push($destination_array,$request->name);
@@ -79,8 +93,8 @@ class DestinationController extends Controller
             $full_image_is_save=$model2->save();
            
         }
-        $destination_model=new Item();
-        $destination_model->type='destination';
+        
+      
         if(!empty(trim($request->name)))
         $destination_model->name=trim($request->name);
         if(!empty(trim($request->description)))
@@ -89,8 +103,7 @@ class DestinationController extends Controller
         $destination_model->template_id=2;
         $destination_model->is_active=1;
         $destination_model->is_approved=1;
-        $destination_model->page_type='home';
-        $destination_model->section_type='destination';
+       
         $destination_model->thumbnail_image_obj_id=new MongoObjectId($model1->getKey()) ;
         $destination_model->full_image_obj_id=new MongoObjectId($model2->getKey()) ;
         if($destination_model->save()){
@@ -213,21 +226,35 @@ class DestinationController extends Controller
     public function placeAdd(Request $request)
     {
         
-        $template_type=Master::where('master_type', 'template')->where('is_active', 1)->where('is_approved', 1)->get();
+        $template_type=Master::where('master_type', 'template')->where('is_active', 1)->where('is_approved', 1)->where('design_type','detail')->get();
         $destination_list=Item::where('type', 'destination')->where('is_active', 1)->where('is_approved', 1)->get();
         // $place_list=Item::where('type', 'place')->where('is_active', 1)->where('is_approved', 1)->orwhere('type', 'place')->get();
         // $ff=Item::leftjoin('parent_destination', 'parent_destination.id', '=', 'parent_destination')->get();
         // dd($ff);
+        $page_list = Item::where([['type', 'detailpage'], ['page_type', 'detail'], ['is_active', 1], ['is_approved', 1]])->whereIn('main_type', ['place', 'banner', 'product'])->get();
+        // dd($page_list);
+      
 
         return view('Admin/destination/details/addPage',[
             'template_type' => $template_type,
             'destination_list' => $destination_list,
-            // 'image_list' =>  $image_list
+            'page_list' => $page_list
         ]);
         // dd('ok');
     }
     public function storePlace(Request $request){
         // dd($request);
+        if($request->page_type == 'Existing'){
+            $place_mdl1=Item::where('_id',$request->place_id)->first();
+            $place_mdl1->reference=new MongoObjectId($request->page_id);
+            $place_mdl1->save();
+            $uid=$request->page_id;
+            $turl="place";
+
+        }
+        else{
+
+        
         $place_model=new Item();
         if($request->is_url =='1'){
             if ($request->file('video')) {
@@ -547,6 +574,8 @@ class DestinationController extends Controller
                 $place_model->type='detailpage';
                 $place_model->main_type='place';
                 $place_model->page_type='detail';
+                
+                $place_model->tags=$request->tags;
 
                 if($thumbnail_image_is_save){
                     $place_model->video_image=new MongoObjectId($model1->getKey()) ;
@@ -590,27 +619,29 @@ class DestinationController extends Controller
 
         
       
-        if($place_model->save()){
-            if($request->template_type =='1'){
-                $turl="place";
-                $uid=$place_model->getKey();
-                $place_mdl=Item::where('_id',$request->place_id)->first();
+            if($place_model->save()){
+                if($request->template_type =='1'){
+                    $turl="place";
+                    $uid=$place_model->getKey();
+                    $place_mdl=Item::where('_id',$request->place_id)->first();
+                    
+                    // $place_mdl->reference=$request->place_id;
+                    $place_mdl->template_id=1;
+                    $place_mdl->save();
                 
-                // $place_mdl->reference=$request->place_id;
-                $place_mdl->template_id=1;
-                $place_mdl->save();
-              
-            }
-           else{
-            $turl="destination";
-            $uid=$request->destination_id;
+                }
+            else{
+                $turl="destination";
+                $uid=$request->destination_id;
 
-           }
+            }
+            }
+        }
             $url = config('app.url').$turl."/details?template_id=".$request->template_type."&id=".$uid;
             
             return redirect("/admin/destination/list")->with('success', 'Detail Page Uploaded successfully '.$url );
 
-        }
+        
 
 
     }

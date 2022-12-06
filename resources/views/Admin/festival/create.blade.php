@@ -56,10 +56,10 @@
                             <input class="input100" type="text" name="description" placeholder="Item Short Description">
                        <span class="focus-input100"></span>
                       </div>
-                      <div class="wrap-input100 validate-input" data-validate="Item Full Description is required">
+                      {{-- <div class="wrap-input100 validate-input" data-validate="Item Full Description is required">
                         <textarea class="input100 ckeditor" name="message" placeholder="Item Full Description..."></textarea>
                         <span class="focus-input100"></span>
-                      </div>
+                      </div> --}}
                       <div class="form-group">
                         <label for="exampleFormControlFile1">Thumbnail Image</label>
                         <input type="file" class="form-control-file" id="exampleFormControlFile1" name="thumbnail_image">

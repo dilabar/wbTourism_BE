@@ -25,10 +25,10 @@ class PlacePageController extends Controller
         $details = Item::where('main_place_id', $id)->where('is_active', 1)->where('is_approved', 1)->where('type', 'detailpage')->first();
         
         if($details){
+            
         //   dd($details);
             $details_db=$details;
         }else{
-           
             $details_db = Item::where('_id', $id)->where('is_active', 1)->where('is_approved', 1)->where('type', 'detailpage')->first();
         }
         
@@ -204,6 +204,7 @@ class PlacePageController extends Controller
         return view('place/'.$template_arr->slug.'-details',
         [
             'details' => $details_db,
+            'most_popular'=>getMostpupular()
         ]);
     }
 }

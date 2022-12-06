@@ -9,8 +9,8 @@
       <div class="page-title-area ptb-100">
          <div class="container">
             <div class="page-title-content">
-               <h1>The Himalayas</h1>
-               <p class="text-light">Front row seats to the Himalayas</p>
+               <h1>{{$details->name}}</h1>
+               <p class="text-light">{{$details->short_desc}}</p>
                <!-- <ul>
                   <li class="item"><a href="../index.html">Home</a></li>
                   <li class="item"><a href="blog-details.html"><i class='bx bx-chevrons-right'></i>Destination Details</a></li>
@@ -18,7 +18,7 @@
             </div>
          </div>
          <div class="bg-image">
-            <img src="../assets/img/banner/himalayas.jpg" alt="Demo Image">
+            <img src="{{getImage($details->full_image_obj_id)}}" alt="Demo Image">
          </div>
       </div>
       <style>
@@ -260,7 +260,7 @@
                               <div class="gallery-info">
                                  <div class="gallery-item">
                                     <span><i class="bx bx-map"></i>{{$place_item->desc}}</span>
-                                    <h3><a href="../place/details?template_id={{$place_item->template_id}}&id={{$place_item->id}}">{{$place_item->name}}</a></h3>
+                                    <h3><a href="../place/details?template_id=1&id={{($place_item->reference) ? $place_item->reference:$place_item->id}}">{{$place_item->name}}</a></h3>
                                  </div>
                               </div>
                         </div>

@@ -8,10 +8,10 @@ jQuery(function ($)
 	{
 		meanScreenWidth: '1199',
 	});
-	if (window.matchMedia('screen and (max-width: 768px)').matches) {
-		$('#expand-contract').addClass('collasped')
+	// if (window.matchMedia('screen and (max-width: 768px)').matches) {
+	// 	$('#expand-contract').addClass('collasped')
 
-	}
+	// }
 	var Name = $('#profilename').text();
 	var firstName
 	var lastName
@@ -32,7 +32,7 @@ jQuery(function ($)
 
 	{
 		$(window).scrollTop() >= 200 ? $('.main-navbar-area').addClass('stickyadd') : $('.main-navbar-area').removeClass('stickyadd');
-		$(window).scrollTop() >= 170 ? $('#expand-contract').addClass('collasped') : $('#expand-contract').removeClass('collasped');
+		// $(window).scrollTop() >= 170 ? $('#expand-contract').addClass('collasped') : $('#expand-contract').removeClass('collasped');
 		$(window).scrollTop() >= 170 ? $('#bottom-section').addClass('hide') : $('#bottom-section').removeClass('hide');
 	});
 	
