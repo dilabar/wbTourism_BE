@@ -120,18 +120,18 @@ class PlacePageController extends Controller
         $attractions_tab_content=collect([]);
         if($details_db->attractions && count($details_db->attractions)>0){
             $array = collect($details_db->attractions)->sortBy('order')->toArray();
-            foreach($array as $item){
+            foreach($array as $atritem){
                 $text_array=collect();
                 $content=collect([]);
                 $document=collect([]);
-                $text_array->text=$item['text'];
-                $text_array->type=$item['type'];
-                if($item['type']=='textwithimage'){
-                    $content=Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $item['image_id'])->where('type', 'Image')->first();
+                $text_array->text=$atritem['text'];
+                $text_array->type=$atritem['type'];
+                if($atritem['type']=='textwithimage'){
+                    $content=Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $atritem['image_id'])->where('type', 'Image')->first();
                     $mim_type=$content->mimType;
                     $document = 'data:' . $mim_type . ';base64,' . base64_encode($content->img_data); 
                     $text_array->img=$document;
-                    $text_array->imagealignment=$item['imagealignment'];
+                    $text_array->imagealignment=$atritem['imagealignment'];
                 }
                 else{
                     $text_array->img='';
@@ -201,6 +201,7 @@ class PlacePageController extends Controller
         }
   
         $details_db->title=$details_db->name;
+        // dd($details_db);
         return view('place/'.$template_arr->slug.'-details',
         [
             'details' => $details_db,

@@ -243,7 +243,6 @@ class DestinationController extends Controller
         // dd('ok');
     }
     public function storePlace(Request $request){
-        // dd($request);
         if($request->page_type == 'Existing'){
             $place_mdl1=Item::where('_id',$request->place_id)->first();
             $place_mdl1->reference=new MongoObjectId($request->page_id);
@@ -356,7 +355,6 @@ class DestinationController extends Controller
                 $about_model=collect([]);
                 if($request->about){
                     foreach($request->about as $key=> $abt) {
-                
                         $about_array = collect();
                         if($abt["type"] == "textwithimage"){
                             $model_img=new Item();
