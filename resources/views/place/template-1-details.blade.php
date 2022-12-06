@@ -202,7 +202,7 @@
                      @if($atrItem->imagealignment=='left')
                       <div class="col-md-4 col-sm-12">
                           <div class="image mb-30">
-                              <img src="{{$item->img}}" alt="Demo Image" />
+                              <img src="{{$atrItem->img}}" alt="Demo Image" />
                           </div>
                       </div>
                       <div class="col-md-8 col-sm-12">
@@ -219,7 +219,7 @@
                       </div>
                       <div class="col-md-4 col-sm-12">
                           <div class="image mb-30">
-                              <img src="{{$item->img}}" alt="Demo Image" />
+                              <img src="{{$atrItem->img}}" alt="Demo Image" />
                           </div>
                       </div>
                       @endif
@@ -241,7 +241,7 @@
                      @if($stItem->imagealignment=='left')
                       <div class="col-md-4 col-sm-12">
                           <div class="image mb-30">
-                              <img src="{{$item->img}}" alt="Demo Image" />
+                              <img src="{{$stItem->img}}" alt="Demo Image" />
                           </div>
                       </div>
                       <div class="col-md-8 col-sm-12">
@@ -258,7 +258,7 @@
                       </div>
                       <div class="col-md-4 col-sm-12">
                           <div class="image mb-30">
-                              <img src="{{$item->img}}" alt="Demo Image" />
+                              <img src="{{$stItem->img}}" alt="Demo Image" />
                           </div>
                       </div>
                       @endif
@@ -280,7 +280,7 @@
                      @if($nbaItem->imagealignment=='left' | $nbaItem->imagealignment=='l')
                       <div class="col-md-4 col-sm-12">
                           <div class="image mb-30">
-                              <img src="{{$item->img}}" alt="Demo Image" />
+                              <img src="{{$nbaItem->img}}" alt="Demo Image" />
                           </div>
                       </div>
                       <div class="col-md-8 col-sm-12">
@@ -297,7 +297,7 @@
                       </div>
                       <div class="col-md-4 col-sm-12">
                           <div class="image mb-30">
-                              <img src="{{$item->img}}" alt="Demo Image" />
+                              <img src="{{$nbaItem->img}}" alt="Demo Image" />
                           </div>
                       </div>
                       @endif
@@ -318,18 +318,18 @@
           <div class="col-lg-4 col-md-12">
            
               <aside class="widget-area">
-                  {{-- <div class="widget widget-search mb-30">
+                  <!-- <div class="widget widget-search mb-30">
                       <form class="search-form search-top">
                           <input type="search" class="form-control" placeholder="Search..." />
                           <button type="submit" class="btn-text-only">
                               <i class='bx bx-search-alt'></i>
                           </button>
                       </form>
-                  </div> --}}
+                  </div>  -->
                   <div class="widget widget-video mb-30">
-                      {{-- <div class="video-image">
+                    <!-- <div class="video-image">
                           <img src="../assets/img/top_product/coastal/sea1.JPG" alt="video" />
-                      </div> --}}
+                      </div>  -->
                     
                     @if ($details->video_url)
                     <video  class="embed-responsive-item " width="100%"  controls autoplay="true">
