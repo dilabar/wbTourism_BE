@@ -124,6 +124,7 @@ class FrontPageController extends Controller
             $img ='';
             $gallery_array->name=$gallery->name;
             $gallery_array->desc=$gallery->short_desc;
+            $gallery_array->reference=(string) $gallery->reference;
             $img_content=Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $gallery->thumbnail_image_obj_id)->where('image_type', 'Thumbnail')->first();
             $type=$img_content->mimType;
             $img = 'data:' . $type . ';base64,' . base64_encode($img_content->img_data); 

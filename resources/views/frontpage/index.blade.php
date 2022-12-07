@@ -59,7 +59,7 @@
                <div class="tours-slider top-style-two owl-carousel mb-30">
                @foreach($product_list as $product_item)
                   <div class="boxes">
-                     <a href="{{$product_item->reference?$product_item->reference:'#'}}">
+                     <a href="{{$product_item->reference?$product_item->reference:''}}">
                         <div class="grid_4">
                            <div class="figure">
                               <div><img src="{{$product_item->img}}" alt="" width="auto"></div>
@@ -261,7 +261,7 @@
             <div class="col-md-4 col-sm-6">
                <!-- MENU THUMB -->
                <div class="galary-thumb">
-                  <a href="#">
+                  <a href="{{$gallert_item->reference?$gallert_item->reference:''}}">
                      <img src="{{$gallert_item->img}}" class="img-responsive" alt="">
                      <div class="gallery-info">
                         <div class="gallery-item">
