@@ -12,6 +12,8 @@
 */
 
 Route::get('/', 'FrontPageController@index');
+Route::get('/gallery-360', 'FrontPageController@gallery')->name('gallery-360');
+Route::get('/tourism-service-provider', 'FrontPageController@tsp')->name('tsp');
 Route::get('/banner/details', 'BannerPageController@details');
 Route::get('/product/details', 'ProductPageController@details');
 Route::get('/destination/details', 'DestinationPageController@details');

@@ -55,7 +55,7 @@ function getMostpupular(){
             "name" => "Meghbalika,Darjeeling",
             "img" => "megh.jpg",
             "vdo" =>"Meghbalika Edit Preview.mp4",
-            'book'=>"https://wbtdcl.wbtourismgov.in/property-details/a76387408cafdcaaed827d7f6e50d39cf93b607d41e1f2e7ecd19b353f495921b652bff345fe9fadf805a7579a5afd5788130bc90f843d41348128da80518e072cqjZeV3HrFbAiKnAuxjd6sMD1srcGRXLql57BBXfVA%3D"
+            'book'=>"https://wbtdcl.wbtourismgov.in/home#viewdiv"
         ],
         [
             "id"=>7,

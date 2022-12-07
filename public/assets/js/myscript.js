@@ -100,11 +100,11 @@ jQuery(function ($)
 		items: 1,
 		dots: false,
 		nav: true,
-		// animateOut: 'fadeOut',
+		animateOut: 'fadeOut',
 		navText: ["<i class='bx bxs-chevron-left'></i>", "<i class='bx bxs-chevron-right'></i>"],
 		autoplay: true,
 		autoplayHoverPause: true,
-		autoplayTimeout: 8500,
+		autoplayTimeout: 2900,
 		smartSpeed: 1000
 	});
 	$('.details-slider').owlCarousel(
@@ -499,8 +499,10 @@ function expandContract() {
 	// el.classList.toggle('collapsed')
  }
  function expandPlanForm() {
-	const el = document.getElementById("side-toggle")
-	el.classList.toggle('hide-side-bar')
+	// const el = document.getElementById("side-toggle")
+	// el.classList.toggle('hide-side-bar')
+
+	swal("Page Under Construction", "Thank You For Your Patience", "info");
 	
 	// el.classList.toggle('collapsed')
  }

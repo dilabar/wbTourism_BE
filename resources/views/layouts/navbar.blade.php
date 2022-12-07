@@ -151,7 +151,7 @@
                                         class='bx bxs-chevron-down'></i></a>
                                 <ul class="dropdown-menu">
                                     <li class="nav-item">
-                                        <a href="tsp.html" class="nav-link">Tourism Service Provider</a>
+                                        <a href="{{route('tsp')}}" class="nav-link">Tourism Service Provider</a>
                                     </li>
                                 </ul>
                             </li>
@@ -161,23 +161,23 @@
                                         class='bx bxs-chevron-down'></i></a>
                                 <ul class="dropdown-menu">
                                     <li class="nav-item">
-                                        <a href="#galary" class="nav-link">Gallery</a>
+                                        <a href="/#galary" class="nav-link">Gallery</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="360_view.html" class="nav-link">360 Gallery</a>
+                                        <a href="{{route('gallery-360')}}" class="nav-link">360 Gallery</a>
                                     </li>
 
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link toggle">WBTDCL<i
+                                <a href="https://wbtdcl.wbtourismgov.in/home#viewdiv" class="nav-link toggle">WBTDCL<i
                                         class='bx bxs-chevron-down'></i></a>
                                 <ul class="dropdown-menu">
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link">Organization</a>
+                                        <a href="https://wbtdcl.wbtourismgov.in/home#viewdiv" class="nav-link">Organization</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link">Board of Directors</a>
+                                        <a href="https://wbtdcl.wbtourismgov.in/home#viewdiv" class="nav-link">Board of Directors</a>
                                     </li>
 
                                 </ul>
