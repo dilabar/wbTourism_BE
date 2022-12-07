@@ -160,4 +160,21 @@ class FrontPageController extends Controller
             'most_popular'=>$popular
         ]);
     }
+
+    public function gallery(Request $request){
+        return view('frontpage/gallery', [
+            'most_popular'=>getMostpupular()
+        ]);
+    }
+
+    public function tsp(Request $request){
+        if($request->id){
+            return view('frontpage/tspDetail', [
+                'most_popular'=>getMostpupular()
+            ]);
+        }
+        return view('frontpage/tsp', [
+            'most_popular'=>getMostpupular()
+        ]);
+    }
 }

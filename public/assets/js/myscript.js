@@ -499,8 +499,10 @@ function expandContract() {
 	// el.classList.toggle('collapsed')
  }
  function expandPlanForm() {
-	const el = document.getElementById("side-toggle")
-	el.classList.toggle('hide-side-bar')
+	// const el = document.getElementById("side-toggle")
+	// el.classList.toggle('hide-side-bar')
+
+	swal("Page Under Construction", "Thank You For Your Patience", "info");
 	
 	// el.classList.toggle('collapsed')
  }
