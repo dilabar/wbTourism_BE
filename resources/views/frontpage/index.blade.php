@@ -171,9 +171,9 @@
          </div>
          @endif
       </div>
-      <div class="cta-btn text-center mt-5">
+      {{-- <div class="cta-btn text-center mt-5">
          <a href="#" class="btn-primary">Show More</a>
-      </div>
+      </div> --}}
    </section>
     @endif
    @if(count($section_list)>0)
@@ -225,7 +225,7 @@
                               <p>{!! $section_item->desc !!}</p>
                            </div>
                            <div class="cta-btn">
-                              <a href="tabs/wbtdc_llist.html" class="btn-primary">Read More</a>
+                              <a href="https://wbtdcl.wbtourismgov.in/home#viewdiv" class="btn-primary">Read More</a>
                            </div>
                         </div>
                      </div>
