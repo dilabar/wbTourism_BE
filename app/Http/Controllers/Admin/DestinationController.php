@@ -246,6 +246,7 @@ class DestinationController extends Controller
   }
   public function storePlace(Request $request)
   {
+    // dd($request);
     // detailpage
     if ($request->page_type == 'Existing') {
       $place_mdl1 = Item::where('_id', $request->place_id)->first();
@@ -463,6 +464,7 @@ class DestinationController extends Controller
               $attraction_array->order = $key;
               $attraction_array->type = trim($at["type"]);
               $attraction_array->text = trim($at["content"]);
+              $attraction_array->name = trim($at["name"]);
               $attraction_model->push($attraction_array);
               //  dd( $attraction_model);
             }

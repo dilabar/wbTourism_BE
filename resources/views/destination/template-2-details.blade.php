@@ -152,7 +152,7 @@
       <section class="top-destination" style="padding: 100px 0;">
          <div class="container">
             <div class="row">
-               <div class="col-lg-3">
+               <!-- <div class="col-lg-3">
                   <div class="left-side">
                      <div class="left-side-box">
                         <div class="left-side-heading">
@@ -239,8 +239,8 @@
                         </div>
                      </div>
                   </div>
-               </div>
-               <div class="col-lg-9">
+               </div> -->
+               <div class="col-lg-10 offset-lg-1" >
                @if(count($place_list)>0)
                   <div class="row">
                      
@@ -276,7 +276,7 @@
             </div>
          </div>
       </section>
-      <section
+      <!-- <section
          id="top-destination"
          class="top-destination-section pt-100 pb-70 bg-light"
          >
@@ -291,27 +291,12 @@
                         <img src="../assets/img/place/dh-pic3.jpg" alt="Demo Image" />
                      </div>
                      <div class="content">
-                        <!-- <span class="location"
-                           ><i class="bx bx-map"></i>95 Fleet St, London</span
-                           >
-                           <h3>
-                           <a href="destination-details.html">Venice The Dream Place</a>
-                           </h3>
-                           <div class="review">
-                           <i class="bx bx-smile"></i>
-                           <span>9</span>
-                           <span>Superb</span>
-                           </div> -->
+                       
                         <p>
                            Two short getaway breaks in the Greece together and one mini
                            caravan holiday.
                         </p>
-                        <!-- <hr />
-                           <ul class="list">
-                             <li><i class="bx bx-time"></i>7 Days</li>
-                             <li><i class="bx bx-group"></i>65+</li>
-                             <li>₹2000</li>
-                           </ul> -->
+                       
                      </div>
                   </div>
                </div>
@@ -328,12 +313,7 @@
                            A simple hunting lodging and later a small château with a moat
                            occupied the site.
                         </p>
-                        <!-- <hr />
-                           <ul class="list">
-                             <li><i class="bx bx-time"></i>3 Days</li>
-                             <li><i class="bx bx-group"></i>160+</li>
-                             <li>₹1500</li>
-                           </ul> -->
+                       
                      </div>
                   </div>
                </div>
@@ -343,37 +323,19 @@
                         <img src="../assets/img/place/dh-pic1.jpg" alt="Image" />
                      </div>
                      <div class="content">
-                        <!-- <span class="location"
-                           ><i class="bx bx-map"></i>Inca Trail, Peru</span
-                           >
-                           <h3>
-                           <a href="destination-details.html">Inca Trail Machu Picchu</a>
-                           </h3>
-                           <div class="review">
-                           <i class="bx bx-smile"></i>
-                           <span>8.5</span>
-                           <span>Superb</span>
-                           </div> -->
+                        
                         <p>
                            The gorgeous play of light did justice to the mystique of the
                            ancient ruins that.
                         </p>
-                        <!-- <div class="cta-btn text-center">
-                           <a href="#" class="btn-primary">DISCOVER</a>
-                        </div> -->
-                        <!-- <hr />
-                           <ul class="list">
-                             <li><i class="bx bx-time"></i>3 Days</li>
-                             <li><i class="bx bx-group"></i>160+</li>
-                             <li>₹1500</li>
-                           </ul> -->
+                        
                      </div>
                   </div>
                </div>
             </div>
          </div>
-      </section>
-      <section id="blog" class="blog-section pt-100 pb-70">
+      </section> -->
+      <!-- <section id="blog" class="blog-section pt-100 pb-70">
          <div class="container">
             <div class="section-title">
                <h2>Popular places</h2>
@@ -392,34 +354,7 @@
                      <div class="tour-mig-lc-con tour-mig-lc-con2">
                         <h5 style="text-transform: uppercase;">Darjeeling</h5>
                      </div>
-                     <!-- <div class="content">
-                        <ul class="info-list">
-                          <li><i class="bx bx-calendar"></i> October 5, 2021</li>
-                          <li><i class="bx bx-tag"></i>Tour, Tourism, Travel</li>
-                        </ul>
-                        <h3>
-                          <a href="blog-details.html"
-                            >The real voyage does not consist in seeking new landscapes,
-                            but in having new eyes.</a
-                          >
-                        </h3>
-                        <p>
-                          I have personally participated in many of the programs
-                          mentioned on this site. One of the programs is Save Our I have
-                          personally in many of the programs mentioned on this site.
-                        </p>
-                        <ul class="list">
-                          <li>
-                            <div class="author">
-                              <img src="../assets/img/blog/author1.jpg" alt="Demo Image" />
-                              <span>By - Envy Jeqlin</span>
-                            </div>
-                          </li>
-                          <li>
-                            <a href="blog.html" class="btn-primary">Read More</a>
-                          </li>
-                        </ul>
-                        </div> -->
+                     
                   </div>
                </div>
                <div class="col-lg-6">
@@ -432,28 +367,7 @@
                            <div class="tour-mig-lc-con tour-mig-lc-con2">
                               <h5 style="text-transform: uppercase;">Digha</h5>
                            </div>
-                           <!-- <div class="content">
-                              <ul class="info-list">
-                                <li><i class="bx bx-calendar"></i> Oct 10, 2021</li>
-                                <li><i class="bx bx-tag"></i>Tour</li>
-                              </ul>
-                              <h3>
-                                <a href="blog-details.html"
-                                  >Take only memories, leave only footprints.</a
-                                >
-                              </h3>
-                              <ul class="list">
-                                <li>
-                                  <div class="author">
-                                    <img
-                                      src="../assets/img/blog/author2.jpg"
-                                      alt="Demo Image"
-                                    />
-                                    <span>By - David Stiffen</span>
-                                  </div>
-                                </li>
-                              </ul>
-                              </div> -->
+                          
                         </div>
                      </div>
                      <div class="col-lg-6 col-md-6">
@@ -464,28 +378,7 @@
                            <div class="tour-mig-lc-con tour-mig-lc-con2">
                               <h5 style="text-transform: uppercase;">kolkata</h5>
                            </div>
-                           <!-- <div class="content">
-                              <ul class="info-list">
-                                <li><i class="bx bx-calendar"></i> Nov 10, 2021</li>
-                                <li><i class="bx bx-tag"></i>Travel</li>
-                              </ul>
-                              <h3>
-                                <a href="blog-details.html"
-                                  >Life is either a daring adventure.</a
-                                >
-                              </h3>
-                              <ul class="list">
-                                <li>
-                                  <div class="author">
-                                    <img
-                                      src="../assets/img/blog/author3.jpg"
-                                      alt="Demo Image"
-                                    />
-                                    <span>By - David Milan</span>
-                                  </div>
-                                </li>
-                              </ul>
-                              </div> -->
+                           
                         </div>
                      </div>
                      <div class="col-lg-6 col-md-6">
@@ -496,28 +389,7 @@
                            <div class="tour-mig-lc-con tour-mig-lc-con2">
                               <h5 style="text-transform: uppercase;">Sundarban</h5>
                            </div>
-                           <!-- <div class="content">
-                              <ul class="info-list">
-                                <li><i class="bx bx-calendar"></i> Oct 5, 2021</li>
-                                <li><i class="bx bx-tag"></i>Travel</li>
-                              </ul>
-                              <h3>
-                                <a href="blog-details.html"
-                                  >Not all those who wander are lost.</a
-                                >
-                              </h3>
-                              <ul class="list">
-                                <li>
-                                  <div class="author">
-                                    <img
-                                      src="../assets/img/blog/author4.jpg"
-                                      alt="Demo Image"
-                                    />
-                                    <span>By - Christina</span>
-                                  </div>
-                                </li>
-                              </ul>
-                              </div> -->
+                           
                         </div>
                      </div>
                      <div class="col-lg-6 col-md-6">
@@ -528,28 +400,7 @@
                            <div class="tour-mig-lc-con tour-mig-lc-con2">
                               <h5 style="text-transform: uppercase;">Bishnupur</h5>
                            </div>
-                           <!-- <div class="content">
-                              <ul class="info-list">
-                                <li><i class="bx bx-calendar"></i> Nov 9, 2021</li>
-                                <li><i class="bx bx-tag"></i>Tour</li>
-                              </ul>
-                              <h3>
-                                <a href="blog-details.html"
-                                  >Mountains is always right destination.</a
-                                >
-                              </h3>
-                              <ul class="list">
-                                <li>
-                                  <div class="author">
-                                    <img
-                                      src="../assets/img/blog/author5.jpg"
-                                      alt="Demo Image"
-                                    />
-                                    <span>By - Emma Watson</span>
-                                  </div>
-                                </li>
-                              </ul>
-                              </div> -->
+                          
                         </div>
                      </div>
                   </div>
@@ -557,5 +408,5 @@
             </div>
          </div>
       </section>
-   
+    -->
   @endsection

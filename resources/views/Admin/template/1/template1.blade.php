@@ -242,6 +242,7 @@
                      <div id="inputFormRowAttractions" class="row mb-20">
                         <div class="col-md-12" id="aT-onlytext_0" style="display: block">
                            <div class="content mb-20 contentText_0" id="aT-content_0">
+                              <input type="text" class="form-control" name="attraction[0][name]" placeholder="Attraction name">
                               <textarea class="ckeditor form-control" name="attraction[0][content]" id="" cols="10" rows="5"
                                  placeholder="Your Content Here . . ."></textarea>
                            </div>
@@ -547,7 +548,7 @@
       var img = "{{asset('assets/img/default/600x400.png')}}"
       var html = '';
       html += '<div id="inputFormRowAttractions" class="row mt-20 mb-20">';
-      html += '<div class="col-md-12" id="aT-onlytext_' + countAttractions + '" style="display: block"><div class="content mb-20 contentText_' + countAttractions + '" id="aT-content_' + countAttractions + '"><textarea class="ckeditor form-control" name="attraction[' + countAttractions + '][content]" id="" cols="10" rows="5" placeholder="Your Content Here . . ."></textarea></div></div>';
+      html += '<div class="col-md-12" id="aT-onlytext_' + countAttractions + '" style="display: block"><div class="content mb-20 contentText_' + countAttractions + '" id="aT-content_' + countAttractions + '"><input name="attraction[' + countAttractions + '][name]" class="form-control" placeholder="Attraction name"><textarea class="ckeditor form-control" name="attraction[' + countAttractions + '][content]" id="" cols="10" rows="5" placeholder="Your Content Here . . ."></textarea></div></div>';
       html += '<div id="aT-contentTextWithImg_' + countAttractions + '" class="col-md-12 align-items-center" style="display: none;"><div id="attrationImg_' + countAttractions + '" class="row"><div class="col-md-4 col-sm-12 img-section"><div class="bg-image image mb-30"><img  id="aT-output_' + countAttractions + '" src="'+img+'" alt="Demo Image"><div class="p-image"><i class="fas fa-camera" id="upload-button" onClick="document.getElementById ('+file_upload+').click();"></i><input id="aT-fileUpload_'+ countAttractions +'" class="file_upload"  type="file" name="attraction['+ countAttractions +'][img]" accept="image/*" onchange="loadFile(event, '+output+') "/></div></div></div><div class="content col-md-8 col-sm-12 content-section" id="aT-contentText_' + countAttractions + '"></div></div> </div>';
       html += '<div class="col-md-3"><select id="attrationImg_' + countAttractions + '" name="attraction[' + countAttractions + '][type]" class="form-control m-input"  onchange="showDiv(' + attraction_alignment + ',this);"> <option value="">--Select type--</option><option value="textwithimage">Text With Image</option><option value="onlytext" selected>Text Only</option> </select> </div>';
       html += '<div class="col-md-2" id="aT-Alignment_' + countAttractions + '" style="display: none;"><select name="attraction[' + countAttractions + '][alignment]" class="form-control m-input" onchange="showPosition(' + attraction_img + ',this)"> <option value="">--Select image alignment--</option><option value="left" selected>Left</option><option value="right">Right</option></select></div>';

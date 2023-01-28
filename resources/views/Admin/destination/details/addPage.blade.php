@@ -1271,6 +1271,7 @@ img{
             var ot = sn + '-onlytext_' + sp;
             // alert(ctwm)
             var textarea = $('#' + ot).find('textarea');
+            var input = $('#' + ot).find('input');
             document.getElementById(divId).style.display = element.value == 'textwithimage' ? 'block' : 'none';
             var tm = element.value
 
@@ -1278,6 +1279,7 @@ img{
                 document.getElementById(ot).style.display = 'none';
                 document.getElementById(ctwm).style.display = 'block';
                 textarea.remove();
+                $('#' + sn + '-contentText_' + sp).append(input);
                 $('#' + sn + '-contentText_' + sp).append(textarea);
                 return;
             }
