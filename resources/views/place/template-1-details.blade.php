@@ -198,8 +198,12 @@
               <div class="tab-pane fade show" id="attractions" role="tabpanel" aria-labelledby="attractions-tab">
               @if(!empty($details->attractions_tab_content))
                   @foreach($details->attractions_tab_content as $atrItem)
+                  @if(isset($atrItem->name))
+                  <h3>{{$atrItem->name}}</h3>
+                  @endif
                   @if($atrItem->type=='textwithimage')
                   <div class="row align-items-center">
+                  
                      @if($atrItem->imagealignment=='left')
                       <div class="col-md-4 col-sm-12">
                           <div class="image mb-30">
@@ -359,14 +363,10 @@
                               <img src="../assets/img/tour/batasia_loop.jpg" alt="Demo Image" />
                           </div>
                           <div class="content">
-                              <span class="location"><i class='bx bx-map'></i>Darjeeling, West Bengal</span>
                               <h3>
                                   <a href="destination-details.html">Batasia Loop.</a>
                               </h3>
-                              <ul class="list">
-                                  <li><i class='bx bx-time'></i>3 Days</li>
-                                  <li>₹1500</li>
-                              </ul>
+                             
                           </div>
                       </article>
                       <article class="article-item">
@@ -374,14 +374,10 @@
                               <img src="../assets/img/tour/tigerhill.jpg" alt="Demo Image" />
                           </div>
                           <div class="content">
-                              <span class="location"><i class='bx bx-map'></i>Darjeeling, West Bengal</span>
                               <h3>
                                   <a href="destination-details.html">Tiger Hill.</a>
                               </h3>
-                              <ul class="list">
-                                  <li><i class='bx bx-time'></i>5 Days</li>
-                                  <li>₹1200</li>
-                              </ul>
+                              
                           </div>
                       </article>
                       <article class="article-item">
@@ -389,14 +385,10 @@
                               <img src="../assets/img/tour/victoria.jpg" alt="Demo Image" />
                           </div>
                           <div class="content">
-                              <span class="location"><i class='bx bx-map'></i>Kolkata, West Bengal</span>
                               <h3>
                                   <a href="destination-details.html">Victoria Memorial.</a>
                               </h3>
-                              <ul class="list">
-                                  <li><i class='bx bx-time'></i>7 Days</li>
-                                  <li>₹2000</li>
-                              </ul>
+                             
                           </div>
                       </article>
                   </div>

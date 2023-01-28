@@ -124,6 +124,7 @@ class PlacePageController extends Controller
                 $text_array=collect();
                 $content=collect([]);
                 $document=collect([]);
+                $text_array->name=$atritem['name'] ? $atritem['name']:'';
                 $text_array->text=$atritem['text'];
                 $text_array->type=$atritem['type'];
                 if($atritem['type']=='textwithimage'){
