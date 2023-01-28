@@ -31,23 +31,22 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-
-                            <p>{{ $message }}</p>
-
-                        </div>
-                    @endif
+                   @include('admin.layouts.message')
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Upload Product</h1>
+                        {{-- <h1 class="h3 mb-0 text-gray-800">Upload Product</h1> --}}
 
                     </div>
                     <div class="row">
-                        <div class="col-lg-6 border m-1 p-1">
-
+                        <div class="card col-lg-8 offset-lg-2">
+                            <div class="card-header">
+                                <h6 class="m-0 font-weight-bold ">Upload Product</h6>
+                            </div>
                             <form class="contact100-form validate-form" action="{{ route('product.store') }}"
                                 method="POST" enctype="multipart/form-data">
+                                <div class="card-body">
+
+                              
                                 <div class="wrap-input100 validate-input" data-validate="Product Name/Title">
                                     <input class="input100" type="text" name="name"
                                         placeholder="Product Name/Title">
@@ -83,7 +82,7 @@
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                 <input class="btn btn-primary" type="submit" name="" id=""
                                     value="Add" />
-
+                                </div>
                             </form>
 
                         </div>

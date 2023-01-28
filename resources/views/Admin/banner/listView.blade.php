@@ -34,7 +34,8 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                      
-                        <button type="button" class="btn btn-info" >Bulk</button>
+                  <a href="{{url('admin/banner/create')}}" class="btn btn-info" > <i class="fas fa-list-ol"></i> Add New Banner</a>
+
                     </div>
                      <!-- DataTales Example -->
                      <div class="card shadow mb-4">
@@ -43,7 +44,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-sm table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                         <th>&nbsp;</th>
@@ -210,6 +211,7 @@
              $(form).submit();
         });
     });
+ 
  </script>
 
 	 

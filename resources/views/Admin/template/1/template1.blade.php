@@ -57,7 +57,7 @@
 <div class="page-title-area ptb-100">
    <div class="container">
       <div class="page-title-content">
-         <h1><input type="text" name="title"  class="editable bg-transparent text-light text-center" placeholder="The Mountains">                      
+         <h1><input type="text" name="title"  class="editable bg-transparent text-light text-center" placeholder="Page Title">                      
          </h1>
          <p class="text-light"><input name="slogan" type="text" class="editable bg-transparent text-light text-center" Placeholder="Description Here"></p>
       </div>
@@ -131,7 +131,7 @@
                            </div>
                            <div class="col-md-3">
                               <select name="about[0][type]" class="form-control m-input"
-                                 onchange="showDiv('aB-Alignment_0',this,);">
+                                 onchange="showDiv('aB-Alignment_0',this);">
                                  <option value="">--Select type--</option>
                                  <option value="textwithimage">Text With Image</option>
                                  <option value="onlytext" selected>Text Only</option>
@@ -193,7 +193,7 @@
                      <div id="inputFormRowHtr" class="row mb-20">
                         <div class="col-md-12" id="hT-onlytext_0" style="display: block">
                            <div class="content mb-20 contentText_0" id="hT-content_0">
-                              <textarea class="ckeditor form-control" name="htr[0][content]" id="" cols="10" rows="5"
+                              <textarea class="form-control" name="htr[0][content]" id="" cols="10" rows="5"
                                  placeholder="Your Content Here . . ."></textarea>
                            </div>
                         </div>

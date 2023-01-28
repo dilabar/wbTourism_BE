@@ -1,10 +1,6 @@
-@include('layouts.header')
-    <!-- <div id="loading">
-        <div class="loader"></div>
-    </div> -->
+@extends('layouts.myapp')
 
-    <!--header start-->
-   @include('layouts.navbar')
+@section('content')
     <!-- Header End -->
       <div class="page-title-area ptb-100">
          <div class="container">
@@ -562,20 +558,4 @@
          </div>
       </section>
    
-   <!-- footer start-->
-   @include('layouts.footer')
-   <!-- footer end -->
-      <script src="../assets/js/jquery.min.js"></script>
-      <script src="../assets/js/bootstrap.bundle.min.js"></script>
-      <!-- <script src="../assets/js/bootstrap-datepicker.min.js"></script> -->
-      <script src="../assets/js/jquery.nice-select.min.js"></script>
-      <!-- <script src="../assets/js/jquery.magnific-popup.min.js"></script> -->
-      <!-- <script src="../assets/js/jquery.filterizr.min.js"></script> -->
-      <script src="../assets/js/owl.carousel.min.js"></script>
-      <script src="../assets/js/meanmenu.min.js"></script>
-      <!-- <script src="../assets/js/form-validator.min.js"></script> -->
-      <!-- <script src="../assets/js/contact-form-script.js"></script> -->
-      <!-- <script src="../assets/js/jquery.ajaxchimp.min.js"></script> -->
-      <script src="../assets/js/myscript.js"></script>
-   </body>
-</html>
+  @endsection

@@ -31,25 +31,21 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-               @if ($message = Session::get('success'))
-
-               <div class="alert alert-success">
-
-                  <p>{{ $message }}</p>
-
-               </div>
-
-               @endif
+               @include('admin.layouts.message')
                <!-- Page Heading -->
                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                  <h1 class="h3 mb-0 text-gray-800">Upload Banner</h1>
-
+                  <a href="{{url('admin/banner/list')}}" class="btn btn-info" > <i class="fas fa-list-ol"></i> View Banner</a>
                </div>
                <div class="row">
-                  <div class="col-lg-12">
-
+                  <div class="card col-lg-8 offset-lg-2">
+                     <div class="card-header">
+                        <h6 class="m-0 font-weight-bold ">Upload Banner</h6>
+                     </div>
                      <form class="contact100-form validate-form" action="{{ route('banner.store') }}" method="POST"
                         enctype="multipart/form-data">
+                        <div class="card-body">
+
+                        
                         <div class="wrap-input100 validate-input" data-validate="Banner Title">
                            <input class="input100" type="text" name="name" placeholder="Banner Name/Title">
                            <span class="focus-input100"></span>
@@ -85,7 +81,7 @@
                               <option value="mozarella">Explore in West Bengal</option>
                            </select>
                         </div>  -->
-                        <div class="form-froup">
+                        {{-- <div class="form-froup">
                               @if (count($page_list)>0)
                               <label for="exampleFormControlFile1">Page </label>
                               <select class="form-control" name="reference" id="">
@@ -96,10 +92,10 @@
                               </select>                               
                               @endif
                              
-                        </div>
+                        </div> --}}
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <input class="btn btn-primary" type="submit" name="" id="" value="Add" />
-
+                     </div>
                      </form>
 
 

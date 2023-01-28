@@ -15,5 +15,7 @@
  
 
    
-
+<script>
+  $("a.active").parents('.collapse').addClass('show');
+</script>
   

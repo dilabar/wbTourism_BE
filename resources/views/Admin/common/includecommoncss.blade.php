@@ -13,3 +13,4 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('assets/Admin/css/wbtourism.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/Admin/css/table.css') }}" rel="stylesheet">
