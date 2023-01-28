@@ -20,6 +20,10 @@ use Carbon\Carbon;
 
 class BannerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(Request $request)
     {
         return view('Admin/banner/add');
@@ -35,7 +39,40 @@ class BannerController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request);
+        
+        $rules = [
+            'name' => 'required',
+            'slogan' => 'required',
+            'description' => 'required',
+            'thumbnail_image' => 'mimes:jpeg,jpg,png,gif|required|max:10000',
+            'full_image' => 'mimes:jpeg,jpg,png,gif|required|max:10000',
+        ];
+         $messages = [
+            'name.required' => 'The Name field is required',
+            'slogan.required'=>'The Slogan field is required',
+            'description.required'=>'The Description field is required',
+            'thumbnail_image.required'=>'The Thumbnail Image field is required',
+            'full_image.required'=>'The Full Image field is required',
+        ];
+
+         
+        $attributes = array();
+       
+        $attributes['name'] = $request->name;
+        $attributes['thumbnail_image'] = $request->thumbnail_image;
+        $attributes['full_image'] = $request->full_image;
+        $attributes['slogan'] = $request->slogan;
+        $attributes['description'] = $request->description;
+        $validator = Validator::make($request->all(), $rules, $messages, $attributes);
+        
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $banner_array=array();
+        if(!empty($request->name)){
+        array_push( $banner_array,$request->name);
+        }
         $model1=new Item();
         if($thumbnail_image=$request->file('thumbnail_image')){
             $img_data = file_get_contents($thumbnail_image);
@@ -53,8 +90,10 @@ class BannerController extends Controller
             $model1->img_data = $binary_thumbnail;
             $model1->is_active = 1;
             $model1->is_approved = 1;
+            $model1->tags=$banner_array;
             $thumbnail_image_is_save = $model1->save();
         }
+       
         $model2 = new Item();
         if ($full_image = $request->file('full_image')) {
             $img_data = file_get_contents($full_image);
@@ -72,6 +111,7 @@ class BannerController extends Controller
             $model2->img_data = $binary_full;
             $model2->is_active = 1;
             $model2->is_approved = 1;
+            $model2->tags=$banner_array;
             $full_image_is_save = $model2->save();
         }
         $banner_model = new Item();
@@ -91,9 +131,7 @@ class BannerController extends Controller
         if (!empty(trim($request->slogan))) {
             $banner_model->slogan = trim($request->slogan);
         }
-        if (!empty(trim($request->message))) {
-            $banner_model->desc = trim($request->message);
-        }
+      
         if (!empty(trim($request->reference))) {
             $banner_model->reference = trim($request->reference);
         } else {
@@ -196,7 +234,7 @@ class BannerController extends Controller
                 })->addColumn('id', function ($banner_list) {
                     return $banner_list->id;
                 })->addColumn('img', function ($banner_list) {
-                    return '<img width="100" height="70" src="' . $banner_list->img . '">';
+                    return '<img width="100" height="100" src="' . $banner_list->img . '">';
                 })->addColumn('title', function ($banner_list) {
                     return $banner_list->name;
                 })
@@ -228,8 +266,9 @@ class BannerController extends Controller
                     } else if ($banner_list->is_approved == 0) {
                         $action = $action . '<button cur_status=' . $banner_list->is_approved . ' action_type="2" title=' . $banner_list->name . ' slno=' . $banner_list->slno . ' id="btnapprove_' . $banner_list->slno . '" class="btn btn-primary btn-modal" value=' . $banner_list->id . '>Approve</button>&nbsp;&nbsp;&nbsp;&nbsp;';
                     }
-                    // $action = $action.'<button  action_type="3"   id="btnedit_'.$banner_list->id.'" class="btn btn-secondary" value=' . $banner_list->id . '>Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;';
-                    $action = $action . '<a class="btn btn-secondary" href=' . $edit . $banner_list->id . '>Edit</a>';
+                   
+                    $action = $action . '<a class="btn btn-outline-info " href=' . $edit . $banner_list->id . '><i class="fas fa-pen-to-square"></i></a>&nbsp;&nbsp;&nbsp;&nbsp';
+                    $action = $action.'<button cur_status=' . $banner_list->is_approved . ' action_type="3" title=' . $banner_list->name . ' slno=' . $banner_list->slno . ' id="btndelete_'.$banner_list->slno.'" class="btn btn-outline-danger btn-modal" value=' . $banner_list->id . '><i class="fas fa-trash-can"></i></button>&nbsp;&nbsp;&nbsp;&nbsp;';
 
                     return $action;
                 })
@@ -264,6 +303,7 @@ class BannerController extends Controller
     public function bannerupdate(Request $request)
     {
         //dd($request);
+        
         $id = $request->banner_id;
         $details_db = Item::where('_id', $id)->first();
         $thumb_mdl = Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $details_db->thumbnail_image_obj_id)->where('image_type', 'Thumbnail')->first();
@@ -343,7 +383,7 @@ class BannerController extends Controller
         $rules = [
             'id' => 'required',
             'cur_status' => 'required|integer|in:0,1',
-            'action_type' => 'required|integer|in:1,2'
+            'action_type' => 'required|integer|in:1,2,3'
         ];
         $attributes = array();
         $messages = array();
@@ -357,6 +397,7 @@ class BannerController extends Controller
             if (empty($row)) {
                 return redirect("/admin/banner/list")->with('error', ' Banner Not Found');
             }
+            $msg="Update"; 
 
             if ($request->action_type == 1) {
                 $col = 'is_active';
@@ -374,6 +415,12 @@ class BannerController extends Controller
                     $update_code = 0;
                 }
             }
+            if($request->action_type==3){
+                $col='is_delete';
+                $update_code=1;
+                $msg="Delete"; 
+                
+            }
             $accptreject_model = new AcceptRejectInfo();
             $accptreject_model->type = $row->type;
             $accptreject_model->section_type = $row->section_type;
@@ -387,10 +434,15 @@ class BannerController extends Controller
             $update_arr['updated_at'] = $cur_time_mongo;
             $update_arr['updated_by'] = $user_id;
             $accpt_status = $accptreject_model->save();
-            $update_status = Item::where('_id', $id)->where('section_type', 'banner')->where('type', 'banner')->update($update_arr);
-            $accpt_status = $accptreject_model->save();
+           
+         
+            if($request->action_type==3){
+                $update_status=Item::where('_id', $id)->delete();
+            }else{
+                $update_status = Item::where('_id', $id)->where('section_type', 'banner')->where('type', 'banner')->update($update_arr);
+            }
             if ($accpt_status &&  $update_status) {
-                return redirect("/admin/banner/list")->with('success', 'Banner Updated successfully');
+                return redirect("/admin/banner/list")->with('success', 'Banner '.$msg.' successfully');
             }
         } else {
             return redirect("/admin/banner/list")->withErrors($validator);
@@ -401,7 +453,7 @@ class BannerController extends Controller
     }
     public function detailspageAdd(Request $request)
     {
-        $template_type = Master::where('master_type', 'template')->where('is_active', 1)->where('is_approved', 1)->get();
+        $template_type = Master::where('master_type', 'template')->where('design_type', 'detail')->where('is_active', 1)->where('is_approved', 1)->get();
         $banner_details = Item::where([['type', 'banner'], ['is_active', 1], ['is_approved', 1]])->where('reference', null)->get();
 
         // $image_db=Item::where('type', 'Image')->where('image_type', 'Thumbnail')->where('is_active', 1)->where('is_approved', 1)->get();
@@ -441,7 +493,7 @@ class BannerController extends Controller
            
         // ]);
    
-           
+           dd($request);
         $banner_model=new Item();
         if($request->page_type == 'Existing'){
             $banner_detail1 = Item::where('_id', $request->banner_id)->first();

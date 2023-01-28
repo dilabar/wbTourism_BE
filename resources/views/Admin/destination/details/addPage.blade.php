@@ -837,7 +837,21 @@ img{
                  
                   <div class="row">
 
-					
+					{{-- <div class="col-md-6">
+                        <div class="form-group">
+                           <label for="exampleFormControlFile1">Select District</label>
+                           <select class="form-control" id="d_id" name="d_id" >
+                              @if(count($d_list)>0)
+							  <option value="0" selected>-- SELECT --</option>
+                              @foreach($d_list as $d)
+                              <option value="{{$d->district_code}}" class="text-uppercase">{{$d->district_name}}
+                              </option>
+                              @endforeach
+                              @endif
+                           </select>
+
+                        </div>
+                     </div> --}}
                      <div class="col-md-6">
                         <div class="form-group">
                            <label for="exampleFormControlFile1">Select Destination (Category)</label>
@@ -853,7 +867,7 @@ img{
 
                         </div>
                      </div>
-					
+				
 					 <div id="destination_dropdown" class="col-md-6">
 					</div>
 					<div class="col-md-6" id="page_dropdown">

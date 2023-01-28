@@ -1,5 +1,6 @@
-@include('layouts.header')
-@include('layouts.navbar')
+@extends('layouts.myapp')
+
+@section('content')
 
   <div class="page-title-area ptb-100">
     <div class="container">
@@ -439,8 +440,6 @@
       </div>
   </div>
 </section>
-   <!-- footer start-->
-   @include('layouts.footer')
-   <!-- footer end -->
+@endsection
 
   

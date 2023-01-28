@@ -14,8 +14,47 @@ class FrontPageController extends Controller
     
     public function index(Request $request)
     {
+
+        // banner image
+        // $banner_list_db = Item::where('is_active', 1)->where('is_approved', 1)->where('section_type', 'banner')->where('type', 'banner')->get();
+    
+        // $banner_array=array();
+        // foreach($banner_list_db as $banner){
+        //     if($banner->thumbnail_image_obj_id){
+        //         array_push( $banner_array,$banner->thumbnail_image_obj_id);
+        //     }
+        //     if($banner->full_image_obj_id){
+        //         array_push( $banner_array,$banner->full_image_obj_id);
+        //     }
+     
+        // }
+        // $product_list_db = Item::where('is_active', 1)->where('is_approved', 1)->where('section_type', 'explore')->where('type', 'product')->orderBy('order')->get();
+        // $product_array=array();
+        // foreach($product_list_db as $p){
+        //     if($p->thumbnail_image_obj_id){
+        //         array_push( $product_array,$p->thumbnail_image_obj_id);
+        //     }
+        //     if($p->full_image_obj_id){
+        //         array_push( $product_array,$p->full_image_obj_id);
+        //     }
+     
+        // }
+        // $destination_list_db = Item::where('is_active', 1)->where('is_approved', 1)->where('section_type', 'destination')->where('type', 'destination')->get();
+        // $d_array=array();
+        // foreach($destination_list_db as $d){
+        //     if($d->thumbnail_image_obj_id){
+        //         array_push( $d_array,$d->thumbnail_image_obj_id);
+        //     }
+        //     if($d->full_image_obj_id){
+        //         array_push( $d_array,$d->full_image_obj_id);
+        //     }
+     
+        // }
+       
+        /////////////////////..........................................
         $banner_list_db = Item::where('is_active', 1)->where('is_approved', 1)->where('section_type', 'banner')->where('type', 'banner')->get();
-        // $popular=Item::where('is_popular',1)->where('page_type','detail')->get();
+        $place_list=Item::where('type','place')->where('is_active', 1)->where('is_approved', 1)->get();
+
         $popular =getMostpupular();
         
         $banner_list=collect([]);
@@ -39,7 +78,7 @@ class FrontPageController extends Controller
             $i++;
             $banner_list->push($banner_array);
         } 
-        $product_list_db = Item::where('is_active', 1)->where('is_approved', 1)->where('section_type', 'explore')->where('type', 'product')->get();
+        $product_list_db = Item::where('is_active', 1)->where('is_approved', 1)->where('section_type', 'explore')->where('type', 'product')->orderBy('order')->get();
         $product_list=collect([]);
          foreach($product_list_db as $product){
             $product_array=collect();
@@ -115,7 +154,7 @@ class FrontPageController extends Controller
             $section_array->tab_id=$section->tab_id;
             $section_list->push($section_array);
         }      
-        $gallery_list_db = Item::where('is_active', 1)->where('is_approved', 1)->where('section_type', 'gallery')->where('type', 'gallery')->get();
+        $gallery_list_db = Item::where('is_active', 1)->where('is_approved', 1)->where('section_type', 'gallery')->where('type', 'gallery')->where('visible', '0')->get();
         $gallery_list=collect([]);
         foreach($gallery_list_db as $gallery){
             $gallery_array=collect();
@@ -125,7 +164,7 @@ class FrontPageController extends Controller
             $gallery_array->name=$gallery->name;
             $gallery_array->desc=$gallery->short_desc;
             $gallery_array->reference=(string) $gallery->reference;
-            $img_content=Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $gallery->thumbnail_image_obj_id)->where('image_type', 'Thumbnail')->first();
+            $img_content=Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $gallery->full_image_obj_id)->first();
             $type=$img_content->mimType;
             $img = 'data:' . $type . ';base64,' . base64_encode($img_content->img_data); 
             $gallery_array->img=$img;
@@ -140,7 +179,7 @@ class FrontPageController extends Controller
             $img ='';
             $testimonial_array->name=$testimonial->name;
             $testimonial_array->desc=$testimonial->desc;
-            $img_content=Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $testimonial->thumbnail_image_obj_id)->where('image_type', 'Thumbnail')->first();
+            $img_content=Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $testimonial->thumbnail_image_obj_id)->first();
             $type=$img_content->mimType;
             $img = 'data:' . $type . ';base64,' . base64_encode($img_content->img_data); 
             $testimonial_array->img=$img;
@@ -157,11 +196,12 @@ class FrontPageController extends Controller
             'section_list' => $section_list,
             'gallery_list' => $gallery_list,
             'testimonial_list' => $testimonial_list,
-            'most_popular'=>$popular
+            'most_popular'=>$popular,
+            'place_list'=>$place_list
         ]);
     }
 
-    public function gallery(Request $request){
+    public function gallery(){
         return view('frontpage/gallery', [
             'most_popular'=>getMostpupular()
         ]);
@@ -177,4 +217,5 @@ class FrontPageController extends Controller
             'most_popular'=>getMostpupular()
         ]);
     }
+ 
 }

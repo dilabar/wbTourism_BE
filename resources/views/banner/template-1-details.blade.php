@@ -1,12 +1,6 @@
-@include('layouts.header')
-    <!-- <div id="loading">
-        <div class="loader"></div>
-    </div> -->
+@extends('layouts.myapp')
 
-    <!--header start-->
-   @include('layouts.navbar')
-    <!-- Header End -->
-
+@section('content')
     <div class="page-title-area ptb-100">
         <div class="container">
             <div class="page-title-content">
@@ -24,33 +18,7 @@
     </div>
 
 
-    <style>
-        .destinations-details-section .nav-item {
-            margin-right: 20px;
-        }
-
-        .destinations-details-section .nav-tabs .nav-link.active {
-            color: white;
-            background-color: green;
-            border-color: none;
-        }
-
-        .destinations-details-section .nav-tabs .nav-link {
-            margin-bottom: 0;
-            color: black;
-            border-radius: 6px;
-            border: 1px solid green;
-        }
-
-        .destinations-details-section .nav-tabs {
-            border-bottom: none;
-        }
-
-        .destinations-details-section img:hover {
-            -webkit-transform: scale(1.1);
-            transform: scale(1.1);
-        }
-    </style>
+    
     <section class="destinations-details-section pt-100 pb-70">
         <div class="container">
 
@@ -444,32 +412,4 @@
             </div>
         </div>
     </section>
-    <!-- footer start-->
-    @include('layouts.footer')
-    <!-- footer end -->
-    <script src="../assets/js/jquery.min.js"></script>
-
-    <script src="../assets/js/bootstrap.bundle.min.js"></script>
-
-    <!-- <script src="../assets/js/bootstrap-datepicker.min.js"></script> -->
-
-    <script src="../assets/js/jquery.nice-select.min.js"></script>
-
-    <!-- <script src="../assets/js/jquery.magnific-popup.min.js"></script> -->
-
-    <!-- <script src="../assets/js/jquery.filterizr.min.js"></script> -->
-
-    <script src="../assets/js/owl.carousel.min.js"></script>
-
-    <script src="../assets/js/meanmenu.min.js"></script>
-
-    <!-- <script src="../assets/js/form-validator.min.js"></script> -->
-
-    <!-- <script src="../assets/js/contact-form-script.js"></script> -->
-
-    <!-- <script src="../assets/js/jquery.ajaxchimp.min.js"></script> -->
-
-    <script src="../assets/js/myscript.js"></script>
-</body>
-
-</html>
+  @endsection

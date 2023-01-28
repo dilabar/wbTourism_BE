@@ -1,11 +1,6 @@
-@include('layouts.header')
- 
+@extends('layouts.myapp')
 
-   <!--header start-->
-   @include('layouts.navbar')
-   <!-- Header End -->
-
-
+@section('content')
    <section id="tsp-section" class="pt-100">
       <div class="container">
         <div class="section-title title-style">
@@ -82,8 +77,4 @@
         
       </div>
    </section>
-
-    <!-- footer start-->
-    @include('layouts.footer')
-
-    <!-- footer end -->
+@endsection

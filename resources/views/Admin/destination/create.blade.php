@@ -41,13 +41,19 @@
                   @endif
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Upload Destination Category</h1>
+                        {{-- <h1 class="h3 mb-0 text-gray-800">Upload Destination Category</h1> --}}
+                        <a href="{{url('admin/destination/list')}}" class="btn btn-info">View Destination</a>
                         
                     </div>
                     <div class="row">
-                    <div class="col-lg-12">
-                       
+                    <div class="card col-lg-8 offset-lg-2">
+                       <div class="card-header">
+                          <h6 class="m-0 font-weight-bold ">Upload Destination Category</h6>
+                       </div>
                     <form class="contact100-form validate-form" action="{{ route('destination.store') }}" method="POST" enctype="multipart/form-data">
+                      <div class="card-body">
+
+                    
                       <div class="row">
                       <div class="col-md-6" id="cat">
                         <div class="form-group">
@@ -93,7 +99,7 @@
                         <input type="file" class="form-control-file" id="exampleFormControlFile1" name="thumbnail_image">
                       </div>
                       <div class="form-group">
-                        <label for="exampleFormControlFile1">Full Image</label>
+                        <label for="exampleFormControlFile1">Page Title Image</label>
                         <input type="file" class="form-control-file" id="exampleFormControlFile1" name="full_image">
                       </div>
                       <!-- <div class="form-group">
@@ -109,7 +115,7 @@
                            <input class="btn btn-primary" type="submit" name="" id="" value="Add"/>
                            
                            
-                           
+                          </div>
                     </form>
                           
                           

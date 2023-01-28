@@ -1,8 +1,6 @@
-@include('layouts.header')
- 
+@extends('layouts.myapp')
 
-   <!--header start-->
-   @include('layouts.navbar')
+@section('content')
    <!-- Header End -->
 
 
@@ -151,7 +149,4 @@
           <div class="shape shape-4"><img src="assets/img/shape4.png" alt="Background Shape"></div> -->
        </section>
 
-    <!-- footer start-->
-    @include('layouts.footer')
-
-    <!-- footer end -->
+@endsection

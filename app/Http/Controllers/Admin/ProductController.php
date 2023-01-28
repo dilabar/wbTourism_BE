@@ -29,6 +29,34 @@ class ProductController extends Controller
     }
     public function store(Request $request)
     { 
+        $rules = [
+            'name' => 'required',
+            'description' => 'required',
+            'gradient'=>'required',
+            'thumbnail_image' => 'mimes:jpeg,jpg,png,gif|required|max:10000',
+            'full_image' => 'mimes:jpeg,jpg,png,gif|required|max:10000',
+        ];
+         $messages = [
+            'name.required' => 'The Name field is required',
+            'gradient.required' => 'The Gradient field is required',
+            'description.required'=>'The Description field is required',
+            'thumbnail_image.required'=>'The Thumbnail Image field is required',
+            'full_image.required'=>'The Full Image field is required',
+        ];
+
+         
+        $attributes = array();
+       
+        $attributes['name'] = $request->name;
+        $attributes['thumbnail_image'] = $request->thumbnail_image;
+        $attributes['full_image'] = $request->full_image;
+        $attributes['gradient'] = $request->gradient;
+        $attributes['description'] = $request->description;
+        $validator = Validator::make($request->all(), $rules, $messages, $attributes);
+        
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
         $product_array=array();
         if(!empty($request->name)){
         array_push( $product_array,$request->name);
@@ -84,8 +112,7 @@ class ProductController extends Controller
         $product_model->name=trim($request->name);
         if(!empty(trim($request->description)))
         $product_model->short_desc=trim($request->description);
-        if(!empty(trim($request->message)))
-        $product_model->desc=trim($request->message);
+   
         if(!empty(trim($request->reference)))
         $product_model->reference=trim($request->reference);
         $product_model->is_active=1;
@@ -188,6 +215,7 @@ class ProductController extends Controller
               })
               ->addColumn('action', function ($list) {
                 $action='';
+                $edit = 'edit/';
                 if($list->is_active==1){
                   $action = $action.'<button cur_status=' . $list->is_active . ' action_type="1" title=' . $list->name . ' slno=' . $list->slno . ' id="btnactive_'.$list->slno.'" class="btn btn-danger btn-modal" value=' . $list->id . '>Click to InActive</button>&nbsp;&nbsp;&nbsp;&nbsp;';
                 }
@@ -200,6 +228,9 @@ class ProductController extends Controller
                   else if($list->is_approved==0){
                       $action = $action.'<button cur_status=' . $list->is_approved . ' action_type="2" title=' . $list->name . ' slno=' . $list->slno . ' id="btnapprove_'.$list->slno.'" class="btn btn-primary btn-modal" value=' . $list->id . '>Click to Approve</button>&nbsp;&nbsp;&nbsp;&nbsp;';
                 }
+                // $action = $action . '<a class="btn btn-outline-info " href=' . $edit . $list->id . '><i class="fas fa-pen-to-square"></i></a>&nbsp;&nbsp;';
+                $action = $action.'<button cur_status=' . $list->is_approved . ' action_type="3" title=' . $list->name . ' slno=' . $list->slno . ' id="btndelete_'.$list->slno.'" class="btn btn-outline-danger btn-modal" value=' . $list->id . '><i class="fas fa-trash-can"></i></button>&nbsp;&nbsp;&nbsp;&nbsp;';
+
                 return $action;
               })
               ->rawColumns(['id','img','check', 'title','status','action'])
@@ -225,7 +256,8 @@ class ProductController extends Controller
         // dd('ok');
     }
 
-    public function storeProduct(Request $request){
+    public function storeProduct(Request $request)
+    {
         // dd($request);
         $product_model=new Item();
         if($request->is_url =='1'){
@@ -623,7 +655,7 @@ class ProductController extends Controller
         $rules = [
             'id' => 'required',
             'cur_status' => 'required|integer|in:0,1',
-            'action_type' => 'required|integer|in:1,2'
+            'action_type' => 'required|integer|in:1,2,3'
         ];
         $attributes = array();
         $messages = array();
@@ -637,7 +669,7 @@ class ProductController extends Controller
             if(empty($row)){
                 return redirect("/admin/product/list")->with('error', ' Product Not Found');
             }
-          
+          $msg="Update";
            if($request->action_type==1){
             $col='is_active';
             if($request->cur_status==0){   
@@ -656,6 +688,12 @@ class ProductController extends Controller
                 $update_code=0;    
             }
            }
+           if($request->action_type==3){
+            $col='is_delete';
+            $update_code=1;
+            $msg="Delete"; 
+            
+        }
            $accptreject_model=new AcceptRejectInfo();
            $accptreject_model->type= $row->type;
            $accptreject_model->section_type= $row->section_type;
@@ -669,10 +707,16 @@ class ProductController extends Controller
            $update_arr['updated_at']=$cur_time_mongo;
            $update_arr['updated_by']=$user_id;
            $accpt_status=$accptreject_model->save();
-           $update_status=Item::where('_id', $id)->where('section_type', 'explore')->where('type', 'product')->update($update_arr);
+           if($request->action_type==3){
+            $update_status=Item::where('_id', $id)->delete();
+            }else{
+                $update_status=Item::where('_id', $id)->where('section_type', 'explore')->where('type', 'product')->update($update_arr);
+
+            }
+           
            $accpt_status=$accptreject_model->save();
            if($accpt_status &&  $update_status){
-            return redirect("/admin/product/list")->with('success', 'Product Updated successfully');
+            return redirect("/admin/product/list")->with('success', 'Product '.$msg.' successfully');
             }
            
         }
