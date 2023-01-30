@@ -119,7 +119,8 @@ class PlacePageController extends Controller
         $details_db->how_to_reach_tab_content=$how_to_reach_tab_content;
         $attractions_tab_content=collect([]);
         if($details_db->attractions && count($details_db->attractions)>0){
-            $array = collect($details_db->attractions)->sortBy('order')->toArray();
+            $array = collect($details_db->attractions)->sortBy('-order')->toArray();//->slice(0,5)
+           
             foreach($array as $atritem){
                 $text_array=collect();
                 $content=collect([]);
@@ -127,7 +128,8 @@ class PlacePageController extends Controller
                 $text_array->name=$atritem['name'] ? $atritem['name']:'';
                 $text_array->text=$atritem['text'];
                 $text_array->type=$atritem['type'];
-                if($atritem['type']=='textwithimage'){
+                $text_array->popular= @$atritem['is_popular'] ? $atritem['is_popular'] :'0';
+                if(isset($atritem['image_id']) && $atritem['type']=='textwithimage'){
                     $content=Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $atritem['image_id'])->where('type', 'Image')->first();
                     $mim_type=$content->mimType;
                     $document = 'data:' . $mim_type . ';base64,' . base64_encode($content->img_data); 
@@ -192,7 +194,8 @@ class PlacePageController extends Controller
 
         }
 
-        $details_db->nearby_amenties_tab_content=$nearby_amenties_tab_content;  
+        
+        
         // dd($details_db);
         if(!empty($details_db->video_image)){
             $vedio_image_db=Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $details_db->video_image)->where('type', 'Image')->first();
@@ -200,7 +203,32 @@ class PlacePageController extends Controller
             $vedio_img = 'data:' . $vedio_image_type . ';base64,' . base64_encode($vedio_image_db->img_data); 
             $details_db->video_image=$vedio_img;
         }
-  
+        $popular_place=collect([]);
+        if($details_db->attractions && count($details_db->attractions)>0){
+            $array = collect($details_db->attractions)->where('is_popular',1)->sortBy('-order')->slice(0,3)->toArray();
+          
+            foreach($array as $p_item){
+                $p_array=collect();
+                $content=collect([]);
+                $document=collect([]);
+                $p_array->name=$p_item['name'] ? $p_item['name']:'';
+            
+                $p_array->popular= @$p_item['is_popular'] ? $p_item['is_popular'] :'0';
+                if(isset($p_item['image_id']) && $p_item['type']=='textwithimage'){
+                    $content=Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $p_item['image_id'])->where('type', 'Image')->first();
+                    $mim_type=$content->mimType;
+                    $document = 'data:' . $mim_type . ';base64,' . base64_encode($content->img_data); 
+                    $p_array->img=$document;
+                    $p_array->imagealignment=$p_item['imagealignment'];
+                }
+                else{
+                    $p_array->img='';
+                
+                }
+                $popular_place->push($p_array);
+            }
+        }
+        $details_db->popular_place=$popular_place;
         $details_db->title=$details_db->name;
         // dd($details_db);
         return view('place/'.$template_arr->slug.'-details',

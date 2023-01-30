@@ -135,7 +135,7 @@
                   @endforeach
                   @endif
                  
-                  @if(!empty($details->about_tab_some_info))
+                  @if(count($details->about_tab_some_info)> 0)
                 
                   <div class="info-content">
                       <h3 class="sub-title">Some Information</h3>
@@ -350,7 +350,7 @@
                               <img src="../assets/img/default/900x600.png" alt="video" />
                           @endif
                       </div>
-                        <a href="https://www.youtube.com/watch?v=QSwvg9Rv2EI" class="youtube-popup video-btn">
+                        <a href="{{$details->youtube_url}}" class="youtube-popup video-btn">
                             <i class='bx bx-right-arrow'></i>
                         </a>
                     @endif
@@ -358,39 +358,23 @@
                   
                   <div class="widget widget-article mb-30">
                       <h3 class="sub-title">Popular Places</h3>
+                      @foreach($details->popular_place as $p)
+                
+                      @if($p->popular == '1')
                       <article class="article-item">
                           <div class="image">
-                              <img src="../assets/img/tour/batasia_loop.jpg" alt="Demo Image" />
+                              <img src="{{$p->img}}" alt="Demo Image" />
                           </div>
                           <div class="content">
                               <h3>
-                                  <a href="destination-details.html">Batasia Loop.</a>
+                                  <a href="#">{{$p->name}}</a>
                               </h3>
                              
                           </div>
                       </article>
-                      <article class="article-item">
-                          <div class="image">
-                              <img src="../assets/img/tour/tigerhill.jpg" alt="Demo Image" />
-                          </div>
-                          <div class="content">
-                              <h3>
-                                  <a href="destination-details.html">Tiger Hill.</a>
-                              </h3>
-                              
-                          </div>
-                      </article>
-                      <article class="article-item">
-                          <div class="image">
-                              <img src="../assets/img/tour/victoria.jpg" alt="Demo Image" />
-                          </div>
-                          <div class="content">
-                              <h3>
-                                  <a href="destination-details.html">Victoria Memorial.</a>
-                              </h3>
-                             
-                          </div>
-                      </article>
+                      @endif
+                      @endforeach
+                     
                   </div>
                   <div class="widget widget-gallery mb-30">
                       <h3 class="sub-title">Related top destinations</h3>
