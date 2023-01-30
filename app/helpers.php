@@ -2,6 +2,8 @@
 
 use App\Books;
 use App\Item;
+use MongoDB\BSON\ObjectId as MongoObjectId;
+use MongoDB\BSON\Binary as MongoBinary;
 
 function getImage($img_id)
 {
@@ -359,4 +361,211 @@ function getExplores()
         $data->push($b);
     };
     return $data;
+}
+function getAttraction(){
+ 
+
+ $data_array = array(
+   [
+         "name" => "Water Rafting", 
+         "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/kurseong_sml.jpg", 
+         "text" => "White water rafting in Tista was introduced in Darjeeling hills more than a decade earlier and has gained tremendous popularity since then. Several private organisations along with DGHC tourism have set up rafting facilities. River Tista is graded at IV on an international scale. With a series of rapids with varying intensity and character, Tista extends a challenging invitation to the enthusiasts.", 
+         "how_to_reach" => "", 
+         "other" => "", 
+         "type" => "textwithimage", 
+         "imagealignment" => "left" 
+      ], 
+   [
+            "name" => "Adventure Sports", 
+            "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/rock_climbing.jpg", 
+            "text" => "For adventure lovers, Kurseong is the right place, as it offers various treks and hikes, either be tea garden walk or hike through lush green Cryptomeria Japonica forest or village walks, it is all here. Recently new adventure sports have been added to Kurseong HOT AIR BALLOON & ROCK CLIMBING. In coming days Kurseong will be known for these sports. So, Kurseong is an ideal destination for travellers, where you can enjoy nature, adventure and culture the new destination of the millennium", 
+            "how_to_reach" => "", 
+            "other" => "", 
+            "type" => "textwithimage", 
+            "imagealignment" => "left" 
+         ], 
+   [
+               "name" => "Trekking", 
+               "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/kurseong_trekking3.jpg", 
+               "text" => "It commands one of the most spectacular views. In the foreground is a great basin set in the midst of the hill. Nature here is at her pristine best, and the vista at the top is worth all the hardship endured on the way. It offers the morning sunrise to be seen clearly, and also Mt. Kanchenjunga Himalaya range, Nathu-la Pass, Jelep-la Pass, Bhutan Himalaya range can be seen directly. The background is dominated by a continuous barrier of snowy peaks and mountains. The most prominent of the chain of the mountains naturally is the mighty Mt. Kanchenjunga along with Kabru (7,338 meter), Janu (7,710 meter) and Pandim (6,691 meter) Kabru appears in the distance and does not present the same graceful outline.", 
+               "how_to_reach" => "", 
+               "other" => "", 
+               "type" => "textwithimage", 
+               "imagealignment" => "left" 
+            ], 
+   [
+                  "name" => "Land Of The White Orchids", 
+                  "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/white_orchid.jpg", 
+                  "text" => "Kurseong is famous for the white orchids that adorn the hill-slopes in abundance, giving it the name of 'The land of the white orchids'. The white orchids are called 'Kurson Rip' by the Lepchas, the original inhabitants of the land.", 
+                  "how_to_reach" => "", 
+                  "other" => "", 
+                  "type" => "textwithimage", 
+                  "imagealignment" => "left" 
+               ], 
+   [
+                     "name" => "Schools Of Kurseong", 
+                     "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/Schools_of_kurseong.jpg", 
+                     "text" => "Kurseong is famous as an education hub. The schools here are not only famous for the education they provide but also their construction and location make them a tourist attraction in their own right. The Dowhills Girls School provides a glimpse of the British era with its architecture and elegance. This school is well known for its beautiful location surrounded by pine trees and the quality of education it provides. Victoria Boy’s School was also created by the British and still maintains its Victorian looks and fame.", 
+                     "how_to_reach" => "", 
+                     "other" => "", 
+                     "type" => "textwithimage", 
+                     "imagealignment" => "left" 
+                  ], 
+   [
+                        "name" => "Eagles Craig View Point", 
+                        "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/eagles-craig-view-point.jpg", 
+                        "text" => "The popular tourist spot of Eagle's Crag viewpoint is a short walk distance from Kurseong railway station seemingly perched on a cliff. One can have a sweeping view of the surrounding mountain, hill, hamlets and slopes from here. It has a cafeteria, a watch tower and a flower garden; this place also houses the water reservoir for the entire town of Kurseong. The place also has a concrete altar built in the park with a khukri on top called shahid smarak. The panoramic view from this point is breath taking, you will get a magnificent view of the Mt Kanchenjunga and its ranges, the plains of Siliguri, the hills of Nepal, rivers, tea gardens.", 
+                        "how_to_reach" => "", 
+                        "other" => "", 
+                        "type" => "textwithimage", 
+                        "imagealignment" => "left" 
+                     ], 
+   [
+                           "name" => "Dow Hill Park", 
+                           "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/dow_hill_park.jpg", 
+                           "text" => "Earlier this was known as Deer Park since you could see lot of deers here. However with deforestation, such sights are now rare and hence the change in name.
+
+In the adjacent forest there is a large fenced area where you can still see some deers. But venturing into the forest is not allowed, you can only look for the deers from outside the fence and often they can be seen moving around, but not in the park.
+
+Dow Hill park is located on top of Dow Hill. The fenced park itself is quite small. There are hedge and other different kinds of plantations. There is a gazebo in the park where you can sit and relax. There is also a small children playground with swings and slides. The park is open from 10am to 4pm. Closed on Thursdays. A nominal entry fee needs to be paid to enter the park.
+
+ From Kurseong Railway Station (at Pankhabari Road), the first route through the beautiful Montiviot Tea Garden - Baghgora Road -- Bara Shibkhola Forest and another route via NH110 through Pankhabari - Baghgora road will take nearly 19 minutes (5.2 Km) to reach the Dowhill park.", 
+                           "how_to_reach" => "How to Reach:
+By Road :", 
+                           "other" => "", 
+                           "type" => "textwithimage", 
+                           "imagealignment" => "left" 
+                        ], 
+   [
+                              "name" => "Dow Hill", 
+                              "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/dow-hill.jpg", 
+                              "text" => "From the main market a steep road climbs uphill towards the Dow Hill area. This is the original Hill Cart Road connecting Kurseong with Darjeeling. As the new version of the Hill cart road came up, this road was renamed as the 'Old Cart Road. From Kurseong you have to climb just a kilometre or so to enter the Dowhill eco park area. The forested area is maintained by the state forest department and there is a forest rangers training college here. The Deer park in the vicinity has large number of deer's which used to roam freely in the area before the human population growth needed their enclosure and protection. Near the Deer park is a water reservior from where you can have good view of the plains. In the same Dow Hill area you can also visit the forest museum maintained by the forest department.", 
+                              "how_to_reach" => "How to Reach:", 
+                              "other" => "From Kurseong Railway Station (at Pankhabari Road), the first route through the beautiful Montiviot Tea Garden - Baghgora Road -- Bara Shibkhola Forest and another route via NH110 through Pankhabari - Baghgora road will take nearly 19 minutes (5.2 Km) to reach the Dowhill.", 
+                              "type" => "textwithimage", 
+                              "imagealignment" => "left" 
+                           ], 
+   [
+                                 "name" => "Giddapahar Durga Mata Mandir", 
+                                 "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/giddapahar_durga_mata_mandir.jpg", 
+                                 "text" => "Also named as Sri Sri Sati Devi Mandir, the temple is more than 100 years old and is located 2 km from Kurseong market on the Hill Cart Road to Siliguri. A big stone is inside the temple along with a huge banayan tree, devotees tie strings around the tree and ask for wish, which they believe is fulfilled, so the temple is also known as wishing temple This temple is one of the most visited Hindu temples in the Darjeeling hills. Every year around the month of March - April, the temple holds a fair on the occasion of Ram Navami. During this time hordes of devotees visit the temple and a festive atmosphere prevails in the temple and its nearby places.
+
+ 2 km from Kurseong market on the Hill Cart Road to Siliguri.", 
+                                 "how_to_reach" => "How to Reach:", 
+                                 "other" => "", 
+                                 "type" => "textwithimage", 
+                                 "imagealignment" => "left" 
+                              ], 
+   [
+                                    "name" => "Forest Museum", 
+                                    "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/forest-museum-kurseong.jpg", 
+                                    "text" => "The Forest Museum is located on Dow Hill area and is a one of the attraction of the ecotourism. The museum is maintained by the Forest Department. The complex also holds the Forest School. It contains animal skins, bones and hides and wooden products. It also has models of different dams, forest houses etc. and it has a skeleton.
+
+
+ From Kurseong Railway Station (at Pankhabari Road), the fastest route will take nearly 25 minutes (6.2 Km) via Baghghora Road, and another route via NH110 to Pankhabari road nearly 31 min (7.0 km) will take to reach Forest Museum, though congestion on NH110 causing approx.12-min delay. Both the ways are amidst the mesmerizing and absolutely stunning with gorgeous Scenic beauty of Dowhill Eco Park as backdrop.", 
+                                    "how_to_reach" => "How to Reach:", 
+                                    "other" => "", 
+                                    "type" => "textwithimage", 
+                                    "imagealignment" => "left" 
+                                 ], 
+   [
+                                       "name" => "Salamander Lake", 
+                                       "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/salamander_lake.jpg", 
+                                       "text" => "Salamander Lake is situated at Kurseong. In the past, it used to be a favourite place for the British for boating and people from the neighbouring towns used to hang out here frequently. It is a beautiful green-tinged lake that shelters the rarest and most endangered species of salamanders a species under threat of extinction.", 
+                                       "how_to_reach" => "How to Reach:", 
+                                       "other" => "Salamander Lake is located at a distance of 14 km from the town of Kurseong.", 
+                                       "type" => "textwithimage", 
+                                       "imagealignment" => "left" 
+                                    ], 
+   [
+                                          "name" => "Makaibari Tea Estate", 
+                                          "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/makaibariteaestatejpg.jpg", 
+                                          "text" => "Located in Kurseong subdivision, in Darjeeling district, Makaibari sustains seven villages and 1.587 people. Kodobari (Millet fields), Fulbari (Flower Garden) and Koilapani (Blackwater) and cheptey are in the Western side of the estate, while Makaibari (Cornfields), Thapathali (Thapa Village) and Chungey are situated in the Eastern side. The Makaibari Tea Estate is probably the most talked about and fabled tea garden in Darjeeling area. And there are reasons for that. This is one of the oldest tea gardens in Darjeeling and was the first to establish a factory in the year 1859.
+
+ Makaibari is only 3 kms from Kurseong near Darjeeling. There are regular Taxis from New Jalpaiguri / Siliguri / Bagdogra Airport to Kurseong and then with a hire car to Makaibari Tea Estate. There are regular taxis from Kurseong to Makaibari.", 
+                                          "how_to_reach" => "How to Reach:", 
+                                          "other" => "", 
+                                          "type" => "textwithimage", 
+                                          "imagealignment" => "left" 
+                                       ], 
+   [
+                                             "name" => "Chimney", 
+                                             "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/chimney_kurseong.jpg", 
+                                             "text" => "A walk or ride through the forest of Cryptomeria Japonica on the road, now called Aranya Sarani, leads to the vast open meadows at Chimney. The curious name of the place is reminiscent of the days, when there was a Bungalow here on the only road (Old Military Road) leading to Darjeeling. A long, dilapidated chimney, standing all alone, is the only remnants of the bungalow now. The views of mountains from here are breathtaking.", 
+                                             "how_to_reach" => "How to Reach:", 
+                                             "other" => "Chimney is 53 kms from New Jalpaiguri and 8 kms from Kurseong and to reach Kurseong hire any car from New Jalpaiguri or Siliguri and catch a local taxi from Kurseong to Chimney. Homestay also provides car pick-up and drop services from Chimney to Kurseong. There is also a bus from Tenzing Norgay Bus stop at Siliguri to Kurseong, from where a local taxi can be available.", 
+                                             "type" => "textwithimage", 
+                                             "imagealignment" => "left" 
+                                          ], 
+   [
+                                                "name" => "Kettle Valley Picnic Spot", 
+                                                "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/kettle-valley-picnic-spot.jpg", 
+                                                "text" => "Kettle Valley Picnic Spot is a popular picnic stop in the town of Kurseong and is visited by locals as well as tourists. This scenic location is enjoyed on a picnic or a day outing with family and friends. It is a beautiful spot on the banks of the river Rinchengtong and one can spot the Dilaram Tea Estate, which is also located close by. The landscape of the place is breathtaking and surrounding area is lush green with the clear water of the river flowing along side.", 
+                                                "how_to_reach" => "How to Reach:", 
+                                                "other" => "Nearest station is Kurseong for Toy Train. Shared Taxis, Private vehicles, toy train and limited bus service is available for local transport.
+ Nearest airport is at Bagdogra with 63 km. Nearest railway station is Jalpaiguri with 60 km.", 
+                                                "type" => "textwithimage", 
+                                                "imagealignment" => "left" 
+                                             ] 
+   ); 
+ 
+$data = collect([]);
+$id= new MongoObjectId('63d53cb841bd3b3970040ce4');
+$mdl = Item::where('_id',$id)->first();
+$destination_array = array();
+if (!empty($mdl->name)) {
+  array_push($destination_array, $mdl->name);
+  array_push($destination_array, 'attraction');
+}
+foreach ($data_array as $key => $item) {
+    $b = collect();
+    if($item['img']){
+        $model1 = new Item();
+        $path =$item['img'];
+        $url=str_replace('www.','',$path);
+        $temp = tempnam(sys_get_temp_dir(), 'TMP_');  
+            file_put_contents($temp, file_get_contents($url));
+            $content = file_get_contents($temp);
+            $size = getimagesize($temp);
+            $extension = image_type_to_extension($size[2]);
+
+            $height = $size[1];
+            $width = $size[0];
+           
+            $mimeType=$size['mime'];
+            $binary_thumbnail = new MongoBinary($content, MongoBinary::TYPE_GENERIC);
+            $model1->width= $width;
+            $model1->height= $height;
+            $model1->img_data=$binary_thumbnail;
+            $model1->extension= $extension;
+            $model1->mimType=$mimeType;
+            $model1->type='Image';
+            $model1->image_type='attraction';
+            $model1->is_active=1;
+            $model1->is_approved=1;
+            $model1->tags = $destination_array;
+            // $thumbnail_image_is_save=$model1->save();
+        //     $g->guide_image_obj_id=new MongoObjectId($model1->getKey()) ;
+        //     $g->save();
+    }
+    $b->order=$key;
+    $b->image_id=new MongoObjectId($model1->getKey());
+    $b->name = $item['name'];
+    $b->text = $item['text'];
+    $b->how_to_reach = $item['how_to_reach'];
+    $b->other = $item['other'];
+    $b->type = $item['type'];
+    $b->imagealignment = $item['imagealignment'];
+    $data->push($b);
+};
+
+
+$mdl->attractions=$data->all();
+// $mdl->save();
+
+
+
+
+
+return $data;
 }

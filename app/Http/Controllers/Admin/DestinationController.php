@@ -246,7 +246,7 @@ class DestinationController extends Controller
   }
   public function storePlace(Request $request)
   {
-    // dd($request);
+    dd($request);
     // detailpage
     if ($request->page_type == 'Existing') {
       $place_mdl1 = Item::where('_id', $request->place_id)->first();
@@ -258,31 +258,35 @@ class DestinationController extends Controller
       $turl = "place";
     } else {
 
-
+      $name = trim($request->name) ? trim($request->name) : trim($request->title);
       $place_model = new Item();
-      if ($request->is_url == '1') {
-        if ($request->file('video')) {
-          // dd("thgere");
-          $video = $request->file('video');
-          $video_extenstion = strtolower($video->getClientOriginalExtension());
-          $allow_extentions = array('mp4');
-          if (!in_array($video_extenstion, $allow_extentions)) {
-            return Redirect::back()->withErrors(['msg' => 'Video format is not allowed only MP4 is allowed format']);
-          }
-          $filename = $request->name . '_' . time() . rand(11111, 9999) . '.';
-          $video_path = $filename . $video_extenstion;
-          $video_url = $video->move('uploads/video/', $video_path);
-          $place_model->video_url = $video_path;
-        }
-      } else {
-        if (!empty(trim($request->vUrl))) {
-          $place_model->vedio_link = trim($request->vUrl);
-        }
+      // if ($request->is_url == '1') {
+      //   if ($request->file('video')) {
+      //     // dd("thgere");
+      //     $video = $request->file('video');
+      //     $video_extenstion = strtolower($video->getClientOriginalExtension());
+      //     $allow_extentions = array('mp4');
+      //     if (!in_array($video_extenstion, $allow_extentions)) {
+      //       return Redirect::back()->withErrors(['msg' => 'Video format is not allowed only MP4 is allowed format']);
+      //     }
+      //     $filename = $request->name . '_' . time() . rand(11111, 9999) . '.';
+      //     $video_path = $filename . $video_extenstion;
+      //     $video_url = $video->move('uploads/video/', $video_path);
+      //     $place_model->video_url = $video_path;
+      //   }
+      // } else {
+      //   if (!empty(trim($request->vUrl))) {
+      //     $place_model->vedio_link = trim($request->vUrl);
+      //   }
+      // }
+      if (!empty(trim($request->vUrl))) {
+        $place_model->vedio_link = trim($request->vUrl);
       }
 
       $destination_array = array();
-      if (!empty($request->name)) {
-        array_push($destination_array, $request->name);
+      if (!empty($name)) {
+        array_push($destination_array, $name);
+        // array_push($destination_array, $request->name);
       }
       if ($request->template_type == '1') {
         $full_image = $request->file('banner_image');
@@ -307,7 +311,7 @@ class DestinationController extends Controller
         $model1->type = 'Image';
         $model1->image_type = 'Thumbnail';
         if (count($destination_array) > 0) {
-          $model1->destination_tag = $destination_array;
+          $model1->tags= $destination_array;
         }
         $model1->img_data = $binary_thumbnail;
         $model1->is_active = 1;
@@ -330,7 +334,7 @@ class DestinationController extends Controller
         $model2->type = 'Image';
         $model2->image_type = 'Full';
         if (count($destination_array) > 0) {
-          $model2->destination_tag = $destination_array;
+          $model2->tags = $destination_array;
         }
         $model2->img_data = $binary_full;
         $model2->is_active = 1;
@@ -341,7 +345,7 @@ class DestinationController extends Controller
 
 
 
-      $name = trim($request->name) ? trim($request->name) : trim($request->title);
+      
       if (!empty($name))
         $place_model->name = $name;
 

@@ -185,6 +185,7 @@ class FrontPageController extends Controller
             $testimonial_array->img=$img;
             $testimonial_list->push($testimonial_array);
         }  
+        // dd(getAttraction());
      
         return view('frontpage/index',
         [
@@ -216,6 +217,9 @@ class FrontPageController extends Controller
         return view('frontpage/tsp', [
             'most_popular'=>getMostpupular()
         ]);
+    }
+    public function attraction(){
+  
     }
  
 }
