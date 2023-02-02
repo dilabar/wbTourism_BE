@@ -34,19 +34,22 @@ class GalleryController extends Controller
             'name' => 'required',
             'full_image' => 'mimes:jpeg,jpg,png,gif|required|max:10000',
             'visible' => 'required',
+            'gallery_type' => 'required',//0=img,1=video
         ];
          $messages = [
             'name.required' => 'The Name field is required',
             'visible.required'=>'The Visible field is required',
             'full_image.required'=>'The Image field is required',
+            'gallery_type.required'=>'The Gallery type field is required',
         ];
      
          
         $attributes = array();
        
         $attributes['name'] = $request->name;
-        $attributes['full_image'] = $request->gallery_image;
-        $attributes['visible'] = $request->dist;
+        $attributes['full_image'] = $request->full_image;
+        $attributes['visible'] = $request->visible;
+        $attributes['gallery_type'] = $request->gallery_type;
       
         $validator = Validator::make($request->all(), $rules, $messages, $attributes);
         if ($validator->fails()) {
@@ -55,6 +58,7 @@ class GalleryController extends Controller
         $gallery_array=array();
         if(!empty($request->name)){
         array_push( $gallery_array,$request->name);
+        array_push( $gallery_array,$request->gallery_type);
         }
         // $model1=new Item();
         // if($thumbnail_image=$request->file('thumbnail_image')){
@@ -110,8 +114,9 @@ class GalleryController extends Controller
         $model->type='gallery';
         if(!empty(trim($request->name)))
         $model->name=trim($request->name);
-        if(!empty(trim($request->description)))
-        $model->short_desc=trim($request->description);
+        if(!empty($request->gallery_type))
+        $model->gallery_type=$request->gallery_type;
+       
       
         $model->is_active=1;
         $model->is_approved=1;
@@ -130,6 +135,7 @@ class GalleryController extends Controller
     }
     public function imageForm(Request $request)
     {
+        // LoadFest();
         $galler_cat=Item::where('type','gallery')->where('section_type','gallery')->get();
         $district=Master::where('master_type','District')->where('district_status',true)->get();
         return view('Admin/gallery/image/add-gallery-image',[

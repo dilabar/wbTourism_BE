@@ -59,6 +59,7 @@ Route::get('/gallery/{slug}', 'GalleryPageController@galleryList')->name('galler
 Route::get('/gallery/district/{slug}', 'GalleryPageController@districtGallery')->name('district-gallery');
 Route::get('/event/tourism-gallery', 'EventsPageController@tourism_gallery')->name('tourism_gallery');
 Route::get('/event/btif', 'EventsPageController@btif')->name('btif');
+Route::get('/event/btif/{id}', 'EventsPageController@btifById')->name('btifbyid');
 Route::get('/event/kolkata_christmas_festival', 'EventsPageController@kolkata_christmas_festival')->name('kolkata_christmas_festival');
 Route::get('/event/kolkata_connect', 'EventsPageController@kolkata_connect')->name('kolkata_connect');
 Route::get('/event/destination_east', 'EventsPageController@destination_east')->name('destination_east');
@@ -102,6 +103,9 @@ Route::prefix('admin')->group(function () {
     Route::get('/destination/get/getsubcat', 'Admin\DestinationController@getsubcat')->name('getsubcat');
     Route::post('/destination/delete', 'Admin\DestinationController@delete');
     Route::get('/destination/details/Add', 'Admin\DestinationController@placeAdd');
+    // new  
+    Route::get('/destination/category/Add', 'Admin\DestinationController@categoryForm')->name('cat-form');
+    Route::post('/destination/category/Add', 'Admin\DestinationController@categoryCreate')->name('cat-store');
     Route::resource('/festival', 'Admin\FestivalController');
     Route::post('/festival/delete', 'Admin\FestivalController@delete');
     Route::resource('/event', 'Admin\EventController');

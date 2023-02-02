@@ -97,7 +97,7 @@ class FrontPageController extends Controller
             $product_array->gradient_text=$product->gradient;
             $product_list->push($product_array);
          } 
-        $destination_list_db = Item::where('is_active', 1)->where('is_approved', 1)->where('section_type', 'destination')->where('type', 'destination')->get();
+        $destination_list_db = Item::where('is_active', 1)->where('is_approved', 1)->where('section_type', 'destination')->where('type', 'destination')->where('visible', 'D')->get();
         $destination_list=collect([]);
         foreach($destination_list_db as $destination){
             $destination_array=collect();
@@ -132,8 +132,25 @@ class FrontPageController extends Controller
             $festival_array->reference=$festival->reference;;
             $festival_list->push($festival_array);
         }    
-        $festival_half = ceil($festival_list->count() / 2);
-        $chunks = $festival_list->chunk($festival_half);
+        $event_list_db = Item::where('is_active', 1)->where('is_approved', 1)->where('section_type', 'fest_event')->where('type', 'event')->get();
+        $event_list=collect([]);
+        foreach($event_list_db as $event){
+            $event_array=collect();
+            $content=collect([]);
+            $document=collect([]);
+            $img ='';
+            $event_array->name=$event->name;
+            $event_array->desc=$event->short_desc;
+            $img_content=Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $event->thumbnail_image_obj_id)->where('image_type', 'Thumbnail')->first();
+            $type=$img_content->mimType;
+            $img = 'data:' . $type . ';base64,' . base64_encode($img_content->img_data); 
+            $event_array->img=$img;
+            $event_array->gradient_text='';
+            $event_array->reference=$event->reference;;
+            $event_list->push($event_array);
+        }    
+        // $festival_half = ceil($festival_list->count() / 2);
+        // $chunks = $festival_list->chunk($festival_half);
         $section4_list_collection = Item::where('is_active', 1)->where('is_approved', 1)->where('section_type', 'tabs')->get();
         $section_list=collect([]);
         foreach($section4_list_collection as $section){
@@ -192,8 +209,8 @@ class FrontPageController extends Controller
             'banner_list' => $banner_list,
             'product_list' => $product_list,
             'destination_list' => $destination_list,
-            'festival_list1' => $chunks[0],
-            'festival_list2' => $chunks[1],
+            'festival_list1' => $festival_list,
+            'festival_list2' => $event_list,
             'section_list' => $section_list,
             'gallery_list' => $gallery_list,
             'testimonial_list' => $testimonial_list,

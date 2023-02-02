@@ -65,7 +65,7 @@
                         <select name="gallery_cat" class="form-control  form-select {{ $errors->has('gallery_cat') ? ' is-invalid' : '' }}" >
                           <option value="">Select gallery</option>
                           @foreach ($gal_category as $gcat)
-                          <option value="{{$gcat->name.'_'.$gcat->_id}}" {{ in_array($gcat->gallery_category_id,old('gallery_cat')) }} >{{$gcat->name}}</option>
+                          <option value="{{$gcat->name.'_'.$gcat->_id}}"  >{{$gcat->name}}</option>
                               
                           @endforeach
                        

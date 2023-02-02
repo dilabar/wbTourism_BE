@@ -134,7 +134,52 @@
                   @endif
                   @endforeach
                   @endif
-                 
+                  @if(!empty($details->attractions_tab_content))
+                  @foreach($details->attractions_tab_content as $atrItem)
+                  @if ($atrItem->popular =='1')
+                      
+                  
+                  @if(isset($atrItem->name))
+                  <h3>{{$atrItem->name}}</h3>
+                  @endif
+                  @if($atrItem->type=='textwithimage')
+                  <div class="row align-items-center">
+                  
+                     @if($atrItem->imagealignment=='left')
+                      <div class="col-md-4 col-sm-12">
+                          <div class="image mb-30">
+                              <img src="{{$atrItem->img}}" alt="Demo Image" />
+                          </div>
+                      </div>
+                      <div class="col-md-8 col-sm-12">
+                          <p class="mb-30">
+                           {{$atrItem->text}}
+                          </p>
+                      </div>
+                      @endif
+                      @if($atrItem->imagealignment=='right')
+                      <div class="col-md-8 col-sm-12">
+                          <p class="mb-30">
+                          {{$atrItem->text}}
+                          </p>
+                      </div>
+                      <div class="col-md-4 col-sm-12">
+                          <div class="image mb-30">
+                              <img src="{{$atrItem->img}}" alt="Demo Image" />
+                          </div>
+                      </div>
+                      @endif
+                      
+                  </div>
+                  @else
+                  <p>
+                  {{$atrItem->text}}
+                  </p>
+                  @endif
+                  @endif
+                  @endforeach
+                  @endif
+                  
                   @if(count($details->about_tab_some_info)> 0)
                 
                   <div class="info-content">
@@ -205,21 +250,22 @@
                   <div class="row align-items-center">
                   
                      @if($atrItem->imagealignment=='left')
-                      <div class="col-md-4 col-sm-12">
-                          <div class="image mb-30">
+                      <div class="col-md-4 col-sm-12  ">
+                          <div class="image mb-30 ">
                               <img src="{{$atrItem->img}}" alt="Demo Image" />
                           </div>
                       </div>
                       <div class="col-md-8 col-sm-12">
                           <p class="mb-30">
-                           {{$atrItem->text}}
+                            {!! html_entity_decode($atrItem->text) !!}
                           </p>
+                      
                       </div>
                       @endif
                       @if($atrItem->imagealignment=='right')
                       <div class="col-md-8 col-sm-12">
                           <p class="mb-30">
-                          {{$atrItem->text}}
+                         {!! html_entity_decode($atrItem->text) !!}
                           </p>
                       </div>
                       <div class="col-md-4 col-sm-12">
@@ -232,7 +278,7 @@
                   </div>
                   @else
                   <p>
-                  {{$atrItem->text}}
+                    {!! html_entity_decode($atrItem->text) !!}
                   </p>
                   @endif
                   @endforeach
@@ -376,7 +422,7 @@
                       @endforeach
                      
                   </div>
-                  <div class="widget widget-gallery mb-30">
+                  {{-- <div class="widget widget-gallery mb-30">
                       <h3 class="sub-title">Related top destinations</h3>
                       <ul class="instagram-post">
                           <li>
@@ -404,13 +450,16 @@
                               <i class='bx bx-images'></i>
                           </li>
                       </ul>
-                  </div>
-                  <div class="widget widget-gallery mb-30 box">
+                  </div> --}}
+                  @if ($details->map_url )
+                      <div class="widget widget-gallery mb-30 box">
                     <h3 class="sub-title">Location</h3>
                     <div class="map_area">
-                      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56862.42970068252!2d88.22965562372111!3d27.03326702147118!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e42e654cf501bb%3A0x4175555979d4702a!2sDarjeeling%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1658735507581!5m2!1sen!2sin"  style="border:0; width: 100%;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                      <iframe src="{{ $details->map_url }}"  style="border:0; width: 100%;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                   </div>
                   </div>
+                  @endif
+                  
               </aside>
           </div>
       </div>

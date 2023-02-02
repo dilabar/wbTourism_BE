@@ -30,7 +30,7 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-                @if ($message = Session::get('success'))
+                {{-- @if ($message = Session::get('success'))
 
                       <div class="alert alert-success">
 
@@ -38,62 +38,27 @@
 
                       </div>
 
-                  @endif
+                  @endif --}}
+                  @include('Admin.layouts.message')
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         {{-- <h1 class="h3 mb-0 text-gray-800">Upload Destination Category</h1> --}}
-                        <a href="{{url('admin/destination/list')}}" class="btn btn-info">View Destination</a>
+                        <a href="{{url('admin/destination/list')}}" class="btn btn-info">View Category</a>
                         
                     </div>
                     <div class="row">
                     <div class="card col-lg-8 offset-lg-2">
                        <div class="card-header">
-                          <h6 class="m-0 font-weight-bold ">Upload Destination Category</h6>
+                          <h6 class="m-0 font-weight-bold ">Create Category</h6>
                        </div>
-                    <form class="contact100-form validate-form" action="{{ route('destination.store') }}" method="POST" enctype="multipart/form-data">
+                    <form class="contact100-form validate-form" action="{{ route('cat-store') }}" method="POST" enctype="multipart/form-data">
                       <div class="card-body">
 
                     
-                      <div class="row">
-                      <div class="col-md-6" id="cat">
-                        <div class="form-group">
-                          <label for="exampleFormControlFile1">Category Type</label>
-            
-                          <select class="form-control" name="cat_type" id="cat_type">
-                            <option value="main" >Main</option>
-                            <option value="sub">Sub Category</option>
-                          </select>
-                        </div>
-                        
-                      </div>
-                      <div class="col-md-6" id="pcat">
-                        <div class="form-group">
-                          <label for="exampleFormControlFile1">Select Category</label>
-                          <select class="form-control" name="pcat_type" id="pcat_type">
-                            <option value="0">-- Select Page  --</option>
+                     
 
-                              @foreach ($category as $cat)
-                                <option value="{{ $cat->_id }}">{{ $cat->name }}
-                                </option>
-                              @endforeach
-
-                          </select>
-                        </div>
-                      </div>
-                      </div>
-                      <div class="form-group" id="visible">
-                                        
-                        <label for="example-getting-started">Showing only  @if ($errors->has('visible'))<div class="alert alert-danger">{{ $errors->first('visible') }}.</div> @endif</label>
-                        <select class="form-control" name="visible[]" class="{{ $errors->has('visible') ? 'is-invalid' : '' }}" id="example-getting-started" multiple tabindex="0">
-                            <option value="D" {{  @in_array('D',old('visible'))? 'selected' :''  }}>Top Destination</option>
-                            <option value="P" {{  @in_array('P',old('visible'))? 'selected' :''  }}>Product</option>
-                        
-                        </select>
-                        @if ($errors->has('visible'))<div class="invalid-feedback">{{ $errors->first('visible') }}.</div> @endif
-                    </div>
-
-                      <div class="wrap-input100 validate-input" data-validate="Destination Name/Title">
-                            <input class="input100" type="text" name="name" placeholder="Name/Title">
+                      <div class="wrap-input100 validate-input" data-validate="Category Name/Title">
+                            <input class="input100" type="text" name="name" placeholder="Category Name/Title">
                        <span class="focus-input100"></span>
                       </div>
                       <div class="wrap-input100 validate-input" data-validate="Destination Short Description">
@@ -109,7 +74,7 @@
                         <input type="file" class="form-control-file" id="exampleFormControlFile1" name="thumbnail_image">
                       </div>
                       <div class="form-group">
-                        <label for="exampleFormControlFile1">Page Title Image</label>
+                        <label for="exampleFormControlFile1">Full Image</label>
                         <input type="file" class="form-control-file" id="exampleFormControlFile1" name="full_image">
                       </div>
                       <!-- <div class="form-group">

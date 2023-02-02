@@ -408,7 +408,7 @@
                      <i class='bx bx-right-arrow'></i>
                   </a>
                </div>
-               <div class="widget widget-article mb-30">
+               {{-- <div class="widget widget-article mb-30">
                   <h3 class="sub-title">Popular Places</h3>
                   <article class="article-item">
                      <div class="image">
@@ -421,8 +421,8 @@
                         </h3>
                      </div>
                   </article>
-               </div>
-               <div class="widget widget-gallery mb-30">
+               </div> --}}
+               {{-- <div class="widget widget-gallery mb-30">
                   <h3 class="sub-title">Related top Destination</h3>
                   <ul class="instagram-post">
                      <li>
@@ -450,9 +450,10 @@
                         <i class='bx bx-images'></i>
                      </li>
                   </ul>
-               </div>
+               </div> --}}
                <div class="widget widget-gallery mb-30 box">
                   <h3 class="sub-title">Location</h3>
+                  <input id="map_url"  class="form-control mt-20"  name="map_url" type="text" placeholder="Map link" />
                   <div class="map_area">
                      <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56862.42970068252!2d88.22965562372111!3d27.03326702147118!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e42e654cf501bb%3A0x4175555979d4702a!2sDarjeeling%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1658735507581!5m2!1sen!2sin"

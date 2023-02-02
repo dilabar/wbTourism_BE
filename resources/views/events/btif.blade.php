@@ -7,16 +7,20 @@
 
     </div>
     <div class="event_tourism_gallery">
-        <ul>
-            <li>
-                <div class="picture">
-                    <a href="https://wbtourism.gov.in/gallery/btif_gallery">
-                        <img src="https://wbtourism.gov.in/home/download/gallery_photo/btif_2020.jpg"
-                            alt="BTIF 2020 Photo">
-                    </a>
+        <ul id="gallery">
+            @foreach ($btif_event_list as $item)
+            <li >
+                <div class="overLay">
+                    <a href="{{ route('btifbyid',$item->id) }}">
+                        <img data-src="{{ $item->img }}" src="{{ asset('assets/img/default/loding_logo.png')}}"  id="picture" width="285" height="230"
+                            alt="{{$item->name}}"></a>
+                    <div class="layer">
+                        <p class="name text-capitalize"> {{$item->name}}
+                        </p>
+                    </div>
                 </div>
-                <h2 class="year">2020</h2>
             </li>
+            @endforeach
         </ul>
     </div>
 

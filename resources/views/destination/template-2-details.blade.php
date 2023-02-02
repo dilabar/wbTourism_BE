@@ -255,7 +255,7 @@
 
                               <div class="gallery-info">
                                  <div class="gallery-item">
-                                    <span><i class="bx bx-map"></i>{{$place_item->desc}}</span>
+                                    {{-- <span><i class="bx bx-map"></i>{{$place_item->desc}}</span> --}}
                                     <h3>
                                        @if($place_item->template_id == 1)
                                           <a href="../place/details?template_id=1&id={{($place_item->reference) ? $place_item->reference:$place_item->id}}">{{$place_item->name}}</a>

@@ -1,17 +1,14 @@
 @extends('layouts.myapp')
-@section('css')
-<link rel="stylesheet" href="{{ asset('assets/css/viewer.min.css')}}">
 
-@endsection
 @section('content')
 <section class="pt-100">
     <div class="section-title title-style">
-        <h2>Tourism Event Gallery</h2>
+        <h2>BENGAL TOURISM INFORMATION FAIR (BTIF)</h2>
 
     </div>
     <div class="event_tourism_gallery">
         <ul id="gallery">
-            @foreach ($tourism_event as $item)
+            @foreach ($btif_event_list as $item)
             <li >
                 <div class="overLay">
                     <a href="#">
@@ -24,27 +21,9 @@
                 </div>
             </li>
             @endforeach
-            
-           
         </ul>
-  
     </div>
+
 </section>
-
-@endsection
-@section('script')
-<script src="{{ asset('assets/js/viewer.min.js')}}"></script>
-<script>
-
-const gallery = new Viewer(document.getElementById('gallery'),{
-    inline: false,
-    rotatable:false,
-    scalable:false,
-    zoomable:false,
-    movable:false
-});
-
-</script>  
-
 
 @endsection

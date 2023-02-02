@@ -31,19 +31,156 @@ class DestinationController extends Controller
       'category' => $destination_list
     ]);
   }
+  public function categoryForm(Request $request)
+  {
+    return view('Admin/destination/category/categoryform');
+  }
+  public function categoryCreate(Request $request){
+        $rules = [
+          'name' => 'required',
+          'full_image' => 'mimes:jpeg,jpg,png,gif|required|max:10000',
+          'thumbnail_image' => 'mimes:jpeg,jpg,png,gif|required|max:10000',
+          // 'visible' => 'required',
+          // 'gallery_type' => 'required',//0=img,1=video
+      ];
+      $messages = [
+          'name.required' => 'The Name field is required',
+          // 'visible.required'=>'The Visible field is required',
+          'full_image.required'=>'The Image field is required',
+          'thumbnail_image.required'=>'The Image field is required',
+      ];
+
+      
+      $attributes = array();
+    
+      $attributes['name'] = $request->name;
+      $attributes['full_image'] = $request->full_image;
+      $attributes['thumbnail_image'] = $request->thumbnail_image;
+
+      $validator = Validator::make($request->all(), $rules, $messages, $attributes);
+      if ($validator->fails()) {
+          return back()->withErrors($validator)->withInput($request->all());
+      }
+        $category_model = new Item();
+        $destination_array = array();
+        if (!empty($request->name)) {
+          array_push($destination_array, $request->name);
+        }
+
+        $category_model->type = 'destination';
+        $category_model->main_type = 'category';
+        $category_model->page_type = 'home';
+        $category_model->section_type = 'destination';
+    // $category_model->visible=$request->visible;
+        $category_model->template_id = 2;
+        $category_model->is_active = 1;
+        $category_model->is_approved = 1;
+
+        $model1 = new Item();
+        if ($thumbnail_image = $request->file('thumbnail_image')) {
+          $img_data = file_get_contents($thumbnail_image);
+          $height = Image::make($thumbnail_image)->height();
+          $width = Image::make($thumbnail_image)->width();
+          $extension = $thumbnail_image->extension();
+          $mimeType = $thumbnail_image->getMimeType();
+          $binary_thumbnail = new MongoBinary($img_data, MongoBinary::TYPE_GENERIC);
+          $model1->width = $width;
+          $model1->height = $height;
+          $model1->extension = $extension;
+          $model1->mimType = $mimeType;
+          $model1->type = 'Image';
+          $model1->image_type = 'Thumbnail';
+          if (count($destination_array) > 0) {
+            $model1->destination_tag = $destination_array;
+          }
+          $model1->img_data = $binary_thumbnail;
+          $model1->is_active = 1;
+          $model1->is_approved = 1;
+          $thumbnail_image_is_save = $model1->save();
+        }
+        $model2 = new Item();
+        if ($full_image = $request->file('full_image')) {
+          $img_data = file_get_contents($full_image);
+          $height = Image::make($full_image)->height();
+          $width = Image::make($full_image)->width();
+          $extension = $full_image->extension();
+          $mimeType = $full_image->getMimeType();
+          $binary_full = new MongoBinary($img_data, MongoBinary::TYPE_GENERIC);
+          $model2->width = $width;
+          $model2->height = $height;
+          $model2->extension = $extension;
+          $model2->mimType = $mimeType;
+          $model2->type = 'Image';
+          $model2->image_type = 'Full';
+          if (count($destination_array) > 0) {
+            $model2->destination_tag = $destination_array;
+          }
+          $model2->img_data = $binary_full;
+          $model2->is_active = 1;
+          $model2->is_approved = 1;
+          $full_image_is_save = $model2->save();
+        }
+    
+    
+        if (!empty(trim($request->name)))
+          $category_model->name = trim($request->name);
+        if (!empty(trim($request->description)))
+          $category_model->short_desc = trim($request->description);
+
+        $category_model->thumbnail_image_obj_id = new MongoObjectId($model1->getKey());
+        $category_model->full_image_obj_id = new MongoObjectId($model2->getKey());
+        try {
+          $category_model->save();
+          return redirect("/admin/destination/list")->with('success', 'Destination Uploaded successfully');
+        } catch (\Throwable $th) {
+          return back()->withErrors($th->getMessage());
+          // $th->getMessage();
+        }
+    // if ($destination_model->save()) {
+    //   return redirect("/admin/destination/list")->with('success', 'Destination Uploaded successfully');
+    // }
+  }
   public function store(Request $request)
   {
-    // destination create
+    // destination list  create
+        $rules = [
+          'name' => 'required',
+          'full_image' => 'mimes:jpeg,jpg,png,gif|required|max:10000',
+          'thumbnail_image' => 'mimes:jpeg,jpg,png,gif|required|max:10000',
+          // 'visible' => 'required',
+          'category_id' => 'required',
+      ];
+      $messages = [
+          'name.required' => 'The Name field is required',
+          'category_id.required'=>'The category id field is required',
+          'full_image.required'=>'The Image field is required',
+          'thumbnail_image.required'=>'The Image field is required',
+      ];
+
+      
+      $attributes = array();
+
+      $attributes['name'] = $request->name;
+      $attributes['full_image'] = $request->full_image;
+      $attributes['thumbnail_image'] = $request->thumbnail_image;
+      $attributes['category_id'] = $request->thumbnail_image;
+
+      $validator = Validator::make($request->all(), $rules, $messages, $attributes);
+      if ($validator->fails()) {
+          return back()->withErrors($validator)->withInput($request->all());
+      }
     $destination_model = new Item();
-    if ($request->cat_type == 'sub') {
-      $destination_model->parent_destination = new MongoObjectId($request->pcat_type);
+    // if ($request->cat_type == 'sub') {
+      $destination_model->parent_destination = new MongoObjectId($request->category_id); //category id
       $destination_model->type = 'place';
       $destination_model->page_type = 'detail';
-    } else {
-      $destination_model->type = 'destination';
-      $destination_model->page_type = 'home';
-      $destination_model->section_type = 'destination';
-    }
+    // }
+    //  else {
+    //   $destination_model->type = 'destination';
+    //   $destination_model->page_type = 'home';
+    //   $destination_model->section_type = 'destination';
+    //   $destination_model->visible=$request->visible;
+    // }
 
     $destination_array = array();
     if (!empty($request->name)) {
@@ -246,7 +383,7 @@ class DestinationController extends Controller
   }
   public function storePlace(Request $request)
   {
-    dd($request);
+    // dd($request);
     // detailpage
     if ($request->page_type == 'Existing') {
       $place_mdl1 = Item::where('_id', $request->place_id)->first();
@@ -344,7 +481,8 @@ class DestinationController extends Controller
 
 
 
-
+      if (!empty($request->map_url))
+        $place_model->map_url = $request->map_url;
       
       if (!empty($name))
         $place_model->name = $name;
@@ -441,6 +579,7 @@ class DestinationController extends Controller
               $attraction_array = collect();
               if ($at["type"] == "textwithimage") {
                 $model_img = new Item();
+                array_push($destination_array, trim($at["name"]));
                 if ($at_img = $at["img"]) {
                   $img_data = file_get_contents($at_img);
                   $height = Image::make($at_img)->height();
@@ -460,6 +599,9 @@ class DestinationController extends Controller
                   $normal_image_is_save = $model_img->save();
                   if ($normal_image_is_save) {
                     $image_id = new MongoObjectId($model_img->getKey());
+                  }
+                  if (count($destination_array) > 0) {
+                    $model1->tags= $destination_array;
                   }
                   $attraction_array->image_id = $image_id;
                   $attraction_array->imagealignment = $at["alignment"];
@@ -732,4 +874,98 @@ class DestinationController extends Controller
     $returnHTML = view('Admin/template/dropdown', ['subcat' => $subCat])->render();
     return response()->json(array('success' => true, 'status' => $st, 'html' => $returnHTML));
   }
+  public function destinationEdit($id)
+  {
+      $details_db = Item::where('_id', $id)->first();
+      // $img_content = Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $details_db->thumbnail_image_obj_id)->where('type', 'Image')->first();
+       //dd( $details_db->full_image_obj_id);
+      $fullimg_content = Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $details_db->full_image_obj_id)->first();
+      // dd($fullimg_content);
+      // $type = $img_content->mimType;
+      $type1 = $fullimg_content->mimType;
+      // $img = 'data:' . $type . ';base64,' . base64_encode($img_content->img_data);
+      $full = 'data:' . $type1 . ';base64,' . base64_encode($fullimg_content->img_data);
+      //   dd($details_db);
+      return view('Admin/gallery/edit', compact('details_db', 'full'));;
+  }
+
+  public function destinationCategoryupdate(Request $request)
+  {
+      //dd($request);
+      $rules = [
+          'name' => 'required',
+          // 'full_image' => 'mimes:jpeg,jpg,png,gif|required|max:10000',
+          'visible' => 'required',
+          'gallery_id' => 'required',
+      ];
+       $messages = [
+          'name.required' => 'The Name field is required',
+          'visible.required'=>'The Visible field is required',
+          // 'full_image.required'=>'The Image field is required',
+          'gallery_id.required'=>'The Gallery id field is not valid',
+      ];
+
+       
+      $attributes = array();
+     
+      $attributes['name'] = $request->name;
+      $attributes['full_image'] = $request->gallery_image;
+      $attributes['visible'] = $request->dist;
+      $attributes['gallery_id'] = $request->gallery_id;
+   
+      $validator = Validator::make($request->all(), $rules, $messages, $attributes);
+      
+      if ($validator->fails()) {
+          return redirect()->back()
+                      ->withErrors($validator)
+                      ->withInput();
+      }
+      $id = $request->gallery_id;
+      $gallery_db = Item::where('_id', $id)->where('type','gallery')->where('section_type','gallery')->first();
+      // $thumb_mdl = Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $gallery_db->thumbnail_image_obj_id)->where('image_type', 'Thumbnail')->first();
+      // if ($thumbnail_image = $request->file('thumbnail_image')) {
+      //     $img_data = file_get_contents($thumbnail_image);
+      //     $height = Image::make($thumbnail_image)->height();
+      //     $width = Image::make($thumbnail_image)->width();
+      //     $extension = $thumbnail_image->extension();
+      //     $mimeType = $thumbnail_image->getMimeType();
+      //     $binary_thumbnail = new MongoBinary($img_data, MongoBinary::TYPE_GENERIC);
+      //     $thumb_mdl->width = $width;
+      //     $thumb_mdl->height = $height;
+      //     $thumb_mdl->extension = $extension;
+      //     $thumb_mdl->mimType = $mimeType;
+      //     $thumb_mdl->img_data = $binary_thumbnail;
+      //     $thumbnail_image_is_save = $thumb_mdl->save();
+      // }
+      $fullimg_mdl = Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $gallery_db->full_image_obj_id)->where('image_type', 'Full')->first();
+      if ($full_image = $request->file('full_image')) {
+          $img_data = file_get_contents($full_image);
+          $height = Image::make($full_image)->height();
+          $width = Image::make($full_image)->width();
+          $extension = $full_image->extension();
+          $mimeType = $full_image->getMimeType();
+          $binary_full = new MongoBinary($img_data, MongoBinary::TYPE_GENERIC);
+          $fullimg_mdl->width = $width;
+          $fullimg_mdl->height = $height;
+          $fullimg_mdl->extension = $extension;
+          $fullimg_mdl->mimType = $mimeType;
+          $fullimg_mdl->img_data = $binary_full;
+          $full_image_is_save = $fullimg_mdl->save();
+      }
+      
+      if (!empty($request->visible)) {
+          $gallery_db->visible = $request->visible;
+      }
+      if (!empty(trim($request->name))) {
+          $gallery_db->name = trim($request->name);
+      }
+          // $gallery_db->reference = null;
+
+      if ($gallery_db->save()) {
+          return redirect("/admin/gallery/list")->with('success', 'Gallery Updated successfully');
+      }
+  }
+
+
+
 }
