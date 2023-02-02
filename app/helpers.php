@@ -365,152 +365,75 @@ function getExplores()
 function getAttraction(){
  
 
- $data_array = array(
-   [
-         "name" => "Water Rafting", 
-         "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/kurseong_sml.jpg", 
-         "text" => "White water rafting in Tista was introduced in Darjeeling hills more than a decade earlier and has gained tremendous popularity since then. Several private organisations along with DGHC tourism have set up rafting facilities. River Tista is graded at IV on an international scale. With a series of rapids with varying intensity and character, Tista extends a challenging invitation to the enthusiasts.", 
-         "how_to_reach" => "", 
-         "other" => "", 
-         "type" => "textwithimage", 
-         "imagealignment" => "left" 
-      ], 
-   [
-            "name" => "Adventure Sports", 
-            "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/rock_climbing.jpg", 
-            "text" => "For adventure lovers, Kurseong is the right place, as it offers various treks and hikes, either be tea garden walk or hike through lush green Cryptomeria Japonica forest or village walks, it is all here. Recently new adventure sports have been added to Kurseong HOT AIR BALLOON & ROCK CLIMBING. In coming days Kurseong will be known for these sports. So, Kurseong is an ideal destination for travellers, where you can enjoy nature, adventure and culture the new destination of the millennium", 
-            "how_to_reach" => "", 
-            "other" => "", 
-            "type" => "textwithimage", 
-            "imagealignment" => "left" 
-         ], 
-   [
-               "name" => "Trekking", 
-               "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/kurseong_trekking3.jpg", 
-               "text" => "It commands one of the most spectacular views. In the foreground is a great basin set in the midst of the hill. Nature here is at her pristine best, and the vista at the top is worth all the hardship endured on the way. It offers the morning sunrise to be seen clearly, and also Mt. Kanchenjunga Himalaya range, Nathu-la Pass, Jelep-la Pass, Bhutan Himalaya range can be seen directly. The background is dominated by a continuous barrier of snowy peaks and mountains. The most prominent of the chain of the mountains naturally is the mighty Mt. Kanchenjunga along with Kabru (7,338 meter), Janu (7,710 meter) and Pandim (6,691 meter) Kabru appears in the distance and does not present the same graceful outline.", 
-               "how_to_reach" => "", 
-               "other" => "", 
-               "type" => "textwithimage", 
-               "imagealignment" => "left" 
-            ], 
-   [
-                  "name" => "Land Of The White Orchids", 
-                  "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/white_orchid.jpg", 
-                  "text" => "Kurseong is famous for the white orchids that adorn the hill-slopes in abundance, giving it the name of 'The land of the white orchids'. The white orchids are called 'Kurson Rip' by the Lepchas, the original inhabitants of the land.", 
-                  "how_to_reach" => "", 
-                  "other" => "", 
-                  "type" => "textwithimage", 
-                  "imagealignment" => "left" 
-               ], 
-   [
-                     "name" => "Schools Of Kurseong", 
-                     "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/Schools_of_kurseong.jpg", 
-                     "text" => "Kurseong is famous as an education hub. The schools here are not only famous for the education they provide but also their construction and location make them a tourist attraction in their own right. The Dowhills Girls School provides a glimpse of the British era with its architecture and elegance. This school is well known for its beautiful location surrounded by pine trees and the quality of education it provides. Victoria Boy’s School was also created by the British and still maintains its Victorian looks and fame.", 
-                     "how_to_reach" => "", 
-                     "other" => "", 
-                     "type" => "textwithimage", 
-                     "imagealignment" => "left" 
-                  ], 
-   [
-                        "name" => "Eagles Craig View Point", 
-                        "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/eagles-craig-view-point.jpg", 
-                        "text" => "The popular tourist spot of Eagle's Crag viewpoint is a short walk distance from Kurseong railway station seemingly perched on a cliff. One can have a sweeping view of the surrounding mountain, hill, hamlets and slopes from here. It has a cafeteria, a watch tower and a flower garden; this place also houses the water reservoir for the entire town of Kurseong. The place also has a concrete altar built in the park with a khukri on top called shahid smarak. The panoramic view from this point is breath taking, you will get a magnificent view of the Mt Kanchenjunga and its ranges, the plains of Siliguri, the hills of Nepal, rivers, tea gardens.", 
-                        "how_to_reach" => "", 
-                        "other" => "", 
-                        "type" => "textwithimage", 
-                        "imagealignment" => "left" 
-                     ], 
-   [
-                           "name" => "Dow Hill Park", 
-                           "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/dow_hill_park.jpg", 
-                           "text" => "Earlier this was known as Deer Park since you could see lot of deers here. However with deforestation, such sights are now rare and hence the change in name.
 
-In the adjacent forest there is a large fenced area where you can still see some deers. But venturing into the forest is not allowed, you can only look for the deers from outside the fence and often they can be seen moving around, but not in the park.
+    $data_array = array(
+        [
+            "name" => "Sovabazar Rajbari", 
+            "text" => "The present Sovabazar Rajbari, a Grade I heritage building built by Raja Naba Krishna Deb is situated at 33R/1A, Raja Naba Krishna Street. Its architecture represents an ensemble of Hindu, Moorish and colonial traditions. Raja Naba Krishna Deb was Lord Clive's 'Munshi' or tutor in Bengali, Persian, as well as the close confidant. During his lifetime this Rajbari played important role in the cultural and social life of Bengal. He was one of the first residents of Kolkata to celebrate Durga Puja in 1757 on a grand scale after the British defeated Siraj-ud-daulah at the battle of Plassey. Many renowned English men like Lord Clive and Warren Hastings were in the list of invitees during this festival, thus making it 'sarbojonin'.
+    
+    It was here that the first civic reception of Swami Vivekananda after his return from Chicago Parliament of Religions was organized in 1897 by Raja Binoy Krishna Deb Bahadur.", 
+            "image_url" =>"https://www.wbtourism.gov.in/home/download/places_attraction/sovabazar_rajbari.jpg",
+            "type"=>'',
+            "imagealignment"=>'',
+            "how_to_reach"=>''
 
-Dow Hill park is located on top of Dow Hill. The fenced park itself is quite small. There are hedge and other different kinds of plantations. There is a gazebo in the park where you can sit and relax. There is also a small children playground with swings and slides. The park is open from 10am to 4pm. Closed on Thursdays. A nominal entry fee needs to be paid to enter the park.
+        ], 
+        [
+            "name" => "House Of Gokul Mitra", 
+            "text" => "At the junction of Rabindra Sarani and Madan Mohan Tala Street, this house dates back to 1730s. The house belonged to Gokul Mitra who acquired the Chandni Chawk Bazar in a lottery in 1784. It has a temple of Madan Mohan and a large 'thakur-dalan' with columns rising up to second storey. The story has it that the King of Bishnupur pawned the original idol of Madan Mohan to Gokul Mitra when he fell in hard times.", 
+            "image_url" => "https://wbtourism.gov.in/home/download/places_attraction/gokul_mitra_bari1.jpg",
+            "type"=>'',
+            "imagealignment"=>'',
+            "how_to_reach"=>''
 
- From Kurseong Railway Station (at Pankhabari Road), the first route through the beautiful Montiviot Tea Garden - Baghgora Road -- Bara Shibkhola Forest and another route via NH110 through Pankhabari - Baghgora road will take nearly 19 minutes (5.2 Km) to reach the Dowhill park.", 
-                           "how_to_reach" => "How to Reach:
-By Road :", 
-                           "other" => "", 
-                           "type" => "textwithimage", 
-                           "imagealignment" => "left" 
-                        ], 
-   [
-                              "name" => "Dow Hill", 
-                              "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/dow-hill.jpg", 
-                              "text" => "From the main market a steep road climbs uphill towards the Dow Hill area. This is the original Hill Cart Road connecting Kurseong with Darjeeling. As the new version of the Hill cart road came up, this road was renamed as the 'Old Cart Road. From Kurseong you have to climb just a kilometre or so to enter the Dowhill eco park area. The forested area is maintained by the state forest department and there is a forest rangers training college here. The Deer park in the vicinity has large number of deer's which used to roam freely in the area before the human population growth needed their enclosure and protection. Near the Deer park is a water reservior from where you can have good view of the plains. In the same Dow Hill area you can also visit the forest museum maintained by the forest department.", 
-                              "how_to_reach" => "How to Reach:", 
-                              "other" => "From Kurseong Railway Station (at Pankhabari Road), the first route through the beautiful Montiviot Tea Garden - Baghgora Road -- Bara Shibkhola Forest and another route via NH110 through Pankhabari - Baghgora road will take nearly 19 minutes (5.2 Km) to reach the Dowhill.", 
-                              "type" => "textwithimage", 
-                              "imagealignment" => "left" 
-                           ], 
-   [
-                                 "name" => "Giddapahar Durga Mata Mandir", 
-                                 "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/giddapahar_durga_mata_mandir.jpg", 
-                                 "text" => "Also named as Sri Sri Sati Devi Mandir, the temple is more than 100 years old and is located 2 km from Kurseong market on the Hill Cart Road to Siliguri. A big stone is inside the temple along with a huge banayan tree, devotees tie strings around the tree and ask for wish, which they believe is fulfilled, so the temple is also known as wishing temple This temple is one of the most visited Hindu temples in the Darjeeling hills. Every year around the month of March - April, the temple holds a fair on the occasion of Ram Navami. During this time hordes of devotees visit the temple and a festive atmosphere prevails in the temple and its nearby places.
+        ], 
+        [
+            "name" => "Jorasanko Thakurbari", 
+            "text" => "Jorasanko Thakurbari on 6B, Dwarakanath Tagore Lane off Rabindra Sarani was the home to the Tagore's since the end of 18th Century. It's inhabitants occupied the most important positions in the different aspects of social and cultural life of the19th Century Bengal, the most renowned being Gurudev Rabindranath Tagore. Today the premise houses Rabindra Bharati University, inaugurated by Jawaharlal Nehru on Rabindranath Tagore's birth centenary on 8th May, 1962. In the Maharshi Bhaban, named after Maharshi Debendranath Tagore, Rabindranath Tagore was born and breathed his last. The building and the 'Bichitra' has turned into a museum named 'Rabindra Bharati Museum', which is a major repository of memorabilia, paintings etc. of the Tagore's.", 
+            "how_to_reach" => "Nearest railway station is Howrah. Nearest Metro Railway station is Girish Park. Bus services are also available from many parts of Kolkata. Jorasanko is the nearest bus stoppage." ,
+            "type"=>'',
+            "imagealignment"=>'',
+            "image_url" => "https://wbtourism.gov.in/home/download/places_attraction/Jorasanko-Thakur-Bari.jpg"
+        ], 
+        [
+            "name" => "Jorasanko Rajbari", 
+            "text" => "The first of the prominent old Bengali residences as one move northward along Rabindra Sadan (or Chitpur Road, the oldest road of Kolkata) is the Jorasanko Rajbari of the family of Rajendra Narayan Roy. It has a nice colonnaded front with verandas, terraces fitted with delicate cast iron grills.", 
+            "how_to_reach" => "Nearest railway station is Howrah. Nearest Metro Railway station is Girish Park.
 
- 2 km from Kurseong market on the Hill Cart Road to Siliguri.", 
-                                 "how_to_reach" => "How to Reach:", 
-                                 "other" => "", 
-                                 "type" => "textwithimage", 
-                                 "imagealignment" => "left" 
-                              ], 
-   [
-                                    "name" => "Forest Museum", 
-                                    "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/forest-museum-kurseong.jpg", 
-                                    "text" => "The Forest Museum is located on Dow Hill area and is a one of the attraction of the ecotourism. The museum is maintained by the Forest Department. The complex also holds the Forest School. It contains animal skins, bones and hides and wooden products. It also has models of different dams, forest houses etc. and it has a skeleton.
-
-
- From Kurseong Railway Station (at Pankhabari Road), the fastest route will take nearly 25 minutes (6.2 Km) via Baghghora Road, and another route via NH110 to Pankhabari road nearly 31 min (7.0 km) will take to reach Forest Museum, though congestion on NH110 causing approx.12-min delay. Both the ways are amidst the mesmerizing and absolutely stunning with gorgeous Scenic beauty of Dowhill Eco Park as backdrop.", 
-                                    "how_to_reach" => "How to Reach:", 
-                                    "other" => "", 
-                                    "type" => "textwithimage", 
-                                    "imagealignment" => "left" 
-                                 ], 
-   [
-                                       "name" => "Salamander Lake", 
-                                       "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/salamander_lake.jpg", 
-                                       "text" => "Salamander Lake is situated at Kurseong. In the past, it used to be a favourite place for the British for boating and people from the neighbouring towns used to hang out here frequently. It is a beautiful green-tinged lake that shelters the rarest and most endangered species of salamanders a species under threat of extinction.", 
-                                       "how_to_reach" => "How to Reach:", 
-                                       "other" => "Salamander Lake is located at a distance of 14 km from the town of Kurseong.", 
-                                       "type" => "textwithimage", 
-                                       "imagealignment" => "left" 
-                                    ], 
-   [
-                                          "name" => "Makaibari Tea Estate", 
-                                          "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/makaibariteaestatejpg.jpg", 
-                                          "text" => "Located in Kurseong subdivision, in Darjeeling district, Makaibari sustains seven villages and 1.587 people. Kodobari (Millet fields), Fulbari (Flower Garden) and Koilapani (Blackwater) and cheptey are in the Western side of the estate, while Makaibari (Cornfields), Thapathali (Thapa Village) and Chungey are situated in the Eastern side. The Makaibari Tea Estate is probably the most talked about and fabled tea garden in Darjeeling area. And there are reasons for that. This is one of the oldest tea gardens in Darjeeling and was the first to establish a factory in the year 1859.
-
- Makaibari is only 3 kms from Kurseong near Darjeeling. There are regular Taxis from New Jalpaiguri / Siliguri / Bagdogra Airport to Kurseong and then with a hire car to Makaibari Tea Estate. There are regular taxis from Kurseong to Makaibari.", 
-                                          "how_to_reach" => "How to Reach:", 
-                                          "other" => "", 
-                                          "type" => "textwithimage", 
-                                          "imagealignment" => "left" 
-                                       ], 
-   [
-                                             "name" => "Chimney", 
-                                             "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/chimney_kurseong.jpg", 
-                                             "text" => "A walk or ride through the forest of Cryptomeria Japonica on the road, now called Aranya Sarani, leads to the vast open meadows at Chimney. The curious name of the place is reminiscent of the days, when there was a Bungalow here on the only road (Old Military Road) leading to Darjeeling. A long, dilapidated chimney, standing all alone, is the only remnants of the bungalow now. The views of mountains from here are breathtaking.", 
-                                             "how_to_reach" => "How to Reach:", 
-                                             "other" => "Chimney is 53 kms from New Jalpaiguri and 8 kms from Kurseong and to reach Kurseong hire any car from New Jalpaiguri or Siliguri and catch a local taxi from Kurseong to Chimney. Homestay also provides car pick-up and drop services from Chimney to Kurseong. There is also a bus from Tenzing Norgay Bus stop at Siliguri to Kurseong, from where a local taxi can be available.", 
-                                             "type" => "textwithimage", 
-                                             "imagealignment" => "left" 
-                                          ], 
-   [
-                                                "name" => "Kettle Valley Picnic Spot", 
-                                                "img" => "https://www.wbtourism.gov.in/home/download/places_attraction/kettle-valley-picnic-spot.jpg", 
-                                                "text" => "Kettle Valley Picnic Spot is a popular picnic stop in the town of Kurseong and is visited by locals as well as tourists. This scenic location is enjoyed on a picnic or a day outing with family and friends. It is a beautiful spot on the banks of the river Rinchengtong and one can spot the Dilaram Tea Estate, which is also located close by. The landscape of the place is breathtaking and surrounding area is lush green with the clear water of the river flowing along side.", 
-                                                "how_to_reach" => "How to Reach:", 
-                                                "other" => "Nearest station is Kurseong for Toy Train. Shared Taxis, Private vehicles, toy train and limited bus service is available for local transport.
- Nearest airport is at Bagdogra with 63 km. Nearest railway station is Jalpaiguri with 60 km.", 
-                                                "type" => "textwithimage", 
-                                                "imagealignment" => "left" 
-                                             ] 
-   ); 
+    Bus services are also available from many parts of Kolkata. Jorasanko is the nearest bus stoppage.", 
+            "image_url" => "https://wbtourism.gov.in/home/download/places_attraction/jorasanko_rajbari_old_1.jpg" ,
+            "type"=>'',
+            "imagealignment"=>''
+        ], 
+        [
+            "name" => "Kurmartuli", 
+            "text" => "Kumartuli is the neighbourhood of artisans specializing in making clay idols of gods and goddesses. In makeshift shafts idols in various stages of completion can be seen-from bamboo straw structures to the finished idols. The area becomes a fascinating hive of activity especially before the Durga Puja. Watching the artisans engrossed in their intricate work itself has the ability to mesmerize any onlooker. Today, the idols made in Kumortuli adorn pandals across the world. The temple at Kumortuli is also the abode of the original idol of 'Devi Dhakeswari' brought from Dhaka during the partition.", 
+            "how_to_reach" => "It's easiest to take a taxi (it will take around 30 minutes from central Kolkata) to Kumartuli. Otherwise, buses and trains go there. The nearest metro station is the Sovabazar Metro. Sovabazar Launch Ghat (alongside the Ganges River) is also close by. Taking a walk to the riverbank is worthwhile, can see old Gothic and Victorian style mansions. From there visitor can get a boat back to central Kolkata.", 
+            "image_url" => "https://wbtourism.gov.in/home/download/places_attraction/kumartuli1.jpg" ,
+            "type"=>'',
+            "imagealignment"=>''
+        ], 
+        [
+            "name" => "Marble House", 
+            "text" => "Rajendra Nath Mullick's Residence, turned into a museum situated on 46, Muktaram Babu Street is one of the most elegant palatial nineteenth century mansions in North Kolkata. Built by a French architect in 1835, the enormous facade of the palace has an imposing portico with stucco work and six fluted Corinthian columns, topped by an elaborately ornamented triangular pediment. The garden encircling the palace is dotted with marble fountains, statues of gods and goddesses from Greek and Hindu pantheon, notable among which is a stunning statue of Leda and Swan. The garden houses a zoo. It is learnt that 90 varieties of patterned marble had been used on the floors of the mansion and hence, Lord Minto called it a Marble Palace. Inside, the walls have ornate stucco mouldings and the museum is a treasure trove of curios, statues and paintings including oil paintings by Rubens and Joshua Reynolds.", 
+            "how_to_reach" => "Girish Park and Mahatma Gandhi Road are nearby Metro Railway stations. Howrah and Sealdah are nearest railway stations.Ram Mandir is nearest bus stoppage to reach this place.", 
+            "image_url" => "https://wbtourism.gov.in/home/download/places_attraction/marble_palece.jpg" ,
+            "type"=>'',
+            "imagealignment"=>''
+        ], 
+        [
+            "name" => "House Of Chhatubabu-Laltubabu", 
+            "text" => "At 67E, Beadon street, this was the ancestral house of Ramdulal De (Deb Sarkar), the pioneer in Indo-US trade and the first modern Bengali millionaire. He was held in such high esteem by his Ameriacn counter parts that they named one of their ships 'Ramdulal De' which made several voyages from Salem (a port near Boston) to Kolkata. A fine portrait of George Washington was also presented to him. Presently only the elegant 'Nat Mandir' adorning some fine chandeliers stands in its original site. In 177o, Ramdulal De started organizing Durga Puja here. Later the house and the Puja came to be known as Chhatubabu-Latubabu's after his sons, fabled Chhatubabu (ashutosh) and Latubabu (Promotha Nath).", 
+            "image_url" => "https://wbtourism.gov.in/home/download/places_attraction/marble_palece.jpg" ,
+            "type"=>'',
+            "imagealignment"=>'',
+            "how_to_reach"=>''
+        ] 
+     ); 
+      
  
 $data = collect([]);
-$id= new MongoObjectId('63d53cb841bd3b3970040ce4');
+$id= new MongoObjectId('63da3fcc171e967049012c24');
 $mdl = Item::where('_id',$id)->first();
 $destination_array = array();
 if (!empty($mdl->name)) {
@@ -519,9 +442,16 @@ if (!empty($mdl->name)) {
 }
 foreach ($data_array as $key => $item) {
     $b = collect();
-    if($item['img']){
+    $tags_array = array();
+    if (!empty($mdl->name)) {
+        array_push($tags_array, $mdl->name);
+        array_push($tags_array, $item['name']);
+        array_push($tags_array, 'attraction');
+      }
+    if($item['image_url']){
+
         $model1 = new Item();
-        $path =$item['img'];
+        $path =$item['image_url'];
         $url=str_replace('www.','',$path);
         $temp = tempnam(sys_get_temp_dir(), 'TMP_');  
             file_put_contents($temp, file_get_contents($url));
@@ -543,24 +473,31 @@ foreach ($data_array as $key => $item) {
             $model1->image_type='attraction';
             $model1->is_active=1;
             $model1->is_approved=1;
-            $model1->tags = $destination_array;
+            $model1->tags = $tags_array;
             // $thumbnail_image_is_save=$model1->save();
         //     $g->guide_image_obj_id=new MongoObjectId($model1->getKey()) ;
-        //     $g->save();
+            // $model1->save();
     }
     $b->order=$key;
     $b->image_id=new MongoObjectId($model1->getKey());
     $b->name = $item['name'];
     $b->text = $item['text'];
-    $b->how_to_reach = $item['how_to_reach'];
-    $b->other = $item['other'];
-    $b->type = $item['type'];
-    $b->imagealignment = $item['imagealignment'];
+    if($item['how_to_reach']){
+         $b->how_to_reach = $item['how_to_reach'];
+    }
+    else{
+        $b->how_to_reach = $item['how_to_reach'];
+    }
+    // $b->other = $item['other'];
+    $b->type = 'textwithimage';
+    $b->imagealignment = 'left';
+    // $b->imagealignment = $tags_array;
     $data->push($b);
 };
 
 
 $mdl->attractions=$data->all();
+// dd($mdl);
 // $mdl->save();
 
 
@@ -569,3 +506,486 @@ $mdl->attractions=$data->all();
 
 return $data;
 }
+function getMapCordinate(){
+    $data_array =array(
+        [
+        "title"=>"coochbihar",
+        "coords"=>"491,183,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+        
+       
+        ],
+        [ 
+        "title"=>"santi",
+        "coords"=>"352,257,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+        
+        
+        ],
+        [
+        "title"=>"neora" ,
+        "coords"=>"399,260,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+        
+       
+        ],
+        [
+        "title"=>"garumara",
+        "coords"=>"446,274,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+        
+       
+        ],
+        [
+        "title"=>"toy train" ,
+        "coords"=>"354,321,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+        
+        ],
+        [
+        "title"=>"kulik",  
+        "coords"=>"575,376,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+        
+        ],
+        [
+        "title"=>"burhana",  
+        "coords"=>"654,381,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+          
+        ],
+        [
+        "title"=>"hazi danes",  
+        "coords"=>"723,332,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+        
+        ],
+        [
+        "title"=>"firoz minar",  
+        "coords"=>"775,364,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+          
+        ],
+        [
+        "title"=>"dakhil darwaja",  
+        "coords"=>"790,403,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+        
+        ],
+        [
+        "title"=>"hazar duari",  
+        "coords"=>"1007,354,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+          
+        ],
+        [
+        "title"=>"hetampur",  
+        "coords"=>"1052,440,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+        
+        ],
+        [
+        "title"=>"rabindra bhaban",  
+        "coords"=>"1134,449,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+         
+        ],
+        [
+        "title"=>"maithon dam",  
+        "coords"=>"1114,541,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+        
+        ],
+        [
+        "title"=>"iskon temple",  
+        "coords"=>"1191,344,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+         
+        ],
+        [
+        "title"=>"ajodya",  
+        "coords"=>"1206,618,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+        
+        ],
+        [
+        "title"=>"tomp of sher afgan",  
+        "coords"=>"1230,423,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+         
+        ],
+        [
+        "title"=>"madan mahan temple",  
+        "coords"=>"1255,505,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+        
+        ],
+        [
+        "title"=>"chhau dance",  
+        "coords"=>"1243,669,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+         
+        ],
+        [
+        "title"=>"rashmancha",  
+        "coords"=>"1288,557,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+        
+        ],
+        [
+        "title"=>"belur math", 
+         "coords"=>"1339,476,10",
+          "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+          
+        ],
+        [
+        "title"=>"Hooghly Imambara", 
+        "coords"=>"1366,387,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+        
+        ],
+        [
+        "title"=>"Airport",  
+        "coords"=>"1399,340,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+          
+        ],
+        [
+        "title"=>"Dakhineswar",  
+        "coords"=>"1419,435,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+        
+        ],
+        [
+        "title"=>"Victoria memorial",  
+        "coords"=>"1470,354,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+          
+        ],
+        [
+        "title"=>"Garbeta",  
+        "coords"=>"1443,534,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+        
+        ],
+        [
+        "title"=>"kanak Durga",  
+        "coords"=>"1490,563,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+         
+        ],
+        [
+        "title"=>"Haldia Dock",  
+        "coords"=>"1518,407,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+        
+        ],
+        [
+        "title"=>"Mahishadal Rajbari",  
+        "coords"=>"1527,471,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+         
+        ],
+        [
+        "title"=>"sundar ban", 
+        "coords"=>"1555,300,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+        
+        ],
+        [
+        "title"=>"kapil muni",  
+        "coords"=>"1579,378,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+          
+        ],
+        [
+        "title"=>"digha",  
+        "coords"=>"1629,474,10",
+         "desc"=>"",
+        "img_url"=>"http://127.0.0.1:8000/assets/img/destination/himalya.png"
+        
+        ]
+        );
+    $data =collect([]);
+    foreach($data_array as $map){
+        $d=collect();
+        $d->title=$map['title'];
+        $d->cx=explode(',',$map['coords'])[0];
+        $d->cy=explode(',',$map['coords'])[1];
+        $d->r=explode(',',$map['coords'])[2];
+        $d->desc=$map['desc'];
+        $d->img_url=$map['img_url'];
+        $data->push($d);
+
+        
+    }
+    return $data;
+}
+
+
+function LoadFest(){
+    $data_array=array(
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/4210.jpg",
+                
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/2911.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/301.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/3110.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/3210.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/3310.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/3410.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/3510.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/3610.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/3710.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/3810.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/3910.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/40.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/4110.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/2811.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/4310.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/4410.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/4510.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/4610.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/4710.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/4810.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/498.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/50.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/5110.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/5210.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/5310.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/5410.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/555.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/1521.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/0239.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/0327.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/0428.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/0526.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/0622.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/0719.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/0816.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/kolkata_christmas_festival_2018_40.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/1026.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/1133.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/1232.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/1326.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/1425.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/00111.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/1622.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/1716.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/kolkata_christmas_festival_2018_41.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/kolkata_christmas_festival_2018_42.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/204.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/2118.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/2216.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/2315.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/2413.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/2511.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/2611.jpg"
+            ],
+            [
+                "image_url" => "https://www.wbtourism.gov.in/home/download/gallery_photo/2711.jpg"
+            ]
+         );
+
+ 
+    // $data = collect([]);
+//    $delete = Item::where('tags','Kolkata Christmas Festival -2018')->delete();
+    foreach ($data_array as $key => $item) {
+        $mdl = new Item();
+        $b = collect();
+        $name='Kolkata Christmas Festival 2018 at Allen Park, Park Street';
+        $tags_array = array();
+    
+            array_push($tags_array, $name);
+            array_push($tags_array, 'gallery');
+            array_push($tags_array, 'Kolkata Christmas Festival -2018');
+           
+        
+        if($item['image_url']){
+    
+            $model1 = new Item();
+            $path =$item['image_url'];
+            $url=str_replace('www.','',$path);
+            // dd($url);
+            $temp = tempnam(sys_get_temp_dir(), 'TMP_');  
+                file_put_contents($temp, file_get_contents($url));
+                $content = file_get_contents($temp);
+                $size = getimagesize($temp);
+                $extension = image_type_to_extension($size[2]);
+    
+                $height = $size[1];
+                $width = $size[0];
+               
+                $mimeType=$size['mime'];
+                $binary_thumbnail = new MongoBinary($content, MongoBinary::TYPE_GENERIC);
+                $model1->width= $width;
+                $model1->height= $height;
+                $model1->img_data=$binary_thumbnail;
+                $model1->extension= $extension;
+                $model1->mimType=$mimeType;
+                $model1->type='Image';
+                $model1->image_type='gallery';
+                $model1->is_active=1;
+                $model1->is_approved=1;
+                $model1->tags = $tags_array;
+                // $thumbnail_image_is_save=$model1->save();
+            //     $g->guide_image_obj_id=new MongoObjectId($model1->getKey()) ;
+                $model1->save();
+        }
+        // $b->order=$key;
+        $mdl->gallery_image_obj_id=new MongoObjectId($model1->getKey());
+        $mdl->name = $name;
+        $mdl->district = 303;
+        $mdl->gallery_category_id='63da4dcf021414681706d96a';
+        $mdl->gallery_category = 'Kolkata Christmas Festival -2018';
+        $mdl->is_active=1;
+        $mdl->is_approved=1;
+        $mdl->type = 'gallery';
+        
+        
+        // dd($mdl);
+        $mdl->save();
+    };
+    
+    
+
+
+}
+
