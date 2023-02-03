@@ -97,7 +97,7 @@ class FrontPageController extends Controller
             $product_array->gradient_text=$product->gradient;
             $product_list->push($product_array);
          } 
-        $destination_list_db = Item::where('is_active', 1)->where('is_approved', 1)->where('section_type', 'destination')->where('type', 'destination')->where('visible', 'D')->get();
+        $destination_list_db = Item::where('is_active', 1)->where('is_approved', 1)->where('section_type', 'destination')->where('type', 'dest-category')->where('visible', 'D')->get();
         $destination_list=collect([]);
         foreach($destination_list_db as $destination){
             $destination_array=collect();
@@ -160,6 +160,7 @@ class FrontPageController extends Controller
             $img ='';
             $section_array->name=$section->name;
             $section_array->desc=$section->desc;
+            $section_array->reference=$section->reference;
             $img_content=Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $section->thumbnail_image_obj_id)->where('image_type', 'Thumbnail')->first();
             $type=$img_content->mimType;
             $img = 'data:' . $type . ';base64,' . base64_encode($img_content->img_data); 

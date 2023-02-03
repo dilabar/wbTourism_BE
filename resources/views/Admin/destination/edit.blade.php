@@ -42,7 +42,7 @@
                        <div class="card-header">
                           <h6 class="m-0 font-weight-bold ">Add Destination</h6>
                        </div>
-                    <form class="contact100-form validate-form" action="{{ route('destination.store') }}" method="POST" enctype="multipart/form-data">
+                    <form class="contact100-form validate-form" action="{{ route('dest-update') }}" method="POST" enctype="multipart/form-data">
                       <div class="card-body">
 
                     
@@ -52,8 +52,9 @@
                           <label for="exampleFormControlFile1">Select District </label>
             
                           <select class="form-control" name="district" >
+                            <option value="">-- Select District  --</option>
                             @foreach ($district as $dist)
-                                <option value="{{ $dist->district_code }}">{{ $dist->district_name }}
+                                <option value="{{ $dist->district_code }}" {{ $dist->district_code==$place_detail->district_code ? 'selected' :''  }}>{{ $dist->district_name }}
                                 </option>
                               @endforeach
 
@@ -65,10 +66,10 @@
                         <div class="form-group">
                           <label for="exampleFormControlFile1">Select Category</label>
                           <select class="form-control" name="category_id">
-                            <option value="0">-- Select Page  --</option>
+                            <option value="">-- Select Page  --</option>
 
                               @foreach ($category as $cat)
-                                <option value="{{ $cat->_id }}">{{ $cat->name }}
+                                <option value="{{ $cat->_id }}" {{ $cat->_id ==$place_detail->parent_destination ? 'selected' :''  }}>{{ $cat->name }}
                                 </option>
                               @endforeach
 
@@ -76,23 +77,14 @@
                         </div>
                       </div>
                       </div>
-                      <div class="form-group" id="visible">
-                                        
-                        <label for="example-getting-started">Showing only  @if ($errors->has('visible'))<div class="alert alert-danger">{{ $errors->first('visible') }}.</div> @endif</label>
-                        <select class="form-control" name="visible[]" class="{{ $errors->has('visible') ? 'is-invalid' : '' }}" id="example-getting-started" multiple tabindex="0">
-                            <option value="D" {{  @in_array('D',old('visible'))? 'selected' :''  }}>Top Destination</option>
-                            <option value="P" {{  @in_array('P',old('visible'))? 'selected' :''  }}>Product</option>
-                        
-                        </select>
-                        @if ($errors->has('visible'))<div class="invalid-feedback">{{ $errors->first('visible') }}.</div> @endif
-                    </div>
+                   
 
                       <div class="wrap-input100 validate-input" data-validate="Destination Name/Title">
-                            <input class="input100" type="text" name="name" placeholder="Name/Title">
+                            <input class="input100" type="text" name="name" placeholder="Name/Title" value="{{ $place_detail->name }}">
                        <span class="focus-input100"></span>
                       </div>
                       <div class="wrap-input100 validate-input" data-validate="Destination Short Description">
-                            <input class="input100" type="text" name="description" placeholder="Short Description">
+                            <input class="input100" type="text" name="description" placeholder="Short Description" value="{{ $place_detail->description }}">
                        <span class="focus-input100"></span>
                       </div>
                       <!-- <div class="wrap-input100 validate-input" data-validate="Destination Full Description is required">
@@ -102,10 +94,12 @@
                       <div class="form-group">
                         <label for="exampleFormControlFile1">Thumbnai Image</label>
                         <input type="file" class="form-control-file" id="exampleFormControlFile1" name="thumbnail_image">
+                        <img height="100" width="100"src="{{$img}}"/>
                       </div>
                       <div class="form-group">
                         <label for="exampleFormControlFile1">Page Title Image</label>
                         <input type="file" class="form-control-file" id="exampleFormControlFile1" name="full_image">
+                        <img height="100" width="100"src="{{$full}}"/>
                       </div>
                       <!-- <div class="form-group">
                         <label for="exampleFormControlFile1">Front Page Selection</label>
@@ -117,7 +111,9 @@
                        </select>
                       </div> -->
                       <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                           <input class="btn btn-primary" type="submit" name="" id="" value="Add"/>
+                      <input type="hidden" name="place_id" value="{{ $place_detail->id }}" />
+
+                           <input class="btn btn-primary" type="submit" name="" id="" value="Update"/>
                            
                            
                           </div>
