@@ -1,24 +1,28 @@
 @extends('layouts.myapp')
 
 @section('content')
-<section class="pt-100">
-    <div class="section-title title-style">
-        <h2>KOLKATA CONNECT</h2>
+    <section class="pt-100">
+        <div class="section-title title-style">
+            <h2>KOLKATA CONNECT</h2>
 
-    </div>
-    <div class="event_tourism_gallery">
-        <ul>
-            <li>
-                <div class="picture">  
-                    <a href="https://wbtourism.gov.in/gallery/events/MTkyY2JlZTVlMmM1NGNiN2Y5MmZlMzY2OTc3YzAzOWQ1NGU5NDUwYjg3Y2JlNjViZWVmMjBhOWE2YzM0NWQ4MDAyMGE3NDY1NTBmZDI0OGZlMDBiMDU2OWVhMWViOGE4ZmZkZWFhOGJiZTI3MDcxNjU1N2YzNTU2N2FkNDE1YzVITGhscEhxSExMazlUU0tTdGwwelgzM004cVFNY2pHNzZQV040cHZPSzBMR2FTUjQzZXhmSGNMZDlOUkRpaGkvYjB4VzF5SkVOKzJCWVRDVWVDQXE3THpneHI0cWJteE0wMzlXdjY1UzA1dz0=">  
-                    <img src="{{asset('assets/img/christmas/kolkata_connect.jpg')}}" alt="kolkata connect 2020 Photo">
-                    </a>
-                </div> 
-                <h2 class="year">2020</h2>      
-            </li>
-        </ul>
-    </div>
+        </div>
+        <div class="event_tourism_gallery">
+            <ul id="gallery">
+                @foreach ($kol_connect_list as $item)
+                    <li>
+                        <div class="overLay">
+                            <a href="{{ route('btifbyid', [$item->id, $item->name]) }}">
+                                <img data-src="{{ $item->img }}" src="{{ asset('assets/img/default/loding_logo.png') }}"
+                                    id="picture" width="285" height="230" alt="{{ $item->name }}"></a>
+                            <div class="layer">
+                                <p class="name text-capitalize"> {{ $item->name }}
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
 
-</section>
-
+    </section>
 @endsection

@@ -194,7 +194,7 @@
             </div>
         </section>
     @endif
-    <!-- Top destination -->
+    <!-- Top festival and event -->
     @if (count($festival_list1) > 0 || count($festival_list2) > 0)
         <!-- Things to do in west bengal start -->
 
@@ -250,6 +250,7 @@
       </div> --}}
         </section>
     @endif
+    
     @if (count($section_list) > 0)
         <!-- *********************************   tab design   ****************************** -->
         <section id="autotab" class="slider-tab tab-section mt-5">
@@ -302,7 +303,7 @@
                                             <p>{!! $section_item->desc !!}</p>
                                         </div>
                                         <div class="cta-btn">
-                                            <a href="https://wbtdcl.wbtourismgov.in/home#viewdiv" class="btn-primary">Read
+                                            <a href="{{ $section_item->reference }}" class="btn-primary">Read
                                                 More</a>
                                         </div>
                                     </div>

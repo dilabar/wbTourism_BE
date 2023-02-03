@@ -26,13 +26,20 @@ class DestinationController extends Controller
   }
   public function create(Request $request)
   {
-    $destination_list = Item::where('type', 'destination')->where('is_active', 1)->where('is_approved', 1)->get();
+    $destination_list = Item::where('type', 'dest-category')->where('is_active', 1)->where('is_approved', 1)->get();
+    $district = Master::where('master_type', 'District')->where('district_status', true)->get();
     return view('Admin/destination/create', [
-      'category' => $destination_list
+      'category' => $destination_list,
+      'district' => $district
     ]);
   }
   public function categoryForm(Request $request)
   {
+    // $destination_cat = Item::where('type','destination')->where('page_type','home')->get();
+    // foreach($destination_cat as $des){
+    //   $des->type ='dest-category';
+    //   $des->save();
+    // }
     return view('Admin/destination/category/categoryform');
   }
   public function categoryCreate(Request $request){
@@ -140,26 +147,141 @@ class DestinationController extends Controller
     //   return redirect("/admin/destination/list")->with('success', 'Destination Uploaded successfully');
     // }
   }
+  public function categoryshow(Request $request)
+  {
+    $errormsg = Config::get('constants.errormsg');
+    if (request()->ajax()) {
+      $limit = (int) $request->input('length');
+      $offset = $request->input('start');
+      if (empty($limit)) {
+        $limit = 10;
+      }
+      if (empty($offset)) {
+        $offset = -1;
+      }
+      $totalRecords = 0;
+      $filterRecords = 0;
+      if (!empty($request->search['value']))
+        $serachvalue = $request->search['value'];
+      else
+        $serachvalue = '';
+      $model = new Item();
+      $query = $model::where('section_type', 'destination')->where('type', 'dest-category');
+      if (empty($serachvalue)) {
+        $totalRecords = $query->count();
+        $data = $query->orderBy('name')->offset($offset)->limit($limit)->get();
+        $filterRecords = count($data);
+      } else {
+        $query = $query->Where('name', 'like', '%' . $serachvalue . '%');
+        $totalRecords = $query->count();
+        $data = $query->orderBy('name')->offset($offset)->limit($limit)->get();
+        $filterRecords = count($data);
+      }
+      $list = collect([]);
+      $i = 1;
+      foreach ($data as $item) {
+        $array = collect();
+        $content = collect([]);
+        $document = collect([]);
+        $img = '';
+        $array->id = $item->_id;
+        $array->is_active = $item->is_active;
+        $array->is_approved = $item->is_approved;
+        $array->name = $item->name;
+        $array->short_desc = $item->short_desc;
+        $status = '';
+        if ($item->is_active == 1) {
+          $status = $status . ' Active';
+        } else {
+          $status = $status . ' InActive';
+        }
+        if ($item->is_approved == 1) {
+          $status = $status . ' and Approved';
+        } else {
+          $status = $status . ' and Approval Pending';
+        }
+        $array->status = $status;
+        $img_content = Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $item->thumbnail_image_obj_id)->where('image_type', 'Thumbnail')->first();
+        if($img_content){
+          $type = $img_content->mimType;
+          $img = 'data:' . $type . ';base64,' . base64_encode($img_content->img_data);
+          $array->img = $img;
+        }else{
+          $array->img = asset('assets/img/default/loding_logo.png');
+        }
+       
+        $array->slno = $i;
+        $i++;
+        $list->push($array);
+      }
+      return datatables()->of($list)
+        ->setTotalRecords($totalRecords)
+        ->setFilteredRecords($filterRecords)
+        ->skipPaging()
+        ->addColumn('check', function ($list) {
+
+          //return '<input type="checkbox" name="approvalcheck[]" onchange="" value="' . $list->id . '">';
+          return '';
+        })->addColumn('id', function ($list) {
+          return $list->id;
+        })->addColumn('img', function ($list) {
+          return '<img width="100" height="100" src="' . $list->img . '">';
+        })->addColumn('title', function ($list) {
+          return $list->name;
+        })
+        ->addColumn('status', function ($list) {
+          return $list->status;
+        })
+        ->addColumn('action', function ($list) {
+          $action = '';
+          $edit='edit/';
+          if ($list->is_active == 1) {
+            $action = $action . '<button cur_status=' . $list->is_active . ' action_type="1" title=' . $list->name . ' slno=' . $list->slno . ' id="btnactive_' . $list->slno . '" class="btn btn-danger btn-modal" value=' . $list->id . '>InActive</button>&nbsp;&nbsp;&nbsp;&nbsp;';
+          } else if ($list->is_active == 0) {
+            $action = $action . '<button cur_status=' . $list->is_active . ' action_type="1" title=' . $list->name . ' slno=' . $list->slno . ' id="btnactive_' . $list->slno . '" class="btn btn-primary btn-modal" value=' . $list->id . '>Active</button>&nbsp;&nbsp;&nbsp;&nbsp;';
+          }
+          if ($list->is_approved == 1) {
+            $action = $action . '<button cur_status=' . $list->is_approved . ' action_type="2" title=' . $list->name . ' slno=' . $list->slno . ' id="btnapprove_' . $list->slno . '" class="btn btn-danger btn-modal" value=' . $list->id . '>Unapprove</button>&nbsp;&nbsp;&nbsp;&nbsp;';
+          } else if ($list->is_approved == 0) {
+            $action = $action . '<button cur_status=' . $list->is_approved . ' action_type="2" title=' . $list->name . ' slno=' . $list->slno . ' id="btnapprove_' . $list->slno . '" class="btn btn-primary btn-modal" value=' . $list->id . '>Approve</button>&nbsp;&nbsp;&nbsp;&nbsp;';
+          }
+          // $action = $action . '<a class="btn btn-outline-info" href=' . $edit . $list->id . '><i class="fas fa-pen-to-square"></i></a>&nbsp;&nbsp;';
+          $action = $action.'<button cur_status=' . $list->is_approved . ' action_type="3" title=' . $list->name . ' slno=' . $list->slno . ' id="btndelete_'.$list->slno.'" class="btn btn-outline-danger btn-modal" value=' . $list->id . '><i class="fas fa-trash-can"></i></button>&nbsp;&nbsp;&nbsp;&nbsp;';
+
+          return $action;
+        })
+        ->rawColumns(['id', 'img', 'check', 'title', 'status', 'action'])
+        ->make(true);
+    }
+    return view(
+      'Admin/destination/category/listView',
+      [
+        'sessiontimeoutmessage' => $errormsg['sessiontimeOut'],
+      ]
+    );
+  }
   public function store(Request $request)
   {
     // destination list  create
         $rules = [
+          'district' => 'required',
           'name' => 'required',
           'full_image' => 'mimes:jpeg,jpg,png,gif|required|max:10000',
           'thumbnail_image' => 'mimes:jpeg,jpg,png,gif|required|max:10000',
-          // 'visible' => 'required',
           'category_id' => 'required',
       ];
       $messages = [
+          'district.required' => 'The District field is required',
           'name.required' => 'The Name field is required',
           'category_id.required'=>'The category id field is required',
-          'full_image.required'=>'The Image field is required',
-          'thumbnail_image.required'=>'The Image field is required',
+          'full_image.required'=>'The Full Image field is required',
+          'thumbnail_image.required'=>'The Thumbnail Image field is required',
       ];
 
       
       $attributes = array();
 
+      $attributes['district'] = $request->district;
       $attributes['name'] = $request->name;
       $attributes['full_image'] = $request->full_image;
       $attributes['thumbnail_image'] = $request->thumbnail_image;
@@ -236,6 +358,8 @@ class DestinationController extends Controller
       $destination_model->name = trim($request->name);
     if (!empty(trim($request->description)))
       $destination_model->short_desc = trim($request->description);
+    if (!empty(trim($request->district)))
+      $destination_model->district_code = trim($request->district);
 
     $destination_model->template_id = 2;
     $destination_model->is_active = 1;
@@ -249,12 +373,13 @@ class DestinationController extends Controller
 
     //return redirect()->route('destination/index')->with('success','Destination created successfully.');
   }
+
   public function show(Request $request)
   {
     $errormsg = Config::get('constants.errormsg');
     if (request()->ajax()) {
       $limit = (int) $request->input('length');
-      $offset = $request->input('start');
+      $offset = (int) $request->input('start');
       if (empty($limit)) {
         $limit = 10;
       }
@@ -268,7 +393,7 @@ class DestinationController extends Controller
       else
         $serachvalue = '';
       $model = new Item();
-      $query = $model::where('section_type', 'destination')->where('type', 'destination');
+      $query = $model::where('type', 'place')->where('page_type', 'detail');
       if (empty($serachvalue)) {
         $totalRecords = $query->count();
         $data = $query->orderBy('name')->offset($offset)->limit($limit)->get();
@@ -304,9 +429,16 @@ class DestinationController extends Controller
         }
         $array->status = $status;
         $img_content = Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $item->thumbnail_image_obj_id)->where('image_type', 'Thumbnail')->first();
-        $type = $img_content->mimType;
-        $img = 'data:' . $type . ';base64,' . base64_encode($img_content->img_data);
-        $array->img = $img;
+        // echo ($img_content);
+        if($img_content){
+          $type = $img_content->mimType;
+          $img = 'data:' . $type . ';base64,' . base64_encode($img_content->img_data);
+          $array->img = $img;
+        }else{
+          $array->img = asset('assets/img/default/loding_logo.png');
+
+        }
+       
         $array->slno = $i;
         $i++;
         $list->push($array);
@@ -342,7 +474,7 @@ class DestinationController extends Controller
           } else if ($list->is_approved == 0) {
             $action = $action . '<button cur_status=' . $list->is_approved . ' action_type="2" title=' . $list->name . ' slno=' . $list->slno . ' id="btnapprove_' . $list->slno . '" class="btn btn-primary btn-modal" value=' . $list->id . '>Approve</button>&nbsp;&nbsp;&nbsp;&nbsp;';
           }
-          // $action = $action . '<a class="btn btn-outline-info" href=' . $edit . $list->id . '><i class="fas fa-pen-to-square"></i></a>&nbsp;&nbsp;';
+          $action = $action . '<a class="btn btn-outline-info" href=' . $edit . $list->id . '><i class="fas fa-pen-to-square"></i></a>&nbsp;&nbsp;';
           $action = $action.'<button cur_status=' . $list->is_approved . ' action_type="3" title=' . $list->name . ' slno=' . $list->slno . ' id="btndelete_'.$list->slno.'" class="btn btn-outline-danger btn-modal" value=' . $list->id . '><i class="fas fa-trash-can"></i></button>&nbsp;&nbsp;&nbsp;&nbsp;';
 
           return $action;
@@ -357,15 +489,121 @@ class DestinationController extends Controller
       ]
     );
   }
-
+  public function edit($id)
+    {
+        $place_detail = Item::where('type','place')->where('page_type','detail')->where('_id', $id)->first();
+        $img_content = Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $place_detail->thumbnail_image_obj_id)->where('image_type', 'Thumbnail')->first();
+        //  dd( $details_db->full_image_obj_id);
+        $fullimg_content = Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $place_detail->full_image_obj_id)->first();
+        // dd($fullimg_content);
+        $type = $img_content->mimType;
+        $type1 = $fullimg_content->mimType;
+        $img = 'data:' . $type . ';base64,' . base64_encode($img_content->img_data);
+        $full = 'data:' . $type1 . ';base64,' . base64_encode($fullimg_content->img_data);
+        // dd($place_detail);
+        $category = Item::where('type', 'dest-category')->where('is_active', 1)->where('is_approved', 1)->get();
+        $district = Master::where('master_type', 'District')->where('district_status', true)->get();
+        return view('Admin/destination/edit', compact('place_detail', 'img', 'full','district','category'));;
+    }
   // page 
+  public function updatePlace(Request $request){
+    // dd($request);
+    $rules = [
+        'district' => 'required',
+        'name' => 'required',
+        // 'full_image' => 'mimes:jpeg,jpg,png,gif|required|max:10000',
+        // 'thumbnail_image' => 'mimes:jpeg,jpg,png,gif|required|max:10000',
+        'category_id' => 'required',
+    ];
+    $messages = [
+        'district.required' => 'The District field is required',
+        'name.required' => 'The Name field is required',
+        'category_id.required'=>'The category id field is required',
+        // 'full_image.required'=>'The Full Image field is required',
+        // 'thumbnail_image.required'=>'The Thumbnail Image field is required',
+    ];
 
+
+    $attributes = array();
+
+    $attributes['district'] = $request->district;
+    $attributes['name'] = $request->name;
+    // $attributes['full_image'] = $request->full_image;
+    // $attributes['thumbnail_image'] = $request->thumbnail_image;
+    $attributes['category_id'] = $request->thumbnail_image;
+
+    $validator = Validator::make($request->all(), $rules, $messages, $attributes);
+    if ($validator->fails()) {
+        return back()->withErrors($validator)->withInput($request->all());
+    }
+
+    $id = new MongoObjectId($request->place_id);
+    $place_db = Item::where('type','place')->where('_id', $id)->first();
+
+    //  image
+      if ($thumbnail_image = $request->file('thumbnail_image')) {
+        $thumb_mdl = Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $place_db->thumbnail_image_obj_id)->where('image_type', 'Thumbnail')->first();
+
+        $img_data = file_get_contents($thumbnail_image);
+        $height = Image::make($thumbnail_image)->height();
+        $width = Image::make($thumbnail_image)->width();
+        $extension = $thumbnail_image->extension();
+        $mimeType = $thumbnail_image->getMimeType();
+        $binary_thumbnail = new MongoBinary($img_data, MongoBinary::TYPE_GENERIC);
+        $thumb_mdl->width = $width;
+        $thumb_mdl->height = $height;
+        $thumb_mdl->extension = $extension;
+        $thumb_mdl->mimType = $mimeType;
+        $thumb_mdl->img_data = $binary_thumbnail;
+        $thumbnail_image_is_save = $thumb_mdl->save();
+    }
+    if ($full_image = $request->file('full_image')) {
+        $fullimg_mdl = Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $place_db->full_image_obj_id)->where('image_type', 'Full')->first();
+
+        $img_data = file_get_contents($full_image);
+        $height = Image::make($full_image)->height();
+        $width = Image::make($full_image)->width();
+        $extension = $full_image->extension();
+        $mimeType = $full_image->getMimeType();
+        $binary_full = new MongoBinary($img_data, MongoBinary::TYPE_GENERIC);
+        $fullimg_mdl->width = $width;
+        $fullimg_mdl->height = $height;
+        $fullimg_mdl->extension = $extension;
+        $fullimg_mdl->mimType = $mimeType;
+        $fullimg_mdl->img_data = $binary_full;
+        $full_image_is_save = $fullimg_mdl->save();
+    }
+
+    if(!empty(trim($request->name))) {
+      $place_db->name = trim($request->name);
+    }
+    if(!empty(trim($request->category_id))) {
+      $place_db->parent_destination = new MongoObjectId($request->category_id);
+    }
+    if(!empty(trim($request->district))) {
+      $place_db->district_code = $request->district;
+    }
+    if(!empty(trim($request->description)))
+      $place_db->short_desc = trim($request->description);
+    
+      try {
+        $place_db->save();
+        return redirect("/admin/destination/list")->with('success', 'Destination updated successfully');
+      } catch (\Throwable $th) {
+        return back()->withErrors($th->getMessage());
+        // $th->getMessage();
+      }
+    
+     
+  }
+ 
+  
   public function placeAdd(Request $request)
   {
     //destination category form
     $template_type = Master::where('master_type', 'template')->where('is_active', 1)->where('is_approved', 1)->where('design_type', 'detail')->get();
     $district = Master::where('master_type', 'District')->where('district_status', true)->orderBy('district_name', 'ASC')->get();
-    $destination_list = Item::where('type', 'destination')->where('is_active', 1)->where('is_approved', 1)->get();
+    $category_list = Item::where('type', 'dest-category')->where('is_active', 1)->where('is_approved', 1)->get();
     // $place_list=Item::where('type', 'place')->where('is_active', 1)->where('is_approved', 1)->orwhere('type', 'place')->get();
     // $ff=Item::leftjoin('parent_destination', 'parent_destination.id', '=', 'parent_destination')->get();
     // dd($ff);
@@ -375,7 +613,7 @@ class DestinationController extends Controller
 
     return view('Admin/destination/details/addPage', [
       'template_type' => $template_type,
-      'destination_list' => $destination_list,
+      'destination_list' => $category_list,
       'page_list' => $page_list,
       'd_list' => $district
     ]);
@@ -611,6 +849,7 @@ class DestinationController extends Controller
               $attraction_array->type = trim($at["type"]);
               $attraction_array->text = trim($at["content"]);
               $attraction_array->name = trim($at["name"]);
+              $attraction_array->how_to_reach = trim($at["how_to_reach"]);
               $attraction_model->push($attraction_array);
               //  dd( $attraction_model);
             }
@@ -650,6 +889,7 @@ class DestinationController extends Controller
               $stay_array->order = $key;
               $stay_array->type = trim($st["type"]);
               $stay_array->text = trim($st["content"]);
+              $stay_array->name = trim($st["name"]);
               $stay_model->push($stay_array);
               // dd($stay_model);
 
@@ -690,6 +930,8 @@ class DestinationController extends Controller
               $amenties_array->order = $key;
               $amenties_array->type = trim($amt["type"]);
               $amenties_array->text = trim($amt["content"]);
+              $amenties_array->name = trim($amt["name"]);
+
               $amenties_model->push($amenties_array);
               //   dd($amenties_model);
             }
@@ -773,11 +1015,123 @@ class DestinationController extends Controller
     return redirect("/admin/destination/list")->with('success', 'Detail Page Uploaded successfully ' . $url);
   }
 
-
-  public function destroy($id)
+  public function detailPageshow(Request $request)
   {
-    dd($id);
+    $errormsg = Config::get('constants.errormsg');
+    if (request()->ajax()) {
+      $limit = (int) $request->input('length');
+      $offset = (int) $request->input('start');
+      if (empty($limit)) {
+        $limit = 10;
+      }
+      if (empty($offset)) {
+        $offset = -1;
+      }
+      $totalRecords = 0;
+      $filterRecords = 0;
+      if (!empty($request->search['value']))
+        $serachvalue = $request->search['value'];
+      else
+        $serachvalue = '';
+      $model = new Item();
+      $query = $model::where('type', 'detailpage'); #->where('page_type', 'detail')->where('main_type','place');
+      if (empty($serachvalue)) {
+        $totalRecords = $query->count();
+        $data = $query->orderBy('name')->offset($offset)->limit($limit)->get();
+        $filterRecords = count($data);
+      } else {
+        $query = $query->Where('name', 'like', '%' . $serachvalue . '%');
+        $totalRecords = $query->count();
+        $data = $query->orderBy('name')->offset($offset)->limit($limit)->get();
+        $filterRecords = count($data);
+      }
+      $list = collect([]);
+      $i = 1;
+      foreach ($data as $item) {
+        $array = collect();
+        $content = collect([]);
+        $document = collect([]);
+        $img = '';
+        $array->id = $item->_id;
+        $array->is_active = $item->is_active;
+        $array->is_approved = $item->is_approved;
+        $array->name = $item->name ? $item->name : $item->title;
+        $array->main_type = $item->main_type;
+        $status = '';
+        if ($item->is_active == 1) {
+          $status = $status . ' Active';
+        } else {
+          $status = $status . ' InActive';
+        }
+        if ($item->is_approved == 1) {
+          $status = $status . ' and Approved';
+        } else {
+          $status = $status . ' and Approval Pending';
+        }
+        $array->status = $status;
+        $img_content = Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $item->banner_image)->where('image_type', 'Full')->first();
+        // echo ($img_content);
+        if($img_content){
+          $type = $img_content->mimType;
+          $img = 'data:' . $type . ';base64,' . base64_encode($img_content->img_data);
+          $array->img = $img;
+        }else{
+          $array->img = asset('assets/img/default/loding_logo.png');
+
+        }
+       
+        $array->slno = $i;
+        $i++;
+        $list->push($array);
+      }
+      return datatables()->of($list)
+        ->setTotalRecords($totalRecords)
+        ->setFilteredRecords($filterRecords)
+        ->skipPaging()
+        ->addColumn('check', function ($list) {
+
+          //return '<input type="checkbox" name="approvalcheck[]" onchange="" value="' . $list->id . '">';
+          return '';
+        })->addColumn('id', function ($list) {
+          return $list->id;
+        })->addColumn('img', function ($list) {
+          return '<img width="100" height="100" src="' . $list->img . '">';
+        })->addColumn('title', function ($list) {
+          return $list->name;
+        })->addColumn('type', function ($list) {
+          return $list->main_type;
+        })->addColumn('status', function ($list) {
+          return $list->status;
+        })
+        ->addColumn('action', function ($list) {
+          $action = '';
+          $edit='edit/';
+          if ($list->is_active == 1) {
+            $action = $action . '<button cur_status=' . $list->is_active . ' action_type="1" title=' . $list->name . ' slno=' . $list->slno . ' id="btnactive_' . $list->slno . '" class="btn btn-danger btn-modal" value=' . $list->id . '>InActive</button>&nbsp;&nbsp;&nbsp;&nbsp;';
+          } else if ($list->is_active == 0) {
+            $action = $action . '<button cur_status=' . $list->is_active . ' action_type="1" title=' . $list->name . ' slno=' . $list->slno . ' id="btnactive_' . $list->slno . '" class="btn btn-primary btn-modal" value=' . $list->id . '>Active</button>&nbsp;&nbsp;&nbsp;&nbsp;';
+          }
+          if ($list->is_approved == 1) {
+            $action = $action . '<button cur_status=' . $list->is_approved . ' action_type="2" title=' . $list->name . ' slno=' . $list->slno . ' id="btnapprove_' . $list->slno . '" class="btn btn-danger btn-modal" value=' . $list->id . '>Unapprove</button>&nbsp;&nbsp;&nbsp;&nbsp;';
+          } else if ($list->is_approved == 0) {
+            $action = $action . '<button cur_status=' . $list->is_approved . ' action_type="2" title=' . $list->name . ' slno=' . $list->slno . ' id="btnapprove_' . $list->slno . '" class="btn btn-primary btn-modal" value=' . $list->id . '>Approve</button>&nbsp;&nbsp;&nbsp;&nbsp;';
+          }
+          // $action = $action . '<a class="btn btn-outline-info" href=' . $edit . $list->id . '><i class="fas fa-pen-to-square"></i></a>&nbsp;&nbsp;';
+          // $action = $action.'<button cur_status=' . $list->is_approved . ' action_type="3" title=' . $list->name . ' slno=' . $list->slno . ' id="btndelete_'.$list->slno.'" class="btn btn-outline-danger btn-modal" value=' . $list->id . '><i class="fas fa-trash-can"></i></button>&nbsp;&nbsp;&nbsp;&nbsp;';
+
+          return $action;
+        })
+        ->rawColumns(['id', 'img', 'check', 'title','type', 'status', 'action'])
+        ->make(true);
+    }
+    return view(
+      'Admin/destination/page/listView',
+      [
+        'sessiontimeoutmessage' => $errormsg['sessiontimeOut'],
+      ]
+    );
   }
+
   public function delete(Request $request)
   {
     $cur_time = Carbon::now()->setTimezone('Asia/Kolkata');;
@@ -859,9 +1213,9 @@ class DestinationController extends Controller
 
   public function getsubcat(Request $request)
   {
-    // dd($request->id);
     $id = new MongoObjectId($request->id);
-    $subCat = Item::where('parent_destination', $id)->where('is_active', 1)->where('is_approved', 1)->get();
+    $district_code= $request->district_code;
+    $subCat = Item::where('parent_destination', $id)->where('district_code',$district_code)->where('is_active', 1)->where('is_approved', 1)->get();
     if (count($subCat) > 0) {
       $st = 1;
     } else {

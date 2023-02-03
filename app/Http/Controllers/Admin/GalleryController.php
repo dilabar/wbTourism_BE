@@ -237,7 +237,7 @@ class GalleryController extends Controller
             $errormsg = Config::get('constants.errormsg');
             if (request()->ajax()) {
             $limit = (int) $request->input('length');
-            $offset = $request->input('start');
+            $offset = (int) $request->input('start');
             if(empty($limit)){
                 
                 $limit=10;

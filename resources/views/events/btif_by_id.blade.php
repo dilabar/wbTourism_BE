@@ -1,9 +1,12 @@
 @extends('layouts.myapp')
+@section('css')
+<link rel="stylesheet" href="{{ asset('assets/css/viewer.min.css')}}">
 
+@endsection
 @section('content')
 <section class="pt-100">
     <div class="section-title title-style">
-        <h2>BENGAL TOURISM INFORMATION FAIR (BTIF)</h2>
+        <h2>{{ $heading_name }}</h2>
 
     </div>
     <div class="event_tourism_gallery">
@@ -25,5 +28,21 @@
     </div>
 
 </section>
+
+@endsection
+@section('script')
+<script src="{{ asset('assets/js/viewer.min.js')}}"></script>
+<script>
+
+const gallery = new Viewer(document.getElementById('gallery'),{
+    inline: false,
+    rotatable:false,
+    scalable:false,
+    zoomable:false,
+    movable:false
+});
+
+</script>  
+
 
 @endsection

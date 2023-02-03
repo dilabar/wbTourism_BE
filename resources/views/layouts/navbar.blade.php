@@ -491,7 +491,7 @@
                     <li><a href="{{route('kolkata_connect')}}">Kolkata Connect</a></li>
                     <li><a href="{{route('destination_east')}}" title="Destination East Menu"
                             target="_self">Destination East</a></li>
-                    <li><a href="{{route('events_gallery')}}"
+                    <li><a href="{{route('subregional_world_conferance')}}"
                             title="Sub-regional Conference on World Heritage Menu" target="_self">Sub-regional
                             Conference on World Heritage</a></li>
                     <li><a href="{{route('other_events_gallery')}}" title="Others" target="_self">Other Tourism
