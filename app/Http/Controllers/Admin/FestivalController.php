@@ -77,7 +77,7 @@ class FestivalController extends Controller
            
         }
         $model=new Item();
-        $model->type='festival';
+        $model->type=trim($request->name);
         if(!empty(trim($request->name)))
         $model->name=trim($request->name);
         if(!empty(trim($request->description)))

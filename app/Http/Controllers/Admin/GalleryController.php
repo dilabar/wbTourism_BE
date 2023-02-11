@@ -34,19 +34,22 @@ class GalleryController extends Controller
             'name' => 'required',
             'full_image' => 'mimes:jpeg,jpg,png,gif|required|max:10000',
             'visible' => 'required',
+            'gallery_type' => 'required',//0=img,1=video
         ];
          $messages = [
             'name.required' => 'The Name field is required',
             'visible.required'=>'The Visible field is required',
             'full_image.required'=>'The Image field is required',
+            'gallery_type.required'=>'The Gallery type field is required',
         ];
      
          
         $attributes = array();
        
         $attributes['name'] = $request->name;
-        $attributes['full_image'] = $request->gallery_image;
-        $attributes['visible'] = $request->dist;
+        $attributes['full_image'] = $request->full_image;
+        $attributes['visible'] = $request->visible;
+        $attributes['gallery_type'] = $request->gallery_type;
       
         $validator = Validator::make($request->all(), $rules, $messages, $attributes);
         if ($validator->fails()) {
@@ -55,6 +58,7 @@ class GalleryController extends Controller
         $gallery_array=array();
         if(!empty($request->name)){
         array_push( $gallery_array,$request->name);
+        array_push( $gallery_array,$request->gallery_type);
         }
         // $model1=new Item();
         // if($thumbnail_image=$request->file('thumbnail_image')){
@@ -110,8 +114,9 @@ class GalleryController extends Controller
         $model->type='gallery';
         if(!empty(trim($request->name)))
         $model->name=trim($request->name);
-        if(!empty(trim($request->description)))
-        $model->short_desc=trim($request->description);
+        if(!empty($request->gallery_type))
+        $model->gallery_type=$request->gallery_type;
+       
       
         $model->is_active=1;
         $model->is_approved=1;
@@ -130,6 +135,7 @@ class GalleryController extends Controller
     }
     public function imageForm(Request $request)
     {
+        // LoadFest();
         $galler_cat=Item::where('type','gallery')->where('section_type','gallery')->get();
         $district=Master::where('master_type','District')->where('district_status',true)->get();
         return view('Admin/gallery/image/add-gallery-image',[
@@ -141,26 +147,28 @@ class GalleryController extends Controller
     {
      
    
-        // dd($request);
+     
          $rules = [
             'name' => 'required',
-            'gallery_image' => 'mimes:jpeg,jpg,png,gif|required|max:10000',
-            'dist' => 'required',
-            'gallery_cat' => 'required'
+            // 'gallery_image' => 'mimes:jpeg,jpg,png,gif|required|max:10000',
+            // 'dist' => 'required',
+            'gallery_cat' => 'required',
+            'image_type' => 'required',//0=img,1=video
         ];
          $messages = [
             'name.required' => 'The Name field is required',
-            'dist.required'=>'The District field is required',
+            // 'dist.required'=>'The District field is required',
             'gallery_cat.required'=>'The Category field is required',
-            'gallery_image.required'=>'The Image field is required',
+            // 'gallery_image.required'=>'The Image field is required',
+            'image_type.required'=>'The image type field is required',
         ];
 
          
         $attributes = array();
        
         $attributes['name'] = $request->name;
-        $attributes['gallery_image'] = $request->gallery_image;
-        $attributes['dist'] = $request->dist;
+        // $attributes['gallery_image'] = $request->gallery_image;
+        // $attributes['dist'] = $request->dist;
         $attributes['gallery_cat'] = $request->gallery_cat;
         $validator = Validator::make($request->all(), $rules, $messages, $attributes);
         
@@ -177,12 +185,15 @@ class GalleryController extends Controller
         if(!empty($request->name)){
         array_push( $gallery_array,$request->name);
         array_push( $gallery_array,explode('_',$request->gallery_cat)[0]);
-        array_push( $gallery_array,(int) trim($request->dist));
        
         }
-       
+        if(!empty($request->dist)){
+            array_push( $gallery_array,(int) trim($request->dist));
+           
+        }
  
         $model1=new Item();
+        $model=new Item();
         if($gallery_image=$request->file('gallery_image')){
             $img_data = file_get_contents($gallery_image);
             $height = Image::make($gallery_image)->height();
@@ -202,10 +213,11 @@ class GalleryController extends Controller
             $model1->img_data=$binary_thumbnail;
             $model1->is_active=1;
             $model1->is_approved=1;
-            $thumbnail_image_is_save=$model1->save();           
+            $thumbnail_image_is_save=$model1->save();  
+            $model->gallery_image_obj_id=new MongoObjectId($model1->getKey()) ;         
         }
       
-        $model=new Item();
+       
       
         if(!empty(trim($request->name)))
         $model->name=trim($request->name);
@@ -218,8 +230,14 @@ class GalleryController extends Controller
         $model->is_approved=1;
         $model->type='gallery';
 
+        if(!empty(trim($request->image_type)))
+        $model->media_type=trim($request->image_type);
+
+        if(!empty(trim($request->youtube_link)))
+        $model->youtube_link=trim($request->youtube_link);
+
         //dd($objectId);
-        $model->gallery_image_obj_id=new MongoObjectId($model1->getKey()) ;
+       
         if($model->save()){
             // dd('Gallery uploaded successfully');
              return redirect("/admin/gallery/image/add")->with('success', 'Gallery Image Uploaded successfully');
@@ -231,7 +249,7 @@ class GalleryController extends Controller
             $errormsg = Config::get('constants.errormsg');
             if (request()->ajax()) {
             $limit = (int) $request->input('length');
-            $offset = $request->input('start');
+            $offset = (int) $request->input('start');
             if(empty($limit)){
                 
                 $limit=10;
@@ -617,9 +635,14 @@ class GalleryController extends Controller
               
                 $array->status=$status;
                 $img_content=Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $item->gallery_image_obj_id)->where('image_type', 'gallery')->first();
-                $type=$img_content->mimType;
+                if($img_content){
+                     $type=$img_content->mimType;
                 $img = 'data:' . $type . ';base64,' . base64_encode($img_content->img_data); 
                 $array->img=$img;
+                }else{
+                    $array->img=$img;
+                }
+               
                 
                 $array->slno=$i;
                 $i++;
@@ -756,6 +779,11 @@ class GalleryController extends Controller
         $gallery_db->gallery_category=explode('_',$request->gallery_cat)[0];
         $gallery_db->gallery_category_id=explode('_',$request->gallery_cat)[1];
             // $gallery_db->reference = null;
+        // if(!empty(trim($request->image_type)))
+        // $gallery_db->media_type=trim($request->image_type);
+
+        // if(!empty(trim($request->youtube_link)))
+        // $gallery_db->youtube_link=trim($request->youtube_link);
 
         if ($gallery_db->save()) {
             return redirect("/admin/gallery/image/list")->with('success', 'Image Updated successfully');

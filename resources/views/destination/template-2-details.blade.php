@@ -255,14 +255,16 @@
 
                               <div class="gallery-info">
                                  <div class="gallery-item">
-                                    <span><i class="bx bx-map"></i>{{$place_item->desc}}</span>
+                                    {{-- <span><i class="bx bx-map"></i>{{$place_item->desc}}</span> --}}
                                     <h3>
                                        @if($place_item->template_id == 1)
                                           <a href="../place/details?template_id=1&id={{($place_item->reference) ? $place_item->reference:$place_item->id}}">{{$place_item->name}}</a>
 
-                                       
+                                       @elseif($place_item->id =='63da580b171e967049012c2a')
+                                          <a href="/legends-view">{{$place_item->name}} </a>
                                        @else
                                        <a href="/destination/details?template_id=2&id={{$place_item->id}}">{{$place_item->name}} </a>
+                                     
                                        @endif
                                     </h3>
                                  </div>

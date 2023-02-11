@@ -245,6 +245,9 @@
                               <input type="text" class="form-control" name="attraction[0][name]" placeholder="Attraction name">
                               <textarea class="ckeditor form-control" name="attraction[0][content]" id="" cols="10" rows="5"
                                  placeholder="Your Content Here . . ."></textarea>
+                                 <textarea class="ckeditor form-control" name="attraction[0][how_to_reach]" id="" cols="10" rows="5"
+                                 placeholder="How to reach Content Here . . ."></textarea>
+                                 
                            </div>
                         </div>
                         <div id="aT-contentTextWithImg_0" class="col-md-12 align-items-center" style="display: none;">
@@ -292,6 +295,7 @@
                      <div id="inputFormRowStay" class="row mb-20">
                         <div class="col-md-12" id="sT-onlytext_0" style="display: block">
                            <div class="content mb-20 sT-contentText_0" id="sT-content_0">
+                              <input type="text" class="form-control" name="stay[0][name]" placeholder="Stay name">
                               <textarea class="ckeditor form-control" name="stay[0][content]" id="" cols="10" rows="5"
                                  placeholder="Your Content Here . . ."></textarea>
                            </div>
@@ -341,6 +345,8 @@
                      <div id="inputFormRowAmenties" class="row mb-20">
                         <div class="col-md-12" id="aM-onlytext_0" style="display: block">
                            <div class="content mb-20" id="aM-content_0">
+                              <input type="text" class="form-control" name="amenties[0][name]" placeholder="Amenties name">
+
                               <textarea class="ckeditor form-control" name="amenties[0][content]" id="" cols="10" rows="5"
                                  placeholder="Your Content Here . . ."></textarea>
                            </div>
@@ -408,7 +414,7 @@
                      <i class='bx bx-right-arrow'></i>
                   </a>
                </div>
-               <div class="widget widget-article mb-30">
+               {{-- <div class="widget widget-article mb-30">
                   <h3 class="sub-title">Popular Places</h3>
                   <article class="article-item">
                      <div class="image">
@@ -421,8 +427,8 @@
                         </h3>
                      </div>
                   </article>
-               </div>
-               <div class="widget widget-gallery mb-30">
+               </div> --}}
+               {{-- <div class="widget widget-gallery mb-30">
                   <h3 class="sub-title">Related top Destination</h3>
                   <ul class="instagram-post">
                      <li>
@@ -450,9 +456,10 @@
                         <i class='bx bx-images'></i>
                      </li>
                   </ul>
-               </div>
+               </div> --}}
                <div class="widget widget-gallery mb-30 box">
                   <h3 class="sub-title">Location</h3>
+                  <input id="map_url"  class="form-control mt-20"  name="map_url" type="text" placeholder="Map link" />
                   <div class="map_area">
                      <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56862.42970068252!2d88.22965562372111!3d27.03326702147118!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e42e654cf501bb%3A0x4175555979d4702a!2sDarjeeling%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1658735507581!5m2!1sen!2sin"
@@ -548,7 +555,7 @@
       var img = "{{asset('assets/img/default/600x400.png')}}"
       var html = '';
       html += '<div id="inputFormRowAttractions" class="row mt-20 mb-20">';
-      html += '<div class="col-md-12" id="aT-onlytext_' + countAttractions + '" style="display: block"><div class="content mb-20 contentText_' + countAttractions + '" id="aT-content_' + countAttractions + '"><input name="attraction[' + countAttractions + '][name]" class="form-control" placeholder="Attraction name"><textarea class="ckeditor form-control" name="attraction[' + countAttractions + '][content]" id="" cols="10" rows="5" placeholder="Your Content Here . . ."></textarea></div></div>';
+      html += '<div class="col-md-12" id="aT-onlytext_' + countAttractions + '" style="display: block"><div class="content mb-20 contentText_' + countAttractions + '" id="aT-content_' + countAttractions + '"><input name="attraction[' + countAttractions + '][name]" class="form-control" placeholder="Attraction name"><textarea class="ckeditor form-control" name="attraction[' + countAttractions + '][content]" id="" cols="10" rows="5" placeholder="Your Content Here . . ."></textarea><textarea class="ckeditor form-control" name="attraction['+ countAttractions +'][how_to_reach]" id="" cols="10" rows="5" placeholder="How to reach Content Here . . ."></textarea></div></div>';
       html += '<div id="aT-contentTextWithImg_' + countAttractions + '" class="col-md-12 align-items-center" style="display: none;"><div id="attrationImg_' + countAttractions + '" class="row"><div class="col-md-4 col-sm-12 img-section"><div class="bg-image image mb-30"><img  id="aT-output_' + countAttractions + '" src="'+img+'" alt="Demo Image"><div class="p-image"><i class="fas fa-camera" id="upload-button" onClick="document.getElementById ('+file_upload+').click();"></i><input id="aT-fileUpload_'+ countAttractions +'" class="file_upload"  type="file" name="attraction['+ countAttractions +'][img]" accept="image/*" onchange="loadFile(event, '+output+') "/></div></div></div><div class="content col-md-8 col-sm-12 content-section" id="aT-contentText_' + countAttractions + '"></div></div> </div>';
       html += '<div class="col-md-3"><select id="attrationImg_' + countAttractions + '" name="attraction[' + countAttractions + '][type]" class="form-control m-input"  onchange="showDiv(' + attraction_alignment + ',this);"> <option value="">--Select type--</option><option value="textwithimage">Text With Image</option><option value="onlytext" selected>Text Only</option> </select> </div>';
       html += '<div class="col-md-2" id="aT-Alignment_' + countAttractions + '" style="display: none;"><select name="attraction[' + countAttractions + '][alignment]" class="form-control m-input" onchange="showPosition(' + attraction_img + ',this)"> <option value="">--Select image alignment--</option><option value="left" selected>Left</option><option value="right">Right</option></select></div>';
@@ -580,7 +587,7 @@ var countStay = 1;
       var img = "{{asset('assets/img/default/600x400.png')}}"
       var html = '';
       html += '<div id="inputFormRowStay" class="row mt-20 mb-20">';
-      html += '<div class="col-md-12" id="sT-onlytext_' + countStay + '" style="display: block"><div class="content mb-20 contentText_' + countStay + '" id="sT-content_' + countStay + '"><textarea class="ckeditor form-control" name="stay[' + countStay + '][content]" id="" cols="10" rows="5" placeholder="Your Content Here . . ."></textarea></div></div>';
+      html += '<div class="col-md-12" id="sT-onlytext_' + countStay + '" style="display: block"><div class="content mb-20 contentText_' + countStay + '" id="sT-content_' + countStay + '"><input type="text" class="form-control" name="stay['+ countStay + '][name]" placeholder="Stay name"><textarea class="ckeditor form-control" name="stay[' + countStay + '][content]" id="" cols="10" rows="5" placeholder="Your Content Here . . ."></textarea></div></div>';
       html += '<div id="sT-contentTextWithImg_' + countStay + '" class="col-md-12 align-items-center" style="display: none;"><div id="stayImg_' + countStay + '" class="row"><div class="col-md-4 col-sm-12 img-section"><div class="bg-image image mb-30"><img  id="sT-output_' + countStay + '" src="'+img+'" alt="Demo Image"><div class="p-image"><i class="fas fa-camera" id="upload-button" onClick="document.getElementById ('+file_upload+').click();"></i><input id="sT-fileUpload_'+ countStay +'" class="file_upload"  type="file" name="stay['+ countStay +'][img]" accept="image/*" onchange="loadFile(event, '+output+') "/></div></div></div><div class="content col-md-8 col-sm-12 content-section" id="sT-contentText_' + countStay + '"></div></div> </div>';
       html += '<div class="col-md-3"><select id="stayImg_' + countStay + '" name="stay[' + countStay + '][type]" class="form-control m-input"  onchange="showDiv(' + stay_alignment + ',this);"> <option value="">--Select type--</option><option value="textwithimage">Text With Image</option><option value="onlytext" selected>Text Only</option> </select> </div>';
       html += '<div class="col-md-2" id="sT-Alignment_' + countStay + '" style="display: none;"><select name="stay[' + countStay + '][alignment]" class="form-control m-input" onchange="showPosition(' + stay_img + ',this)"> <option value="">--Select image alignment--</option><option value="left" selected>Left</option><option value="right">Right</option></select></div>';
@@ -614,7 +621,7 @@ var countAmenties = 1;
       var img = "{{asset('assets/img/default/600x400.png')}}"
       var html = '';
       html += '<div id="inputFormRowAmenties" class="row mt-20 mb-20">';
-      html += '<div class="col-md-12" id="aM-onlytext_' + countAmenties + '" style="display: block"><div class="content mb-20 contentText_' + countAmenties + '" id="aM-content_' + countAmenties + '"><textarea class="ckeditor form-control" name="amenties[' + countAmenties + '][content]" id="" cols="10" rows="5" placeholder="Your Content Here . . ."></textarea></div></div>';
+      html += '<div class="col-md-12" id="aM-onlytext_' + countAmenties + '" style="display: block"><div class="content mb-20 contentText_' + countAmenties + '" id="aM-content_' + countAmenties + '"><input type="text" class="form-control" name="amenties[' + countAmenties + '][name]" placeholder="Amenties name"><textarea class="ckeditor form-control" name="amenties[' + countAmenties + '][content]" id="" cols="10" rows="5" placeholder="Your Content Here . . ."></textarea></div></div>';
       html += '<div id="aM-contentTextWithImg_' + countAmenties + '" class="col-md-12 align-items-center" style="display: none;"><div id="amentiesImg_' + countAmenties + '" class="row"><div class="col-md-4 col-sm-12 img-section"><div class="bg-image image mb-30"><img  id="aM-output_' + countAmenties + '" src="'+img+'" alt="Demo Image"><div class="p-image"><i class="fas fa-camera" id="upload-button" onClick="document.getElementById ('+file_upload+').click();"></i><input id="aM-fileUpload_'+ countAmenties +'" class="file_upload"  type="file" name="amenties['+ countAmenties +'][img]" accept="image/*" onchange="loadFile(event, '+output+') "/></div></div></div><div class="content col-md-8 col-sm-12 content-section" id="aM-contentText_' + countAmenties + '"></div></div> </div>';
       html += '<div class="col-md-3"><select id="amentiesImg_' + countAmenties + '" name="amenties[' + countAmenties + '][type]" class="form-control m-input"  onchange="showDiv(' + amenties_alignment + ',this);"> <option value="">--Select type--</option><option value="textwithimage">Text With Image</option><option value="onlytext" selected>Text Only</option> </select> </div>';
       html += '<div class="col-md-2" id="aM-Alignment_' + countAmenties + '" style="display: none;"><select name="amenties[' + countAmenties + '][alignment]" class="form-control m-input" onchange="showPosition(' + amenties_img + ',this)"> <option value="">--Select image alignment--</option><option value="left" selected>Left</option><option value="right">Right</option></select></div>';
@@ -704,18 +711,17 @@ var countSomeinfo = 1;
             reader.onload = function (e) {
                const image = new Image();
                image.src = e.target.result;
-               // console.log( e.target.result)
                image.onload = (e) => {
                   const height = e.target.height;
                   const width = e.target.width;
-                  if (height == 400 && width == 600 ) {
+                  // if (height == 400 && width == 600 ) {
                      $('#'+divId).attr('src', image.src);
                      return true
-                  }
-                 else{
-                     alert("Height and Width must not exceed 100px.");
-                     return true;
-                  }
+               //    }
+               //   else{
+               //       alert("Height and Width must not exceed 100px.");
+               //       return true;
+               //    }
                   // alert("Uploaded image has valid Height and Width.");
                   // $('#'+divId).attr('src', image.src);
                   // return true;

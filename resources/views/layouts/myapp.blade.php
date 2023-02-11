@@ -103,13 +103,13 @@
                             <h5>Quick Links</h5>
                             <ul class="footer-links">
                                 <li>
-                                    <a href="#">Online Booking</a>
+                                    <a href="https://www.wbtdcl.com/">Online Booking</a>
                                 </li>
                                 <li>
                                     <a href="#">Linked Sites</a>
                                 </li>
                                 <li>
-                                    <a href="#">Gallery</a>
+                                    <a href="/gallery/image_gallery">Gallery</a>
                                 </li>
                                 <li>
                                     <a href="#">Legends of Bengal</a>
@@ -140,13 +140,16 @@
     </footer>
 
     @include('layouts.footer')
-    <div id="modal_map" class="modal fade">
-        <div class="modal-dialog modal-confirm">
+    <div id="modal_map" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+        <div class="modal-dialog modal-dialog-centered" >
            
             <div class="modal-content">
-                <div class="modal-header flex-column">
+                <div class="modal-header">
                  
                     <h4 class="modal-title w-100"><span id="item_name"></span></h4>	
+                    <button type="button"  class="btn-close" data-bs-dismiss="modal" id="map_btn_close" aria-label="Close">
+                        {{-- <span aria-hidden="true">&times;</span> --}}
+                    </button>
                     
                 </div>
                 <div class="modal-body">
@@ -157,7 +160,7 @@
                         <div class="card-body">
                           <h5 class="card-title" id="item_name"></h5>
                           <p class="card-text" id="desc"></p>
-                          <a href="http://127.0.0.1:8000/place/details?template_id=1&id=638fa1e275e07fe30e0764cb" >Read more</a>
+                          <a id="ref" target="__blank"  >Read more</a>
                         </div>
                       </div>
                    

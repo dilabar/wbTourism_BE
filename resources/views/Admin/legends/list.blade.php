@@ -165,7 +165,7 @@
                     });
                 },
                 "columns": [{
-                        "data": "check"
+                        "data": "id"
                     },
                     {
                         "data": "img"

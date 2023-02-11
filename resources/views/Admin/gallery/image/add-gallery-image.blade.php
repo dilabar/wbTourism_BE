@@ -65,7 +65,7 @@
                         <select name="gallery_cat" class="form-control  form-select {{ $errors->has('gallery_cat') ? ' is-invalid' : '' }}" >
                           <option value="">Select gallery</option>
                           @foreach ($gal_category as $gcat)
-                          <option value="{{$gcat->name.'_'.$gcat->_id}}" {{ in_array($gcat->gallery_category_id,old('gallery_cat')) }} >{{$gcat->name}}</option>
+                          <option value="{{$gcat->name.'_'.$gcat->_id}}"  >{{$gcat->name}}</option>
                               
                           @endforeach
                        
@@ -86,12 +86,19 @@
                       @if ($errors->has('dist'))<div class="invalid-feedback">{{ $errors->first('dist') }}.</div> @endif
 
                     </div>
-                   
-                      {{-- <div class="wrap-input100 validate-input" data-validate="Gallery Full Description is required">
-                        <textarea class="input100 ckeditor" name="message" placeholder="Gallery Full Description..."></textarea>
-                        <span class="focus-input100"></span>
-                      </div> --}}
-                      <div class="form-group">
+                    <div class="form-group">
+                      <select name="image_type" id="image_type" class="form-control {{ $errors->has('image_type') ? 'is-invalid' : '' }}">
+                          <option value="0"  {{ old('image_type') =='0' ? 'selected' :'' }}>Image</option>
+                          <option value="1" {{ old('image_type') =='1' ? 'selected' :'' }} >Video</option>
+                      </select>
+                      @if ($errors->has('image_type'))<div class="invalid-feedback">{{ $errors->first('image_type') }}.</div> @endif
+                  </div>
+                  <div class="wrap-input100 invalidate-input" data-validate="Youtube link" id="youtube_link" style="display:none">
+                        <input class="form-control input100 {{ $errors->has('youtube_link') ? ' is-invalid' : '' }}" id="validationCustom01" type="text" name="youtube_link" placeholder="Youtube link" value="{{ old('youtube_link') }}" >
+                    <span class="focus-input100"></span>
+                    @if ($errors->has('youtube_link'))<div class="invalid-feedback">{{ $errors->first('youtube_link') }}.</div> @endif
+                  </div>
+                      <div class="form-group" id="image_data">
                         <label for="exampleFormControlFile1">Image</label>
                         <input type="file" class="form-control form-control-file {{ $errors->has('gallery_image') ? ' is-invalid' : '' }}" id="exampleFormControlFile1" name="gallery_image" aria-label="file example">
                        @if ($errors->has('gallery_image'))
@@ -143,7 +150,18 @@
     <script type="text/javascript">
        $(document).ready(function() {
          $('#example-getting-started').multiselect();
-         $('.ckeditor').ckeditor();
+        //  $('.ckeditor').ckeditor();
+         $("#image_type").change(function() {
+          var mtype=$(this).val();
+          if(mtype == '1'){
+            $("#youtube_link").show()
+            $("#image_data").hide()
+          }else{
+            $("#youtube_link").hide()
+            $("#image_data").show()
+
+          }
+         })
     });
 
 

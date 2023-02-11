@@ -19,7 +19,7 @@ class DestinationPageController extends Controller
     {
         $template_arr = Master::where('is_active', 1)->where('is_approved', 1)->where('master_type', 'template')->where('template_id', 2)->first();
 
-        $list_db = Item::where('type', 'destination')->where('is_active', 1)->where('is_approved', 1)->get();
+        $list_db = Item::where('type', 'dest-category')->where('is_active', 1)->where('is_approved', 1)->get();
         $place_list = collect([]);
         foreach ($list_db as $place) {
             $place_array = collect();
@@ -69,7 +69,7 @@ class DestinationPageController extends Controller
         // dd($list_db);
 
         if (!count($list_db) > 0) {
-            return ("page not found");
+              return view('error.404');
         }
         $place_list = collect([]);
         foreach ($list_db as $place) {

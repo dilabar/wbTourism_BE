@@ -70,6 +70,12 @@
                                             name="thumbnail_image">
                                     </div> --}}
                                     <div class="form-group">
+                                        <select name="type" id="" class="form-control">
+                                            <option value="festival">Festival</option>
+                                            <option value="event">Event</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="exampleFormControlFile1">Full Image</label>
                                         <input type="file" class="form-control-file" id="exampleFormControlFile1"
                                             name="full_image">

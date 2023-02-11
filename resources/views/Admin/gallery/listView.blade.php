@@ -135,7 +135,7 @@
          
           "initComplete":function(){
             $('.preloader1').hide();
-            $(".btn-modal").click(function(){
+            $(document).on('click', '.btn-modal', function(){
              $('#confirm_action #id').val('');
              $('#confirm_action #action_type').val('');
              $('#confirm_action #cur_status').val('');

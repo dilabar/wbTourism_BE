@@ -1,12 +1,14 @@
 @extends('layouts.myapp')
-
+@section('css')
+<link rel="stylesheet" href="{{ asset('assets/css/magnificpop.min.css') }}">
+@endsection
 @section('content')
 
   <div class="page-title-area ptb-100">
     <div class="container">
       <div class="page-title-content">
         <h1>{{$details->title}}</h1>
-        <p class="text-light">{{$details->banner_short_info}}</p>
+        <p class="text-light">{{$details->banner_short_info}} </p>
         <!-- <ul>
       <li class="item"><a href="index.html">Home</a></li>
       <li class="item"><a href="blog-details.html"><i class='bx bx-chevrons-right'></i>Destination Details</a></li>
@@ -20,7 +22,7 @@
 
  
   <style>
-    .destinations-details-section .nav-item {
+    /* .destinations-details-section .nav-item {
       margin-right: 20px;
     }
 
@@ -39,12 +41,12 @@
 
     .destinations-details-section .nav-tabs {
       border-bottom: none;
-    }
+    } */
 
-    .destinations-details-section img:hover {
+    /* .destinations-details-section img:hover {
       -webkit-transform: scale(1.1);
       transform: scale(1.1);
-    }
+    } */
   </style>
 <section class="destinations-details-section pt-100 pb-70">
   <div class="container">
@@ -69,16 +71,16 @@
               <li class="nav-item" role="presentation">
                 <button class="nav-link " id="stay-tab" data-bs-toggle="tab" data-bs-target="#stay" type="button" role="tab" aria-controls="stay" aria-selected="true">Stay</button>
               </li>
-              <li class="nav-item" role="presentation">
+              {{-- <li class="nav-item" role="presentation">
                 <button class="nav-link " id="nearby-amenties-tab" data-bs-toggle="tab" data-bs-target="#nearby-amenties" type="button" role="tab" aria-controls="nearby-amenties" aria-selected="true">Nearby Amenties</button>
-              </li>
+              </li> --}}
            
             </ul>
             <div class="tab-content pt-70" id="myTabContent">
               <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
                 <div class="destination-details-desc mb-30">
                 @if(!empty($details->slider_content))
-                  {{$details}}
+                  
                   <div class="row align-items-center">
                     
                       <!-- <div class="col-md-6 col-sm-12"> -->
@@ -108,14 +110,14 @@
                           </div>
                       </div>
                       <div class="col-md-8 col-sm-12">
-                          <p class="mb-30">
+                          <p class="mb-30 text-justify">
                            {{$about_item->text}}
                           </p>
                       </div>
                       @endif
                       @if($about_item->imagealignment=='right' | $about_item->imagealignment=='r')
                       <div class="col-md-8 col-sm-12">
-                          <p class="mb-30">
+                          <p class="mb-30 text-justify">
                           {{$about_item->text}}
                           </p>
                       </div>
@@ -128,13 +130,58 @@
                       
                   </div>
                   @else
-                  <p >
+                  <p class="text-justify">
                   {{$about_item->text}}
                   </p>
                   @endif
                   @endforeach
                   @endif
-                 
+                  @if(!empty($details->attractions_tab_content))
+                  @foreach($details->attractions_tab_content as $atrItem)
+                  @if ($atrItem->popular =='1')
+                      
+                  
+                  @if(isset($atrItem->name))
+                  <h3 class="text-capitalize">{{$atrItem->name}}</h3>
+                  @endif
+                  @if($atrItem->type=='textwithimage')
+                  <div class="row align-items-center">
+                  
+                     @if($atrItem->imagealignment=='left')
+                      <div class="col-md-4 col-sm-12">
+                          <div class="image mb-30">
+                              <img src="{{$atrItem->img}}" alt="Demo Image" />
+                          </div>
+                      </div>
+                      <div class="col-md-8 col-sm-12">
+                          <p class="mb-30 text-justify">
+                           {{$atrItem->text}}
+                          </p>
+                      </div>
+                      @endif
+                      @if($atrItem->imagealignment=='right')
+                      <div class="col-md-8 col-sm-12">
+                          <p class="mb-30 text-justify">
+                          {{$atrItem->text}}
+                          </p>
+                      </div>
+                      <div class="col-md-4 col-sm-12">
+                          <div class="image mb-30">
+                              <img src="{{$atrItem->img}}" alt="Demo Image" />
+                          </div>
+                      </div>
+                      @endif
+                      
+                  </div>
+                  @else
+                  <p class="text-justify">
+                  {{$atrItem->text}}
+                  </p>
+                  @endif
+                  @endif
+                  @endforeach
+                  @endif
+                  
                   @if(count($details->about_tab_some_info)> 0)
                 
                   <div class="info-content">
@@ -168,14 +215,14 @@
                           </div>
                       </div>
                       <div class="col-md-8 col-sm-12">
-                          <p class="mb-30">
+                          <p class="mb-30 text-justify">
                            {{$htrItem->text}}
                           </p>
                       </div>
                       @endif
                       @if($htrItem->imagealignment=='right'| $htrItem->imagealignment=='r')
                       <div class="col-md-8 col-sm-12">
-                          <p class="mb-30">
+                          <p class="mb-30 text-justify">
                           {{$htrItem->text}}
                           </p>
                       </div>
@@ -188,7 +235,7 @@
                       
                   </div>
                   @else
-                  <p>
+                  <p class="text-justify">
                   {{$htrItem->text}}
                   </p>
                   @endif
@@ -199,27 +246,28 @@
               @if(!empty($details->attractions_tab_content))
                   @foreach($details->attractions_tab_content as $atrItem)
                   @if(isset($atrItem->name))
-                  <h3>{{$atrItem->name}}</h3>
+                  <h3 class="text-capitalize">{{$atrItem->name}}</h3>
                   @endif
                   @if($atrItem->type=='textwithimage')
                   <div class="row align-items-center">
                   
                      @if($atrItem->imagealignment=='left')
-                      <div class="col-md-4 col-sm-12">
-                          <div class="image mb-30">
+                      <div class="col-md-4 col-sm-12  ">
+                          <div class="image mb-30 ">
                               <img src="{{$atrItem->img}}" alt="Demo Image" />
                           </div>
                       </div>
                       <div class="col-md-8 col-sm-12">
-                          <p class="mb-30">
-                           {{$atrItem->text}}
+                          <p class="mb-30 text-justify">
+                            {!! html_entity_decode($atrItem->text) !!}
                           </p>
+                      
                       </div>
                       @endif
                       @if($atrItem->imagealignment=='right')
                       <div class="col-md-8 col-sm-12">
-                          <p class="mb-30">
-                          {{$atrItem->text}}
+                          <p class="mb-30 text-justify">
+                         {!! html_entity_decode($atrItem->text) !!}
                           </p>
                       </div>
                       <div class="col-md-4 col-sm-12">
@@ -231,9 +279,13 @@
                       
                   </div>
                   @else
-                  <p>
-                  {{$atrItem->text}}
+                  <p class="text-justify">
+                    {!! html_entity_decode($atrItem->text) !!}
                   </p>
+                  @endif
+                  @if(isset($atrItem->how_to_reach))
+                  {{-- <h3 class="bold">How to reach</h3> --}}
+                  <p> {!! html_entity_decode($atrItem->how_to_reach) !!} </p>
                   @endif
                   @endforeach
                   @endif
@@ -336,12 +388,12 @@
                           <img src="../assets/img/top_product/coastal/sea1.JPG" alt="video" />
                       </div>  -->
                     
-                    @if ($details->video_url)
+                    {{-- @if ($details->video_url)
                     <video  class="embed-responsive-item " width="100%"  controls autoplay="true">
                       <source src="{{ asset('uploads/video/'.@$details->video_url)}}"  type="video/mp4">
                       Your browser does not support the video tag.
                       </video>
-                    @else
+                    @else --}}
                     
                         <div class="video-image">
                           @if ($details->video_image)
@@ -350,14 +402,14 @@
                               <img src="../assets/img/default/900x600.png" alt="video" />
                           @endif
                       </div>
-                        <a href="{{$details->youtube_url}}" class="youtube-popup video-btn">
+                        <a href="{{$details->vedio_link}}" class="youtube-popup video-btn">
                             <i class='bx bx-right-arrow'></i>
                         </a>
-                    @endif
+                    {{-- @endif --}}
                   </div>
-                  
-                  <div class="widget widget-article mb-30">
-                      <h3 class="sub-title">Popular Places</h3>
+                  @isset($details->popular_place)
+                       <div class="widget widget-article mb-30">
+                      <h3 class="sub-title text-capitalize">Popular Places</h3>
                       @foreach($details->popular_place as $p)
                 
                       @if($p->popular == '1')
@@ -367,7 +419,7 @@
                           </div>
                           <div class="content">
                               <h3>
-                                  <a href="#">{{$p->name}}</a>
+                                  <a href="#" class="text-capitalize">{{$p->name}}</a>
                               </h3>
                              
                           </div>
@@ -376,46 +428,46 @@
                       @endforeach
                      
                   </div>
-                  <div class="widget widget-gallery mb-30">
+                  @endisset
+                 
+                  @isset($releted_destination )
+                      <div class="widget widget-gallery mb-30">
                       <h3 class="sub-title">Related top destinations</h3>
                       <ul class="instagram-post">
-                          <li>
-                              <img src="../assets/img/instagram1.jpg" alt="Demo Image">
-                              <i class='bx bx-images'></i>
-                          </li>
-                          <li>
-                              <img src="../assets/img/instagram2.jpg" alt="Demo Image">
-                              <i class='bx bx-images'></i>
-                          </li>
-                          <li>
-                              <img src="../assets/img/instagram3.jpg" alt="Demo Image">
-                              <i class='bx bx-images'></i>
-                          </li>
-                          <li>
-                              <img src="../assets/img/instagram4.jpg" alt="Demo Image">
-                              <i class='bx bx-images'></i>
-                          </li>
-                          <li>
-                              <img src="../assets/img/instagram5.jpg" alt="Demo Image">
-                              <i class='bx bx-images'></i>
-                          </li>
-                          <li>
-                              <img src="../assets/img/instagram6.jpg" alt="Demo Image">
-                              <i class='bx bx-images'></i>
-                          </li>
+                        @foreach ($releted_destination as $item)
+                             <li>
+                                <a href="{{$item->url}}">
+                              <img src="{{ $item->img }}" alt="Demo Image" width="100%" style="height: calc(140px - 34.5px);">
+                              <i class='bx bx-link'></i>
+                              <span>{{ $item->name }}</span>
+                            </a>
+                            </li>
+                        @endforeach
+                
                       </ul>
-                  </div>
-                  <div class="widget widget-gallery mb-30 box">
+                  </div> 
+                  @endisset
+                 
+                  @if ($details->map_url )
+                      <div class="widget widget-gallery mb-30 box">
                     <h3 class="sub-title">Location</h3>
                     <div class="map_area">
-                      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56862.42970068252!2d88.22965562372111!3d27.03326702147118!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e42e654cf501bb%3A0x4175555979d4702a!2sDarjeeling%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1658735507581!5m2!1sen!2sin"  style="border:0; width: 100%;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                      <iframe src="{{ $details->map_url }}"  style="border:0; width: 100%;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                   </div>
                   </div>
+                  @endif
+                  
               </aside>
           </div>
       </div>
   </div>
 </section>
+@endsection
+@section('script')
+<script src="{{ asset('assets/js/magnificpop.min.js') }}"></script>
+<script>
+    $('.youtube-popup').magnificPopup({disableOn:320,type:'iframe',mainClass:'mfp-fade',removalDelay:160,preloader:false,fixedContentPos:false});
+</script>
 @endsection
 
   

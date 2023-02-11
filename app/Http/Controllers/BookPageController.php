@@ -34,6 +34,7 @@ class BookPageController extends Controller
         //dd($books);
         return view('touristcorner/booklist',
         [
+            'heading_name'=>$type,
             'book_list'=>$books
          
         ]);
@@ -44,16 +45,15 @@ class BookPageController extends Controller
         if(!empty($book->thumbnail_image_obj_id)){
             // dd($details_db);
             $img_content=Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $book->thumbnail_image_obj_id)->where('type', 'Image')->first();
-
             $img_type=$img_content->mimType;
+            // $bng_img = 'data:' . $img_type . ';base64,' . base64_encode($img_content->img_data); 
             $bng_img = 'data:' . $img_type . ';base64,' . base64_encode($img_content->img_data); 
             $book->thumbnail_image=$bng_img;
         }
         if(!empty($book->file_data)){
             // dd($details_db);
-           
-            $bng_img = 'data:' . $book->mimeType . ';base64,' . base64_encode($book->file_data); 
-            $book->pdf=$bng_img;
+            $bng_file = 'data:' . $book->mimeType . ';base64,' . base64_encode($book->file_data);
+            $book->pdf=$bng_file;
         }
        
         return view('touristcorner/book-detail',

@@ -5,90 +5,70 @@
  #home svg polygon,circle{
   cursor: pointer;
 }
+.map-tooltip {
+  position: absolute;
+  display: none;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border:#d3d3d3 solid 1px;
+  background: #fff;
+  color: black;
+  font-family: Comfortaa, Verdana;
+  font-size: smaller;
+  padding: 8px;
+  pointer-events:none;
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); 
+}
   </style>
     @if (count($banner_list) > 0)
         <div id="home" class="home-banner-area home-style-three" >
             
             <div- class="container-fluid p-0 " >
                 <div class="banner-slider-two owl-carousel" >
-                    <div class="slider-item item-1" style="background: url()  no-repeat center;padding-top:5%" >
+                    <div class="slider-item item-1" style="background: url()  no-repeat center;padding-top:3.3%" >
                           <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1900 850">
                         <image  class="w-100"
-                            xlink:href="{{ asset('assets/img/shape/WB_MAP_1900x850-01.png') }}"></image>
-                         
-                            {{-- <a class="map-modal pin bounce" data-toggle="modal" 
-                            data-src="http://127.0.0.1:8000/assets/img/destination/himalya.png"  
-                            xlink:href="#coochbehar" 
-                            title="Cooch behar" 
-                            data-src="http://127.0.0.1:8000/assets/img/top_product/Rajbari/Coochbehar-Rajbari.jpg" 
-                            > --}}
-                                <polygon 
-                                class="map-modal"
-                                title="Cooch behar" 
-                                data-src="http://127.0.0.1:8000/assets/img/top_product/Rajbari/Coochbehar-Rajbari.jpg"  
-                                points="413,198,436,186,463,185,488,163,527,178,545,185,540,212,487,210,446,215"
-                                desc=" Cooch Behar Palace, is a landmark in Cooch Behar city, West Bengal. It was designed after the Italian Renaissance style of architecture and was built in 1887, during the reign of Maharaja Nripendra Narayan of Koch dynasty. It is currently a museum."
-                                
-                                 fill="#70DB8E" opacity="0" stroke="#2EB855" stroke-width="2"  
-                                />
-                                
-                                {{-- <circle class="map-modal"
-                                title="Cooch behar" 
-                                data-src="http://127.0.0.1:8000/assets/img/top_product/Rajbari/Coochbehar-Rajbari.jpg"
-                                desc=" Cooch Behar Palace, is a landmark in Cooch Behar city, West Bengal. It was designed after the Italian Renaissance style of architecture and was built in 1887, during the reign of Maharaja Nripendra Narayan of Koch dynasty. It is currently a museum."
-                                 data-toggle="modal" fill="#ff0000" stroke="none" cx="489" cy="198" r="10">
-                                    <animate attributeName="opacity" dur="1s" values="0;1;0" repeatCount="indefinite" begin="0.1" />
-                                  </circle> --}}
-                                  
-                            {{-- </a> --}}
-                            <a class="map-modal"  title="Neora National Park"
-                            data-src="http://127.0.0.1:8000/assets/img/gallery/neora-valley-national.jpg"
-                            desc="The famous Neora National Park is located in Kalimpong was established in the year 1986. Considered as one of the wealthiest biological zones, this park spreads over a region of about 88 Sq. km. and is situated near Lava at a dense"
-                            >
-                                <polygon points="374,282,406,272,433,252,401,220,383,232,371,250" fill="blue" opacity="0" stroke="#2EB855" stroke-width="2"/>
-                                {{-- <circle
+                            xlink:href="{{ asset('assets/img/shape/WB_MAP_1900x850-03.jpg') }}"></image>
+                            {{-- <g>
+                                   <rect x="756" y="0" fill="red" opacity="0.5" width="641" height="15">
+                              
+                            </rect>
+                            <text x="756" y="0" font-family="Verdana" font-size="35" fill="blue">Hello</text> 
+                            </g> --}}
+                            <g>
+                                {{-- <rect x="756" y="10" width="100" height="100" fill="red"></rect> --}}
+                                <text x="756" y="15" font-family="Verdana" font-size="20" fill="black">Click on the red dots for pop up details</text>
+                              </g>
+                        
+                         @foreach (getMapCordinate() as $item)
+                         <a class="map-modal" data-toggle="modal" 
+                         data-src="{{ $item->img_url }}"  
+                         title="{{ $item->title }} " 
+                         desc="{{ $item->desc }}"
+                         data-link="{{ $item->reference }}"
+
+                         >
+                         <circle  fill="#ff0000" stroke="none" cx="{{ $item->cx }}" cy="{{ $item->cy }}" r="10" opacity="0"> 
+                            {{-- <animate attributeName="opacity" dur="1s" values="0;1;0" repeatCount="indefinite" begin="0.1" /></circle> --}}
+                          {{-- <circle
                                 title="Neora National Park" 
                                 class="map-modal" data-toggle="modal" fill="#ff0000" stroke="none" cx="374" cy="282" r="10">
                                     <animate attributeName="opacity" dur="1s" values="0;1;0" repeatCount="indefinite" begin="0.1" />
                                   </circle> --}}
-                            </a>
-                            <a class="map-modal" title="Gorumara Wild Life">
-                                <polygon points="386,282,413,272,448,260,448,250,488,253,488,272,460,290,418,297,413,319,386,302" fill="green" opacity="0" stroke="#2EB855" stroke-width="2"/>
-                                {{-- <circle
-                                title="Gorumara Wild Life"
-                                 class="map-modal" data-toggle="modal" fill="#ff0000" stroke="none" cx="426" cy="282" r="10">
-                                    <animate attributeName="opacity" dur="1s" values="0;1;0" repeatCount="indefinite" begin="0.1" />
-                                  </circle> --}}
-                            </a>
-                            <a class="map-modal" data-toggle="modal"  title="Shanti Stupa"  desc="Darjeeling conjures visions of snow peaks, serenity of vibrant green hills steeped in splendour, a land of breathtaking beauty crowned by the majestic Himalayas. Darjeeling is one of the most magnificent hill resorts in the world. This heavenly retreat is bathed in hues of every shade. Flaming red rhododendrons, sparkling white magnolias, miles of undulating hillsides covered with emerald green tea bushes, the exotic forests of silver fir - all under the blanket of a brilliant azure sky dappled with specks of clouds, compellingly confounds Darjeeling as the QUEEN OF HILL STATIONS">
-                                
-                                <polygon points="361,279,371,247,366,215,339,198,329,218,301,228,272,255,265,265,274,284,302,294,339,299" fill="blue" opacity="0" stroke="#blue" stroke-width="2"/>
-                                {{-- <circle
-                                title="Shanti Stupa"  desc="Darjeeling conjures visions of snow peaks, serenity of vibrant green hills steeped in splendour, a land of breathtaking beauty crowned by the majestic Himalayas. Darjeeling is one of the most magnificent hill resorts in the world. This heavenly retreat is bathed in hues of every shade. Flaming red rhododendrons, sparkling white magnolias, miles of undulating hillsides covered with emerald green tea bushes, the exotic forests of silver fir - all under the blanket of a brilliant azure sky dappled with specks of clouds, compellingly confounds Darjeeling as the QUEEN OF HILL STATIONS"
-                                 class="map-modal" data-toggle="modal" fill="#ff0000" stroke="none" cx="361" cy="279" r="10">
-                                    <animate attributeName="opacity" dur="1s" values="0;1;0" repeatCount="indefinite" begin="0.1" />
-                                  </circle> --}}
-                            </a>
-                            <a class="map-modal"  title="Toy Train" desc="Darjeeling conjures visions of snow peaks, serenity of vibrant green hills steeped in splendour, a land of breathtaking beauty crowned by the majestic Himalayas. Darjeeling is one of the most magnificent hill resorts in the world. This heavenly retreat is bathed in hues of every shade. Flaming red rhododendrons, sparkling white magnolias, miles of undulating hillsides covered with emerald green tea bushes, the exotic forests of silver fir - all under the blanket of a brilliant azure sky dappled with specks of clouds, compellingly confounds Darjeeling as the QUEEN OF HILL STATIONS" >
-                                <polygon points="252,287,294,299,324,304,347,302,368,312,386,324,378,339,331,329,285,322,254,305" fill="yellow" opacity="0" stroke="yellow" stroke-width="2"/>
-                            </a>
-                            <a class="map-modal" title="Kulik">
-                                <polygon points="503,381,554,362,574,357,591,373,607,366,601,374,601,399,581,419,547,409" fill="red" opacity="0" stroke="yellow" stroke-width="2"/>
-                            </a>
-                            <a class="map-modal"  title="Burhana Fakir Mosque">
-                                <polygon points="604,359,614,393,641,381,681,388,700,366,666,354" fill="red" opacity="0" stroke="yellow" stroke-width="2"/>
-                            </a>
-                            <a class="map-modal" title="Hazi Danes University">
-                                <polygon points="674,334,758,342,748,299,700,294" fill="red" opacity="0" stroke="yellow" stroke-width="2"/>
-                            </a>
-                            <a class="map-modal"  title="Firoz Minar">
-                                <polygon points="755,379,790,378,782,342,768,342" fill="red" opacity="0" stroke="yellow" stroke-width="2"/>
-                            </a>
-                        
+                                 
+                        </a>
+                         @endforeach
+                         
+                           
+                          
+                           
                     </svg>
                         
-                        
+                    <div class="map-tooltip">
+                        Click on the red dots for pop up details
+                      </div>
                   
                     </div>
                     @foreach ($banner_list as $banner_item)
@@ -104,7 +84,7 @@
                                         {{ $banner_item->short_desc }}
                                     </p>
                                     @if ($banner_item->reference)
-                                        <a href="banner/details?template_id={{ $banner_item->template_id }}&id={{ $banner_item->reference }}"
+                                        <a href="{{ $banner_item->reference }}"
                                             class="btn-primary">Destinations</a>
                                     @else
                                         <a href="#" class="btn-primary">Destinations</a>
@@ -215,7 +195,7 @@
             </div>
         </section>
     @endif
-    <!-- Top destination -->
+    <!-- Top festival and event -->
     @if (count($festival_list1) > 0 || count($festival_list2) > 0)
         <!-- Things to do in west bengal start -->
 
@@ -271,6 +251,7 @@
       </div> --}}
         </section>
     @endif
+    
     @if (count($section_list) > 0)
         <!-- *********************************   tab design   ****************************** -->
         <section id="autotab" class="slider-tab tab-section mt-5">
@@ -323,8 +304,7 @@
                                             <p>{!! $section_item->desc !!}</p>
                                         </div>
                                         <div class="cta-btn">
-                                            <a href="https://wbtdcl.wbtourismgov.in/home#viewdiv" class="btn-primary">Read
-                                                More</a>
+                                            <a href="{{ $section_item->reference }}" class="btn-primary">{{ $section_item->button_name }}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -433,12 +413,12 @@
         </section>
     @endif
 
-    <div class="s-box">
+    {{-- <div class="s-box">
         <div id="s-form">
             <div id="expand-s-box">
                 <div id="expand-contract" class="collasped">
                     <div class="booking-form">
-                        <form>
+                        <form action="#">
 
 
                             <div class="form-floating pt-1">
@@ -465,7 +445,7 @@
                             </div>
 
                             <div class="form-btn pt-1">
-                                <button class="btn btn-outline-primary w-100">Find my perfect vacation</button>
+                                <button class="btn btn-outline-primary w-100" onclick="expandPlanForm()">Find my perfect vacation</button>
                             </div>
                         </form>
                     </div>
@@ -477,7 +457,7 @@
                         class='bx bx-chevrons-up'></i></button>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 
     <!--Plan to trip start-->
@@ -575,18 +555,44 @@
         </div>
     </div>
     <!-- Plan Your Trip End  -->
-
+ 
 @endsection
 @section('script')
     <script>
-        // $( "#test" ).hover(function() {
-        //    $('.modal').modal({
-        // show: true
+        // var tooltip = document.querySelector('.map-tooltip');
+
+        // // iterate throw all `path` tags
+        // [].forEach.call(document.querySelectorAll('.map-modal'), function(item) {
+        //     // attach click event, you can read the URL from a attribute for example.
+        // // item.addEventListener('click', function(){
+        // //     window.open('http://google.co.il')
+        // // });
+        
+        // // attach mouseenter event
+        // item.addEventListener('mouseenter', function() {
+        //     var sel = this,
+        //             // get the borders of the path - see this question: http://stackoverflow.com/q/10643426/863110
+        //             pos = sel.getBoundingClientRect()
+            
+        //     tooltip.style.display = 'block';
+        //     tooltip.style.top = pos.top + 'px';
+        //     tooltip.style.left = pos.left + 'px';
+        // });
+        
+        // // when mouse leave hide the tooltip
+        // item.addEventListener('mouseleave', function(){
+        //     tooltip.style.display = 'none';
+        // });
+        // });
+        // $(".map-modal" ).hover(function() {
+        //    console.log(this);
         // });
         $(".map-modal").click(function() {
             var title = $(this).attr('title');
             var desc = $(this).attr('desc');
             var img = $(this).attr('data-src');
+            var ref = $(this).attr('data-link');
+        
             if(img){
                 $("#img").attr("src",img);
             }
@@ -594,26 +600,40 @@
                 $("#img").attr("src",'');
             }
 			
-		
+            if(ref){
+                $("#ref").attr('href',ref);
+            }else{
+                $("#ref").attr('href','#');
+            }
 			
 			if(desc){
 				$("#desc").text(desc);
 			}else{
 				$("#desc").text('');
 			}
-            // var link = $(this).attr('link');
+            // var link = $(this).attr('ref');
             $("#item_name").text(title);
            
             // $("#link").href(link);
             $("#modal_map").modal('show');
+            $('.owl-carousel').trigger('stop.owl.autoplay');
         });
+        $(document).on('click', '#map_btn_close', function(){
+            $('.owl-carousel').trigger('play.owl.autoplay');
+        })
+      
         
-	$("#bannerStart").click(function(){
-        $("#home").toggle();
-        $("#mapBanner").toggle();
-    })
+	// $("#bannerStart").click(function(){
+    //     $("#home").toggle();
+    //     $("#mapBanner").toggle();
+    // })
     
-	
+        //     $('#btn1').on('click', function(e) {
+        //     $('.owl-carousel').trigger('stop.owl.autoplay');
+        // })
+        // $('#btn2').on('click', function(e) {
+        //     $('.owl-carousel').trigger('play.owl.autoplay');
+        // })
       
     </script>
 @endsection

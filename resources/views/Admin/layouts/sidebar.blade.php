@@ -90,7 +90,7 @@
 
                 <a class="collapse-item {{ Request::url() == url('/admin/banner/create') ? 'active' : '' }}" href="{{ url('/admin/banner/create') }}"><i class="fas fa-upload"></i> Create Banner</a>
                 <a class="collapse-item {{ Request::url() == url('/admin/banner/list') ? 'active' : '' }}" href="{{ url('/admin/banner/list') }}"><i class="fas fa-fw fa-th-list"></i> List Banner</a>
-                <a class="collapse-item {{ Request::url() == url('/admin/banner/details/Add') ? 'active' : '' }}" href="{{ url('/admin/banner/details/Add') }}">Add Details Page</a>
+                {{-- <a class="collapse-item {{ Request::url() == url('/admin/banner/details/Add') ? 'active' : '' }}" href="{{ url('/admin/banner/details/Add') }}">Add Details Page</a> --}}
             </div>
         </div>
     </li>
@@ -106,7 +106,7 @@
 
                 <a class="collapse-item {{ Request::url() == url('/admin/product/create') ? 'active' : '' }}"  href="{{ url('/admin/product/create') }}"><i class="fas fa-upload"></i> Create Product</a>
                 <a class="collapse-item {{ Request::url() == url('/admin/product/list') ? 'active' : '' }}" href="{{ url('/admin/product/list') }}"><i class="fas fa-fw fa-th-list"></i> List Product</a>
-                <a class="collapse-item {{ Request::url() == url('/admin/product/details/Add') ? 'active' : '' }}" href="{{ url('/admin/product/details/Add') }}">Add Details Page</a>
+                {{-- <a class="collapse-item {{ Request::url() == url('/admin/product/details/Add') ? 'active' : '' }}" href="{{ url('/admin/product/details/Add') }}">Add Details Page</a> --}}
             </div>
         </div>
     </li>
@@ -122,8 +122,13 @@
             <div class="bg-white py-2 collapse-inner rounded">
 
                 <a class="collapse-item {{ Request::url() == url('/admin/destination/create') ? 'active' : '' }}" href="{{ url('/admin/destination/create') }}"><i class="fas fa-upload"></i> Create Destination</a>
-                <a class="collapse-item {{ Request::url() == url('/admin/destination/list') ? 'active' : '' }}" href="{{ url('/admin/destination/list') }}"><i class="fas fa-fw fa-th-list"></i> List Destination</a>
-                <a class="collapse-item {{ Request::url() == url('/admin/destination/details/Add') ? 'active' : '' }}" href="{{ url('/admin/destination/details/Add') }}">Add Details Page</a>
+                <a class="collapse-item {{ Request::url() == url('/admin/destination/list') ? 'active' : '' }}" href="{{ url('/admin/destination/list') }}"><i class="fas fa-fw fa-th-list"></i> list Destination</a>
+
+                <a class="collapse-item {{ Request::url() == url('/admin/destination/category/Add') ? 'active' : '' }}" href="{{ url('/admin/destination/category/Add') }}"><i class="fas fa-upload"></i> Add Category</a>
+                <a class="collapse-item {{ Request::url() == url('/admin/destination/category/list') ? 'active' : '' }}" href="{{ url('/admin/destination/category/list') }}"><i class="fas fa-fw fa-th-list"></i> list Category</a>
+                <a class="collapse-item {{ Request::url() == url('/admin/destination/details/Add') ? 'active' : '' }}" href="{{ url('/admin/destination/details/Add') }}"><i class="fas fa-upload"></i> Add Details Page</a>
+                <a class="collapse-item {{ Request::url() == url('/admin/destination/page/list') ? 'active' : '' }}" href="{{ url('/admin/destination/page/list') }}"><i class="fas fa-fw fa-th-list"></i> All Details Page</a>
+
 
             </div>
         </div>

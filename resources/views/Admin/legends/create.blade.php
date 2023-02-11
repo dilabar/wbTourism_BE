@@ -58,7 +58,7 @@
                                     </div>
                                     <div class="wrap-input100 validate-input" data-validate="Date">
                                         <label for="exampleFormControlFile1">About</label>
-                                        <textarea class="form-control-file" name="about"></textarea>
+                                        <textarea class="form-control-file ckeditor" name="about"></textarea>
                                     </div>
                                     <div class="wrap-input100 validate-input" data-validate="Date">
                                         <label for="exampleFormControlFile1">Born</label>

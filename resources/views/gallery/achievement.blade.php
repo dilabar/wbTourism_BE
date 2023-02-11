@@ -15,7 +15,7 @@
                 <div class="achievement_gallery">
                     <div class="row">
                         <div class="col-md-4">
-                            <img src="https://www.wbtourism.gov.in/home/download/gallery_photo/skoch_award_2021_tourism_department_government_of_west_bengal.jpg"/>
+                            <img src="{{ asset('assets/img/skoch_award_2021_tourism_department_government_of_west_bengal.jpg') }}"/>
                             <h4>SKOCH GOLD Award 2021</h4>
                             <p>
                                 <strong>Year :</strong> 2021<br>
@@ -23,7 +23,7 @@
                             </p>
                         </div>
                         <div class="col-md-4">
-                            <img src="https://wbtourism.gov.in/home/download/gallery_photo/ttf_award.jpg" />
+                            <img src="{{ asset('assets/img/ttf_award.jpg') }}" />
                             <h4 class="title">TTF Excellence Awards 2021</h4>
                             <p>
                                 <strong>Year :</strong> 2021<br>
@@ -31,7 +31,7 @@
                             </p>
                         </div>
                         <div class="col-md-4">
-                            <img src="https://wbtourism.gov.in/home/download/gallery_photo/best_national_park_category_of_the_outlook_travelle_awards.jpg" />
+                            <img src="{{ asset('assets/img/best_national_park_category_of_the_outlook_travelle_awards.jpg') }}" />
                             <h4 class="title">Outlook Traveller Awards 2018</h4>
                             <p>
                                 <strong>Year :</strong> 2018<br>

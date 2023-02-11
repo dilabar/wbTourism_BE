@@ -144,4 +144,31 @@ class MicPageController extends Controller
             'testimonial_list' => $testimonial_list,
         ]);
     }
+    public function showMICE(Request $request)
+    {
+        $gallery_category_id = Item::where('type','gallery')->where('page_type','home')->where('name','MICE')->first();
+        $mice_image_db = Item::where('type','gallery')->where('gallery_category_id',$gallery_category_id->_id)->get();
+        $mice_image_list = collect([]);
+        if (count($mice_image_db) > 0) {
+            foreach ($mice_image_db as $gitem) {
+                $data = collect();
+                $content = collect([]);
+                $document = collect([]);
+                $data->name = $gitem['name']; 
+                $data->id = $gitem['_id'];
+                if ($gitem['gallery_image_obj_id']) {
+                    $content = Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $gitem['gallery_image_obj_id'])->where('type', 'Image')->first();
+                    $mim_type = $content->mimType;
+                    $document = 'data:' . $mim_type . ';base64,' . base64_encode($content->img_data);
+                    $data->img = $document;
+                } else {
+                    $data->img = '';
+                }
+                $mice_image_list->push($data);
+            }
+        }
+        return view('mics.showMICS',[
+            'mice_image_list'=> $mice_image_list
+        ]);
+    }
 }

@@ -53,7 +53,6 @@
         </div>
         <div class="section-title title-style">
             <h2>BOARD OF DIRECTORS - WBTDCL</h2>
-
         </div>
         <div class="container">
             <div class="row justify-content-center">

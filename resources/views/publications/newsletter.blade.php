@@ -33,7 +33,7 @@
                                 {{$newslist->name}}
                             </td>
                             <td> 
-                                <a class="download"href="https://www.wbtourism.gov.in/home/download/newsletter/newsletter_sept_2022.pdf"><i class="bx bx-download"></i></a>
+                                <a class="download" href="/home/viewNewsLetter/{{ $newslist->newsletter_pdf_obj_id }}/{{$newslist->name}}"><i class="bx bx-download"></i></a>
                             </td>
                         </tr>
                         @endforeach

@@ -29,4 +29,11 @@ class NewsletterpageController extends Controller
         );
 
     }
+    public function viewNewsLetter(Request $request,$file,$name)
+    {
+        $newsletterpdf_content = Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $file)->first();
+        $type1 = $newsletterpdf_content->mimeType;
+        $pdf = 'data:' . $type1 . ';base64,' . base64_encode($newsletterpdf_content->file_data);
+        return view('publications.viewNewsLetter',compact('pdf','name'));
+    }
 }

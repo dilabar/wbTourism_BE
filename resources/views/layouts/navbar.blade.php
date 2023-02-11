@@ -84,7 +84,7 @@
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <div class="side-option">
-                        <div class="item">
+                        {{-- <div class="item">
                             <div class="language">
                                 <a href="#language" id="languageButton" class="btn-secondary">
                                     Language <i class='bx bxs-chevron-down'></i>
@@ -108,7 +108,7 @@
                             <a href="{{ route('login') }}" class="btn-secondary">
                                 Login <i class='bx bx-log-in-circle'></i>
                             </a>
-                        </div>
+                        </div> --}}
                         <style>
                             .lng button {
                                 color: #fff;
@@ -123,7 +123,7 @@
                                 color: var(--primary-color);
                             }
                         </style>
-                        <div class="item lng">
+                        {{-- <div class="item lng">
 
                             <span class="hline">&nbsp;</span>
                             <button type="button" class="btnAless">A-</button>
@@ -131,12 +131,35 @@
                             <button type="button" class="btnAplus">A+</button>
                             <span class="hline">&nbsp;</span>
 
-                        </div>
+                        </div> --}}
                         <div class="choto-logo">
                             <a class="" href="/">
                             </a>
                         </div>
                     </div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+    <div class="middle-header-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 col-sm-6">
+                    <a class="navbar-brand" href="/">
+                        <img data-src="{{ asset('assets/img/logo/logo1.png') }}" src="{{ asset('assets/img/default/loding_logo.png')}}" class="logo1" alt="Logo">
+                        <img data-src="{{ asset('assets/img/logo/logo1.png') }}" src="{{ asset('assets/img/default/loding_logo.png')}}" class="logo2" alt="Logo">
+                    </a>
+                </div>
+                <div class="col-md-8 col-sm-6">
+                    <h1 class="text-center"><span class="font_size">DEPARTMENT OF TOURISM</span> <br> GOVERNMENT OF WEST BENGAL</h1>
+                </div>
+                <div class="col-md-2 col-sm-6">
+                    <a class="navbar-brand logo_img" href="index.html">
+                        <img data-src="{{ asset('assets/img/logo/wb_logo.png') }}"  src="{{ asset('assets/img/default/loding_logo.png')}}"class="logo-wb" alt="Logo"
+                            width="60" height="60">
+
+                    </a>
                 </div>
             </div>
         </div>
@@ -150,7 +173,6 @@
                             <img data-src="{{ asset('assets/img/logo/logo1.png') }}" src="{{ asset('assets/img/default/loding_logo.png')}}" class="logo1" alt="Logo">
                             <img data-src="{{ asset('assets/img/logo/logo1.png') }}" src="{{ asset('assets/img/default/loding_logo.png')}}" class="logo2" alt="Logo">
                         </a>
-
                     </div>
 
                 </div>
@@ -159,12 +181,12 @@
         <div class="main-nav">
             <div class="container-fluid">
                 <nav class="navbar navbar-expand-md navbar-light">
-                    <a class="navbar-brand" href="/">
+                    {{-- <a class="navbar-brand" href="/">
                         <img data-src="{{ asset('assets/img/logo/logo1.png') }}" src="{{ asset('assets/img/default/loding_logo.png')}}" class="logo1" alt="Logo">
                         <img data-src="{{ asset('assets/img/logo/logo1.png') }}" src="{{ asset('assets/img/default/loding_logo.png')}}" class="logo2" alt="Logo">
-                    </a>
+                    </a> --}}
                     <div class="collapse navbar-collapse mean-menu">
-                        <ul class="navbar-nav ms-auto">
+                        <ul class="navbar-nav mx-auto">
 
                             <li class="nav-item">
                                 <a href="#" class="nav-link toggle">About Us<i
@@ -190,7 +212,7 @@
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link toggle "><b>Most Popular</b><i
+                                <a href="#" class="nav-link toggle "><b>Most Popular With Audio Visual</b><i
                                         class='bx bxs-chevron-down'></i></a>
                                 <ul class="dropdown-menu" style="width: 600px;columns: 2;">
                                     @foreach (getMostpupular() as $p_item)
@@ -264,15 +286,15 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link"
-                                            href="https://wbtourism.gov.in/gallery/puja_celebration_album"
+                                            href="/festival-durga-puja"
                                             title="Media Gallery Menu" target="_self">Durga Puja News 2022 </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="https://wbtourism.gov.in/gallery/photo_gallery"
+                                        <a class="nav-link" href="/gallery/district"
                                             title="Place Gallery Menu" target="_self">Photo</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="https://wbtourism.gov.in/gallery/video_gallery"
+                                        <a class="nav-link" href="/gallery/video/gallery"
                                             title="Video Gallery Menu" target="_self">Video</a>
                                     </li>
                                     <li class="nav-item">
@@ -381,11 +403,11 @@
                         </ul>
                     </div>
 
-                    <a class="navbar-brand" href="index.html">
+                    {{-- <a class="navbar-brand" href="index.html">
                         <img data-src="{{ asset('assets/img/logo/wb_logo.png') }}"  src="{{ asset('assets/img/default/loding_logo.png')}}"class="logo-wb" alt="Logo"
                             width="50" height="50">
 
-                    </a>
+                    </a> --}}
                 </nav>
             </div>
         </div>
@@ -469,7 +491,7 @@
                     <li><a href="{{route('kolkata_connect')}}">Kolkata Connect</a></li>
                     <li><a href="{{route('destination_east')}}" title="Destination East Menu"
                             target="_self">Destination East</a></li>
-                    <li><a href="{{route('events_gallery')}}"
+                    <li><a href="{{route('subregional_world_conferance')}}"
                             title="Sub-regional Conference on World Heritage Menu" target="_self">Sub-regional
                             Conference on World Heritage</a></li>
                     <li><a href="{{route('other_events_gallery')}}" title="Others" target="_self">Other Tourism
@@ -492,6 +514,208 @@
             </div>
         </div>
 
+        <div id="boxlink6" class="boxlink">
+            <div class="row">
+                <div class="col-md-12 subMenuTitle"><a href="#"><span>About Us</span></a></div>
+                    <ul class="col-md-12">
+                        <li>
+                            <a href="{{ route('mission') }}" class="nav-link">Mission</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('vission') }}" class="nav-link">Vision</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('organization') }}" class="nav-link">Organisation
+                                Structure</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('department') }}" class="nav-link">Key Personnel</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('contact') }}" class="nav-link">Contact Us</a>
+                        </li>
+
+                    </ul>
+            </div>
+        </div>
+
+        <div id="boxlink7" class="boxlink">
+            <div class="row">
+                <div class="col-md-12 subMenuTitle">
+                <a href="#"><span>Most Popular With Audio Visual</span></a>
+                </div>
+                <ul class="col-md-12" style="width: 600px;columns: 2;">
+                    @foreach (getMostpupular() as $p_item)
+                        <li class="nav-item">
+                            <a href="{{ route('most-popular', ['id' => @$p_item->id]) }}"
+                                style="padding: 0px;">
+
+                                <div class="d-flex flex-row m-1">
+                                    <img class="img-responsive"
+                                        data-src="{{ asset('assets/img/mostpopular/' . @$p_item->img) }}" src="{{ asset('assets/img/default/loding_logo.png')}}"
+                                        alt=" {{ $p_item->name }}" width="70" height="50">
+                                    <div>
+                                        <div class=" p-2 text-capitalize"
+                                            style="font-size:18px;font-weight:bold;">
+                                            {{ $p_item->name }}</div>
+                                        <div class=" p-2 text-capitalize" style="margin-top:-20px;">
+                                            {{ $p_item->place }}</div>
+                                    </div>
+
+                                </div>
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+
+        <div id="boxlink8" class="boxlink">
+            <div class="row">
+                <div class="col-md-12 subMenuTitle">
+                <a href="#"><span>WBTDCL Recommendation </span></a>
+                </div>
+                <ul class="col-md-12">
+                    <li class="nav-item">
+                        <a href="{{ route('wbtdcl-organisation') }}"
+                            class="nav-link">Organization</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('board-of-directors') }}" class="nav-link">Board
+                            of Directors</a>
+                    </li>
+                    <li class="nav-item"><a
+                            href="https://www.wbtdcl.com/assets/uploads/house_boat.pdf"
+                            title="WBTDCL House Boat" target="_blank" class="nav-link">House Boat</a>
+                    </li>
+                    <li class="nav-item"><a href="https://www.wbtdcl.com/assets/uploads/sumangal.PDF"
+                            title="WBTDCL Sumangal" target="_blank" class="nav-link">Sumangal</a>
+                    </li>
+                    <li class="nav-item"><a href="{{ route('booking_contact') }}"
+                            title="WBTDCL Booking Contacts" class="nav-link">Booking Contacts</a></li>
+                    <li class="nav-item"><a href="https://www.wbtdcl.com/feedback"
+                            title="WBTDCL Online Booking" target="_blank" class="nav-link">May I help
+                            U</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="boxlink9" class="boxlink">
+            <div class="row">
+                <div class="col-md-12 subMenuTitle"><a href="#"><span>Gallery</span></a></div>
+                <ul class="col-md-12">
+                    <li class="nav-item">
+                        <a href="/#galary" class="nav-link">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('gallery-360') }}" class="nav-link">360 Degree View</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                            href="{{ route('media_gallery') }}">Media</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                            href="https://wbtourism.gov.in/gallery/puja_celebration_album"
+                            title="Media Gallery Menu" target="_self">Durga Puja News 2022 </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/gallery/district"
+                            title="Place Gallery Menu" target="_self">Photo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/gallery/video/gallery"
+                            title="Video Gallery Menu" target="_self">Video</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('inauguration')}}"
+                            title="Inauguration Gallery Menu" target="_self">Inauguration</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('achievement')}}" target="_self">Achievement</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="boxlink10" class="boxlink">
+            <div class="row">
+                <div class="col-md-12 subMenuTitle"><a href="#"><span>Tourist Corner</span></a></div>
+                <ul class="col-md-12">
+                    <li class="nav-item">
+                        <a href="{{ route('tsp') }}" class="nav-link">Tourism Service Provider</a>
+                    </li>
+                
+                    <li class="nav-item"><a href="{{route('covid_19')}}"
+                            class="nav-link">Covid - 19 Guideline</a></li>
+                    <li class="nav-item"><a href="{{route('book-type',['Brochure'])}}"
+                            class="nav-link">Tourism Brochure</a></li>
+                    <li class="nav-item"><a href="{{route('book-type',['Leaflet'])}}"
+                            class="nav-link">Tourism Leaflet</a></li class="nav-item">
+                    <li class="nav-item"><a href="{{route('currency_converter')}}"
+                            class="nav-link">Currency Converter</a></li class="nav-item">
+                    <li class="nav-item"><a href="{{route('consulates')}}"
+                            class="nav-link">Consulates</a></li class="nav-item">
+                    <li class="nav-item"><a href="{{route('getdistlist')}}"
+                            class="nav-link">Tourist Guides</a></li class="nav-item">
+                    <li class="nav-item"><a href="{{route('marketing_agents')}}"
+                            class="nav-link">Marketing Agents</a></li class="nav-item">
+                    <li class="nav-item"><a href="{{route('travel_tips')}}"
+                            class="nav-link">Travel Tips</a></li class="nav-item">
+                    <li class="nav-item"><a href="{{route('biswa_bangla_store')}}"
+                            class="nav-link">Biswa Bangla Store</a></li class="nav-item">
+                    <li class="nav-item"><a href="{{route('distance_chart')}}"
+                            class="nav-link">Distance Matrix</a></li class="nav-item">
+                    <li class="nav-item"><a href="{{route('transport_services')}}"
+                            class="nav-link">Transport Services</a></li class="nav-item">
+                    <li class="nav-item"><a href="{{route('private_malls')}}"
+                            class="nav-link">Malls &amp; Markets</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="boxlink11" class="boxlink">
+            <div class="row">
+                <div class="col-md-12 subMenuTitle"><a href="#"><span>e-Services</span></a></div>
+                <ul class="col-md-12">
+                    <li class="nav-item"><a class="nav-link"
+                            href="https://discoverkolkata.wb.gov.in/DKWebApp/">Discover Kolkata
+                            (Integrated City Pass)</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://wbtconline.in/"
+                            target="_blank">Kolkata HOHO Bus Service</a></li>
+                    <li class="nav-item"><a class="nav-link" href="http://pujapermit.in/"
+                            target="_blank">Special Puja Pass, 2022</a></li>
+                    <li class="nav-item"><a class="nav-link"
+                            href="{{route('incentive_scheme')}}">Incentive Scheme 2021
+                            (Tourism Units)</a></li>
+                    <li class="nav-item"><a class="nav-link"
+                            href="{{route('rtsp_2021')}}">Recognition of Tourism
+                            Service Providers 2021</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('tgcs') }}">Tourist
+                            Guide Certification Scheme 2021</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('home-stay') }}">Home
+                            Stay</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="boxlink12" class="boxlink">
+            <div class="row">
+                <div class="col-md-12 subMenuTitle"><a href="#"><span>e-Booking</span></a></div>
+                <ul class="col-md-12">
+                    <li class="nav-item">
+                        <a href="https://wbtdcl.wbtourismgov.in/home" class="nav-link">Online
+                            Properties Booking</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://www.wbtdcl.com/package" class="nav-link">Online Package
+                            Booking</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
         <a onclick="location.href='javascript:void(0);'" class="subMenuClose">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" width="23px" height="23px">
                 <g fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round"
@@ -504,6 +728,34 @@
     </div>
     <ul class="menuList">
         <li> <a href="/">Home</a> </li>
+        <li>
+             <a onclick="location.href='javascript:void(0);'" id="link6" class="menu-link">About Us
+            </a>
+        </li>
+        <li>
+             <a onclick="location.href='javascript:void(0);'" id="link7" class="menu-link">Most Popular With Audio Visual
+            </a>
+        </li>
+        <li>
+             <a onclick="location.href='javascript:void(0);'" id="link8" class="menu-link">WBTDCL Recommendation
+            </a>
+        </li>
+        <li>
+             <a onclick="location.href='javascript:void(0);'" id="link9" class="menu-link">Gallery
+            </a>
+        </li>
+        <li>
+             <a onclick="location.href='javascript:void(0);'" id="link10" class="menu-link">Tourist Corner
+            </a>
+        </li>
+        <li>
+             <a onclick="location.href='javascript:void(0);'" id="link11" class="menu-link">e-Services
+            </a>
+        </li>
+        <li>
+             <a onclick="location.href='javascript:void(0);'" id="link12" class="menu-link">e-Booking
+            </a>
+        </li>
         <li> <a onclick="location.href='javascript:void(0);'" id="link2" class="menu-link">Publications
             </a>
         </li>

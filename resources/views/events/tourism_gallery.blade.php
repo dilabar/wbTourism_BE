@@ -1,5 +1,8 @@
 @extends('layouts.myapp')
+@section('css')
+<link rel="stylesheet" href="{{ asset('assets/css/viewer.min.css')}}">
 
+@endsection
 @section('content')
 <section class="pt-100">
     <div class="section-title title-style">
@@ -7,58 +10,41 @@
 
     </div>
     <div class="event_tourism_gallery">
-        <ul>
-            <li>
-                <a class="lightbox thumbnail"
-                    href="https://wbtourism.gov.in/home/download/gallery_photo/1st_joint_tourism_strategy_meet3.jpg"
-                    data-littlelightbox-group="gallery" title=""><img
-                        src="https://wbtourism.gov.in/home/download/gallery_photo/1st_joint_tourism_strategy_meet3.jpg"
-                        class="responsive" alt="1st_joint_tourism_strategy_meet3.jpg photo"></a>
+        <ul id="gallery">
+            @foreach ($tourism_event as $item)
+            <li >
+                <div class="overLay">
+                    <a href="#">
+                        <img data-src="{{ $item->img }}" src="{{ asset('assets/img/default/loding_logo.png')}}"  id="picture" width="285" height="230"
+                            alt="{{$item->name}}"></a>
+                    <div class="layer">
+                        <p class="name text-capitalize"> {{$item->name}}
+                        </p>
+                    </div>
+                </div>
             </li>
-            <li>
-                <a class="lightbox thumbnail"
-                    href="https://wbtourism.gov.in/home/download/gallery_photo/1st_joint_tourism_strategy_meet_1.jpg"
-                    data-littlelightbox-group="gallery" title=""><img
-                        src="https://wbtourism.gov.in/home/download/gallery_photo/1st_joint_tourism_strategy_meet_1.jpg"
-                        class="responsive" alt="1st_joint_tourism_strategy_meet_1.jpg photo"></a>
-            </li>
-            <li>
-                <a class="lightbox thumbnail"
-                    href="https://wbtourism.gov.in/home/download/gallery_photo/1st_joint_tourism_strategy_meet_2.jpg"
-                    data-littlelightbox-group="gallery" title=""><img
-                        src="https://wbtourism.gov.in/home/download/gallery_photo/1st_joint_tourism_strategy_meet_2.jpg"
-                        class="responsive" alt="1st_joint_tourism_strategy_meet_2.jpg photo"></a>
-            </li>
-            <li>
-                <a class="lightbox thumbnail"
-                    href="https://wbtourism.gov.in/home/download/gallery_photo/1st_joint_tourism_strategy_meet_3.jpg"
-                    data-littlelightbox-group="gallery" title=""><img
-                        src="https://wbtourism.gov.in/home/download/gallery_photo/1st_joint_tourism_strategy_meet_3.jpg"
-                        class="responsive" alt="1st_joint_tourism_strategy_meet_3.jpg photo"></a>
-            </li>
-            <li>
-                <a class="lightbox thumbnail"
-                    href="https://wbtourism.gov.in/home/download/gallery_photo/1st_joint_tourism_strategy_meet_4.jpg"
-                    data-littlelightbox-group="gallery" title=""><img
-                        src="https://wbtourism.gov.in/home/download/gallery_photo/1st_joint_tourism_strategy_meet_4.jpg"
-                        class="responsive" alt="1st_joint_tourism_strategy_meet_4.jpg photo"></a>
-            </li>
-            <li>
-                <a class="lightbox thumbnail"
-                    href="https://wbtourism.gov.in/home/download/gallery_photo/1st_joint_tourism_strategy_meet_5.jpg"
-                    data-littlelightbox-group="gallery" title=""><img
-                        src="https://wbtourism.gov.in/home/download/gallery_photo/1st_joint_tourism_strategy_meet_5.jpg"
-                        class="responsive" alt="1st_joint_tourism_strategy_meet_5.jpg photo"></a>
-            </li>
-            <li>
-                <a class="lightbox thumbnail"
-                    href="https://wbtourism.gov.in/home/download/gallery_photo/1st_joint_tourism_strategy_meet_6.jpg"
-                    data-littlelightbox-group="gallery" title=""><img
-                        src="https://wbtourism.gov.in/home/download/gallery_photo/1st_joint_tourism_strategy_meet_6.jpg"
-                        class="responsive" alt="1st_joint_tourism_strategy_meet_6.jpg photo"></a>
-            </li>
+            @endforeach
+            
+           
         </ul>
+  
     </div>
 </section>
+
+@endsection
+@section('script')
+<script src="{{ asset('assets/js/viewer.min.js')}}"></script>
+<script>
+
+const gallery = new Viewer(document.getElementById('gallery'),{
+    inline: false,
+    rotatable:false,
+    scalable:false,
+    zoomable:false,
+    movable:false
+});
+
+</script>  
+
 
 @endsection

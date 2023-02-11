@@ -69,9 +69,18 @@
                                         <select class="form-control" name="visible[]" class="{{ $errors->has('visible') ? 'is-invalid' : '' }}" id="example-getting-started" multiple tabindex="0">
                                             <option value="0" {{  @in_array('0',old('visible'))? 'selected' :''  }}>Home</option>
                                             <option value="1" {{  @in_array('1',old('visible'))? 'selected' :''  }}>Menu</option>
+                                            <option value="2" {{  @in_array('2',old('visible'))? 'selected' :''  }}>fest section</option>
+                                            {{-- <option value="1" {{  @in_array('1',old('visible'))? 'selected' :''  }}>Menu</option> --}}
                                         
                                         </select>
                                         @if ($errors->has('visible'))<div class="invalid-feedback">{{ $errors->first('visible') }}.</div> @endif
+                                    </div>
+                                    <div class="form-group">
+                                        <select name="gallery_type" id="" class="form-control {{ $errors->has('gallery_type') ? 'is-invalid' : '' }}">
+                                            <option value="0" {{ old('gallery_type') =='0' ? 'selected' :'' }}>Image</option>
+                                            <option value="1" {{ old('gallery_type') =='1' ? 'selected' :'' }}>Video</option>
+                                        </select>
+                                        @if ($errors->has('gallery_type'))<div class="invalid-feedback">{{ $errors->first('gallery_type') }}.</div> @endif
                                     </div>
                                     {{-- <div class="wrap-input100 validate-input" data-validate="Gallery Short Description">
                             <input class="input100" type="text" name="description" placeholder="Gallery Short Description">

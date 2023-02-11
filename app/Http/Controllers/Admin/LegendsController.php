@@ -68,41 +68,44 @@ class LegendsController extends Controller
     }
 
     public function show(Request $request){
-      //dd($request);
         $errormsg = Config::get('constants.errormsg');
-        if (request()->ajax()) {
-           
+            if (request()->ajax()) {
             $limit = (int) $request->input('length');
-            $offset = (int)$request->input('start');
-            if (empty($limit)) {
-
-                $limit = 10;
+            $offset = (int) $request->input('start');
+            if(empty($limit)){
+                
+                $limit=10;
             }
-            if (empty($offset)) {
-                $offset = -1;
+            if(empty( $offset)){
+                $offset=-1;
             }
             $totalRecords = 0;
             $filterRecords = 0;
             if (!empty($request->search['value']))
+            {
                 $serachvalue = $request->search['value'];
+            }
             else
+            {
                 $serachvalue = '';
-            $model = new Item();
+            }
+            $model=new Item();
             $query = $model::where('type', 'legend');
-            dd($query);
             if (empty($serachvalue)) {
                 $totalRecords = $query->count();
                 $data = $query->orderBy('name')->offset($offset)->limit($limit)->get();
                 $filterRecords = count($data);
-            } else {
+            }
+            else{
                 $query = $query->Where('name', 'like', '%' . $serachvalue . '%');
                 $totalRecords = $query->count();
                 $data = $query->orderBy('name')->offset($offset)->limit($limit)->get();
                 $filterRecords = count($data);
-            }
+            } 
 
-            $list = collect([]);
-            $i = 1;
+            $list=collect([]);
+            $i=1;
+         
             foreach ($data as $item) {
                 $array = collect();
                 $content = collect([]);
@@ -110,7 +113,7 @@ class LegendsController extends Controller
                 $array->id = $item->_id;
                 $array->is_active = $item->is_active;
                 $array->is_approved = $item->is_approved;
-                $array->legends_name = $item->name;
+                $array->name = $item->name;
                 $status = '';
                 if ($item->is_active == 1) {
                     $status = $status . ' Active';
@@ -124,7 +127,6 @@ class LegendsController extends Controller
                 }
                 $array->status = $status;
                 $img_content = Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $item->legend_img_obj_id)->first();
-                dd($img_content);
                 $type = $img_content->mimType;
                 $img_data = 'data:' . $type . ';base64,' . base64_encode($img_content->img_data);
                 $array->img = $img_data;
@@ -142,7 +144,7 @@ class LegendsController extends Controller
                     //return '<input type="checkbox" name="approvalcheck[]" onchange="" value="' . $list->id . '">';
                     return '';
                 })->addColumn('id', function ($list) {
-                    return $list->id;
+                    return $list->slno;
                 })->addColumn('img', function ($list) {
                     return '<img width="100" height="100" src="' . $list->img . '">';
                 })->addColumn('title', function ($list) {
@@ -171,9 +173,10 @@ class LegendsController extends Controller
 
                     return $action;
                 })
-                ->rawColumns(['id', 'img','check', 'title', 'status', 'action'])
+                ->rawColumns(['check','id', 'img', 'title', 'status', 'action'])
                 ->make(true);
         }
+        
         return view(
             'Admin/legends/list',
             [

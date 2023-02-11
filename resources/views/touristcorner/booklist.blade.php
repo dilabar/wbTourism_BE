@@ -3,7 +3,7 @@
 @section('content')
 <div class="pt-100">
     <div class="section-title title-style">
-        <h2>Tourism Brocures</h2>
+        <h2>Tourism {{ $heading_name }}</h2>
     </div>
     <section class="tourism_brochure">
         <div class="container">
@@ -20,10 +20,6 @@
                 @endforeach
             </div>
         </div>
-
-
     </section>
-
 </div>
-
 @endsection

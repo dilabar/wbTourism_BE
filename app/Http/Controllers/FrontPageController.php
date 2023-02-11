@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Item;
 use App\helpers;
+use \Cache;
 class FrontPageController extends Controller
 {
 
@@ -52,6 +53,13 @@ class FrontPageController extends Controller
         // }
        
         /////////////////////..........................................
+
+        // $cacheKey = "banner_list";
+
+        // if (Cache::has($cacheKey)) {
+        //     return Cache::get($cacheKey);
+        // }
+
         $banner_list_db = Item::where('is_active', 1)->where('is_approved', 1)->where('section_type', 'banner')->where('type', 'banner')->get();
         $place_list=Item::where('type','place')->where('is_active', 1)->where('is_approved', 1)->get();
 
@@ -97,7 +105,7 @@ class FrontPageController extends Controller
             $product_array->gradient_text=$product->gradient;
             $product_list->push($product_array);
          } 
-        $destination_list_db = Item::where('is_active', 1)->where('is_approved', 1)->where('section_type', 'destination')->where('type', 'destination')->get();
+        $destination_list_db = Item::where('is_active', 1)->where('is_approved', 1)->where('section_type', 'destination')->where('type', 'dest-category')->where('visible', 'D')->get();
         $destination_list=collect([]);
         foreach($destination_list_db as $destination){
             $destination_array=collect();
@@ -132,8 +140,25 @@ class FrontPageController extends Controller
             $festival_array->reference=$festival->reference;;
             $festival_list->push($festival_array);
         }    
-        $festival_half = ceil($festival_list->count() / 2);
-        $chunks = $festival_list->chunk($festival_half);
+        $event_list_db = Item::where('is_active', 1)->where('is_approved', 1)->where('section_type', 'fest_event')->where('type', 'event')->get();
+        $event_list=collect([]);
+        foreach($event_list_db as $event){
+            $event_array=collect();
+            $content=collect([]);
+            $document=collect([]);
+            $img ='';
+            $event_array->name=$event->name;
+            $event_array->desc=$event->short_desc;
+            $img_content=Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $event->thumbnail_image_obj_id)->where('image_type', 'Thumbnail')->first();
+            $type=$img_content->mimType;
+            $img = 'data:' . $type . ';base64,' . base64_encode($img_content->img_data); 
+            $event_array->img=$img;
+            $event_array->gradient_text='';
+            $event_array->reference=$event->reference;;
+            $event_list->push($event_array);
+        }    
+        // $festival_half = ceil($festival_list->count() / 2);
+        // $chunks = $festival_list->chunk($festival_half);
         $section4_list_collection = Item::where('is_active', 1)->where('is_approved', 1)->where('section_type', 'tabs')->get();
         $section_list=collect([]);
         foreach($section4_list_collection as $section){
@@ -143,14 +168,27 @@ class FrontPageController extends Controller
             $img ='';
             $section_array->name=$section->name;
             $section_array->desc=$section->desc;
-            $img_content=Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $section->thumbnail_image_obj_id)->where('image_type', 'Thumbnail')->first();
-            $type=$img_content->mimType;
-            $img = 'data:' . $type . ';base64,' . base64_encode($img_content->img_data); 
-            $section_array->thumb=$img;
-            $img_content=Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $section->full_image_obj_id)->where('image_type', 'Full')->first();
-            $type=$img_content->mimType;
-            $img = 'data:' . $type . ';base64,' . base64_encode($img_content->img_data); 
-            $section_array->img=$img;
+            $section_array->reference=$section->reference;
+            $section_array->button_name=$section->button_name;
+            if($section->thumbnail_image_obj_id){
+                $img_content=Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $section->thumbnail_image_obj_id)->where('image_type', 'Thumbnail')->first();
+                $type=$img_content->mimType;
+                $img = 'data:' . $type . ';base64,' . base64_encode($img_content->img_data); 
+                $section_array->thumb=$img;
+            }else{
+                $section_array->thumb='';
+                
+            }
+           if($section->full_image_obj_id){
+             $img_content=Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $section->full_image_obj_id)->where('image_type', 'Full')->first();
+                $type=$img_content->mimType;
+                $img = 'data:' . $type . ';base64,' . base64_encode($img_content->img_data); 
+                $section_array->img=$img;
+           }
+           else{
+            $section_array->img='';
+
+           }
             $section_array->tab_id=$section->tab_id;
             $section_list->push($section_array);
         }      
@@ -186,14 +224,14 @@ class FrontPageController extends Controller
             $testimonial_list->push($testimonial_array);
         }  
         // dd(getAttraction());
-     
+        // Cache::forever("banner_list", $banner_list);
         return view('frontpage/index',
         [
             'banner_list' => $banner_list,
             'product_list' => $product_list,
             'destination_list' => $destination_list,
-            'festival_list1' => $chunks[0],
-            'festival_list2' => $chunks[1],
+            'festival_list1' => $festival_list,
+            'festival_list2' => $event_list,
             'section_list' => $section_list,
             'gallery_list' => $gallery_list,
             'testimonial_list' => $testimonial_list,
@@ -204,18 +242,18 @@ class FrontPageController extends Controller
 
     public function gallery(){
         return view('frontpage/gallery', [
-            'most_popular'=>getMostpupular()
+         
         ]);
     }
 
     public function tsp(Request $request){
         if($request->id){
             return view('frontpage/tspDetail', [
-                'most_popular'=>getMostpupular()
+             
             ]);
         }
         return view('frontpage/tsp', [
-            'most_popular'=>getMostpupular()
+          
         ]);
     }
     public function attraction(){

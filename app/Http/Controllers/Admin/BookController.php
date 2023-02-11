@@ -215,7 +215,7 @@ class BookController extends Controller
         $full = 'data:' . $type1 . ';base64,' . base64_encode($bookimg_content->img_data);
         $type2 = $details_db->mimeType;
         $pdf = 'data:' . $type2 . ';base64,' . base64_encode($details_db->file_data);
-        return view('Admin/books/edit', compact('details_db', 'full','pdf'));
+        return view('Admin.books.edit', compact('details_db', 'full','pdf'));
     }
 
     public function update(Request $request){

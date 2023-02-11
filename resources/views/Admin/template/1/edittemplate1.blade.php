@@ -57,7 +57,7 @@
 <div class="page-title-area ptb-100">
    <div class="container">
       <div class="page-title-content">
-         <h1><input type="text" name="title" required class="editable bg-transparent text-light text-center" value="{{$edit_list['name']}}"></h1>
+         <h1><input type="text" name="name" required class="editable bg-transparent text-light text-center" value="{{$edit_list['name']}}"></h1>
       
          {{-- <h1><input type="text" name="title" class="editable bg-transparent text-light text-center" placeholder="The Mountains"></h1> --}}
          <p class="text-light"><input name="slogan" type="text" class="editable bg-transparent text-light text-center"value="{{$edit_list['banner_short_info']}}"></p>
@@ -71,7 +71,11 @@
       <img id="banner_img" src="{{ getImage($edit_list->banner_image)}}" alt="Demo Image">
       <div class="banner-image">
          <i class="fas fa-camera upload-button"  onClick="document.getElementById('test').click();"></i>
-         <input id="test" name="banner_image"  class="file_upload" type="file" accept="image/*" onchange="loadFile(event,'banner_img',1)" value="{{ getImage($edit_list->banner_image)}}"/>
+         @if ($edit_list->banner_image)
+         <input  name="banner_image_id" hidden type="text"  value="{{ $edit_list->banner_image}}"/>
+             
+         @endif
+         <input id="test" name="banner_image"  class="file_upload" type="file" accept="image/*" onchange="loadFile(event,'banner_img',1)" />
       </div>
    </div>
 </div>
@@ -192,7 +196,7 @@
                            <div class="col-md-4">
                               <div class="form-group">
                                  <input type="text" class="form-control" id="exampleFormControlFile1"
-                                    name="someinfo[{{$key}}][val]" placeholder="Val" value={{$some_info['val']}}>
+                                    name="someinfo[{{$key}}][val]" placeholder="Val" value="{{$some_info['val']}}">
                               </div>
                            </div>
                            <div class="col-md-2">
@@ -272,17 +276,24 @@
                   <div class="align-items-center">
                      <div id="inputFormRowAttractions" class="row mb-20">
                         @foreach ($edit_list['attractions'] as $key => $attraction)
+                       
                         <div class="col-md-12" id="aT-onlytext_{{$key}}" {{ (!empty($attraction['image_id']))? "style = display:none": ''}}>
                            <div class="content mb-20 contentText_0" id="aT-content_{{$key}}">
+                            @if ($attraction['type'] == 'onlytext')
+                                <input type="text" class="form-control" name="attraction[{{$key}}][name]" placeholder="Attraction name" value="{{$attraction['name']}}" >
                               <textarea class="form-control" name="attraction[{{$key}}][content]" id="" cols="10" rows="5"
                                  placeholder="Your Content Here . . .">{{$attraction['text']}}</textarea>
+                              <textarea class="ckeditor form-control" name="attraction[{{$key}}][how_to_reach]" id="" cols="10" rows="5"
+                                 placeholder="How to reach Content Here . . .">{{@$attraction['how_to_reach']}}</textarea>
+                            @endif
+                           
                            </div>
                         </div>
                         <div id="aT-contentTextWithImg_{{$key}}" class="col-md-12 align-items-center" {{ (empty($attraction['image_id']))? "style = display:none": ''}}>
                            <div id="aT-Img_{{$key}}" class="row">
                               <div class="col-md-4 col-sm-12 img-section">
                                  <div class="bg-image image mb-30">
-                                    <img id="aT-output_{{$key}}" {{(!empty($attraction['image_id']))? getImage($attraction['image_id']) : ''}} alt="Demo Image" >
+                                    <img id="aT-output_{{$key}}" src="{{(!empty($attraction['image_id']))? getImage($attraction['image_id']) : ''}}" alt="Demo Image" >
                                     <div class="p-image">
                                        <i class="fas fa-camera" id="upload-button" onClick="document.getElementById('aT-fileUpload_{{$key}}').click();"></i>
                                        <input hidden type="text" value="{{$attraction['type'] == 'textwithimage'? ($attraction['image_id']):''}}" name="attraction[{{$key}}][id]" >
@@ -293,8 +304,14 @@
                               </div>
                               <div class="content col-md-8 col-sm-12 content-section contentText_0"
                                  id="aT-contentText_{{$key}}">
+                                 @if ($attraction['type'] == 'textwithimage')
+                                    <input type="text" class="form-control" name="attraction[{{$key}}][name]" placeholder="Attraction name" value="{{$attraction['name']}}" >
                                  <textarea class="form-control" name="attraction[{{$key}}][content]" id="" cols="10" rows="5"
                                  placeholder="Your Content Here . . .">{{$attraction['text']}}</textarea>
+                                 <textarea class="ckeditor form-control" name="attraction[{{$key}}][how_to_reach]" id="" cols="10" rows="5"
+                                 placeholder="How to reach Content Here . . .">{{@$attraction['how_to_reach']}}</textarea>
+                                 @endif
+                              
                               </div>
                            </div>
                         </div>
@@ -303,16 +320,16 @@
                               onchange="showDiv('aT-Alignment_{{$key}}',this);">
                               <option value="">--Select type--</option>
                               <option  {{ ($attraction['type']=='textwithimage')? 'selected': ''}} value="textwithimage">Text With Image</option>
-                              <option {{ ($attraction['type']=='onlytext')? 'selected': ''}} value="onlytext" selected>Text Only</option>
+                              <option {{ ($attraction['type']=='onlytext')? 'selected': ''}} value="onlytext" >Text Only</option>
                            </select>
                         </div>
 
-                        <div class="col-md-2" id="aT-Alignment_{{$key}}" style="display: none;">
+                        <div class="col-md-2" id="aT-Alignment_{{$key}}"  {{ ($attraction['type']=='onlytext')? "style = display:none": ''}}>
                            <select name="attraction[{{$key}}][alignment]" class="form-control m-input"
                               onchange="showPosition('aT-Img_{{$key}}',this)">
                               <option value="">--Select image alignment--</option>
-                              <option value="left" selected>Left</option>
-                              <option value="right">Right</option>
+                              <option value="left" {{ (@$attraction['imagealignment']=='left')? 'selected': ''}}>Left</option>
+                              <option value="right" {{ (@$attraction['imagealignment']=='right')? 'selected': ''}}>Right</option>
                            </select>
                         </div>
                         @endforeach
@@ -327,8 +344,12 @@
                         @foreach ($edit_list['stay'] as $key => $stay)
                         <div class="col-md-12" id="sT-onlytext_{{$key}}" {{ (!empty($stay['image_id']))? "style = display:none": ''}}>
                            <div class="content mb-20 sT-contentText_0" id="sT-content_{{$key}}">
+                              @if ($stay['type']=='onlytext')
+                                  <input type="text" class="form-control" name="stay[{{$key}}][name]" placeholder="Attraction name" value="{{$stay['name']}}" >
                               <textarea class="form-control" name="stay[{{$key}}][content]" id="" cols="10" rows="5"
                                  placeholder="Your Content Here . . .">{{$stay['text']}}</textarea>
+                              @endif
+                              
                            </div>
                         </div>
                         <div id="sT-contentTextWithImg_{{$key}}" class="col-md-12 align-items-center" {{ (empty($stay['image_id']))? "style = display:none": ''}}>
@@ -346,6 +367,7 @@
                               <div class="content col-md-8 col-sm-12 content-section contentText_0"
                                  id="sT-contentText_{{$key}}">
                                  @if (!empty($stay['image_id']))
+                                    <input type="text" class="form-control" name="stay[{{$key}}][name]" placeholder="Attraction name" value="{{$stay['name']}}" >
                                     <textarea class="form-control" name="about[{{$key}}][content]" id="" cols="10" rows="5" placeholder="Your Content Here . . .">{{$stay['text']}}</textarea>
                                  @endif
                               </div>
@@ -363,8 +385,8 @@
                            <select name="stay[{{$key}}][alignment]" class="form-control m-input"
                               onchange="showPosition('sT-Img_{{$key}}',this)">
                               <option value="">--Select image alignment--</option>
-                              <option value="left" selected>Left</option>
-                              <option value="right">Right</option>
+                              <option value="left" {{ (@$stay['imagealignment']=='left')? 'selected': ''}}>Left</option>
+                              <option value="right" {{ (@$stay['imagealignment']=='right')? 'selected': ''}}>Right</option>
                            </select>
                         </div>
                         @endforeach
@@ -380,8 +402,11 @@
                         @foreach ($edit_list['nearby_amenties'] as $key => $nearby_amenties)
                         <div class="col-md-12" id="aM-onlytext_{{$key}}" {{(!empty($nearby_amenties['image_id']))? "style = display:none": ''}}>
                            <div class="content mb-20" id="aM-content_0">
-                              <textarea class="form-control" name="amenties[{{$key}}][content]" id="" cols="10" rows="5"
+                              @if ($nearby_amenties['type']=='onlytext')
+                                   <textarea class="form-control" name="amenties[{{$key}}][content]" id="" cols="10" rows="5"
                                  placeholder="Your Content Here . . .">{{$nearby_amenties['text']}}</textarea>
+                              @endif
+                             
                            </div>
                         </div>
                         <div id="aM-contentTextWithImg_{{$key}}" class="col-md-12 align-items-center" {{ (empty($nearby_amenties['image_id']))? "style = display:none": ''}}>
@@ -398,8 +423,11 @@
                               </div>
                               <div class="content col-md-8 col-sm-12 content-section contentText_0"
                                  id="aM-contentText_{{$key}}">
-                                 <textarea class="form-control" name="amenties[{{$key}}][content]" id="" cols="10" rows="5"
+                                 @if ($nearby_amenties['type']=='textwithimage')
+                                      <textarea class="form-control" name="amenties[{{$key}}][content]" id="" cols="10" rows="5"
                                  placeholder="Your Content Here . . .">{{$nearby_amenties['text']}}</textarea>
+                                 @endif
+                                
                               </div>
                            </div>
                         </div>
@@ -416,8 +444,8 @@
                            <select name="amenties[{{$key}}][alignment]" class="form-control m-input"
                               onchange="showPosition('aM-Img_{{$key}}',this)">
                               <option value="">--Select image alignment--</option>
-                              <option value="left" selected>Left</option>
-                              <option value="right">Right</option>
+                              <option value="left" {{ (@$nearby_amenties['imagealignment ']=='left')? 'selected': ''}}>Left</option>
+                              <option value="right" {{ (@$nearby_amenties['imagealignment ']=='right')? 'selected': ''}}>Right</option>
                            </select>
                         </div>
                         @endforeach
@@ -437,13 +465,13 @@
                         <i class="fas fa-camera upload-button"  onClick="document.getElementById('v_file').click();"></i>
                         <input id="v_file" class="file_upload"   type="file" name="vImage" accept="image/*" onchange="loadFile(event,'v_image',1)" value="{{ getImage($edit_list->video_image)}}"/>
                      </div>
-                     <input  class="form-control mt-20" name="vUrl"  required type="text" value="{{$edit_list['vedio_link']}}" placeholder="Youtube URL"/>
+                     <input  class="form-control mt-20" name="vUrl"  required type="text" value="{{$edit_list->vedio_link}}" placeholder="Youtube URL"/>
                   </div>
                   <a href="https://www.youtube.com/watch?v=QSwvg9Rv2EI" class="youtube-popup video-btn">
                      <i class='bx bx-right-arrow'></i>
                   </a>
                </div>
-               <div class="widget widget-article mb-30">
+               {{-- <div class="widget widget-article mb-30">
                   <h3 class="sub-title">Popular Places</h3>
                   <article class="article-item">
                      <div class="image">
@@ -456,8 +484,8 @@
                         </h3>
                      </div>
                   </article>
-               </div>
-               <div class="widget widget-gallery mb-30">
+               </div> --}}
+               {{-- <div class="widget widget-gallery mb-30">
                   <h3 class="sub-title">Related top Destination</h3>
                   <ul class="instagram-post">
                      <li>
@@ -485,12 +513,13 @@
                         <i class='bx bx-images'></i>
                      </li>
                   </ul>
-               </div>
+               </div> --}}
                <div class="widget widget-gallery mb-30 box">
                   <h3 class="sub-title">Location</h3>
+                  <input class="form-control mt-20" name="map_url" type="text" value="{{ $edit_list->map_url }}">
                   <div class="map_area">
                      <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56862.42970068252!2d88.22965562372111!3d27.03326702147118!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e42e654cf501bb%3A0x4175555979d4702a!2sDarjeeling%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1658735507581!5m2!1sen!2sin"
+                        src="{{ $edit_list->map_url }}"
                         style="border:0; width: 100%;" allowfullscreen="" loading="lazy"
                         referrerpolicy="no-referrer-when-downgrade"></iframe>
                   </div>
@@ -566,7 +595,7 @@
 
 // <!-- ****************Attractions********************** -->
 
-   var countAttractions = 1;
+   var countAttractions ={{ count($edit_list['attractions'])}};
    $("#addRowAttraction").click(function () {
 
       var attraction_img = "'" + 'attrationImg_' + countAttractions + "'";
@@ -576,7 +605,7 @@
       var img = "{{asset('assets/img/default/600x400.png')}}"
       var html = '';
       html += '<div id="inputFormRowAttractions" class="row mt-20 mb-20">';
-      html += '<div class="col-md-12" id="aT-onlytext_' + countAttractions + '" style="display: block"><div class="content mb-20 contentText_' + countAttractions + '" id="aT-content_' + countAttractions + '"><textarea class="form-control" name="attraction[' + countAttractions + '][content]" id="" cols="10" rows="5" placeholder="Your Content Here . . ."></textarea></div></div>';
+      html += '<div class="col-md-12" id="aT-onlytext_' + countAttractions + '" style="display: block"><div class="content mb-20 contentText_' + countAttractions + '" id="aT-content_' + countAttractions + '"><input name="attraction[' + countAttractions + '][name]" class="form-control" placeholder="Attraction name"><textarea class="ckeditor form-control" name="attraction[' + countAttractions + '][content]" id="" cols="10" rows="5" placeholder="Your Content Here . . ."></textarea><textarea class="ckeditor form-control" name="attraction['+ countAttractions +'][how_to_reach]" id="" cols="10" rows="5" placeholder="How to reach Content Here . . ."></textarea></div></div>';
       html += '<div id="aT-contentTextWithImg_' + countAttractions + '" class="col-md-12 align-items-center" style="display: none;"><div id="attrationImg_' + countAttractions + '" class="row"><div class="col-md-4 col-sm-12 img-section"><div class="bg-image image mb-30"><img  id="aT-output_' + countAttractions + '" src="'+img+'" alt="Demo Image"><div class="p-image"><i class="fas fa-camera" id="upload-button" onClick="document.getElementById ('+file_upload+').click();"></i><input id="aT-fileUpload_'+ countAttractions +'" class="file_upload"  type="file" name="attraction['+ countAttractions +'][img]" accept="image/*" onchange="loadFile(event, '+output+') "/></div></div></div><div class="content col-md-8 col-sm-12 content-section" id="aT-contentText_' + countAttractions + '"></div></div> </div>';
       html += '<div class="col-md-3"><select id="attrationImg_' + countAttractions + '" name="attraction[' + countAttractions + '][type]" class="form-control m-input"  onchange="showDiv(' + attraction_alignment + ',this);"> <option value="">--Select type--</option><option value="textwithimage">Text With Image</option><option value="onlytext" selected>Text Only</option> </select> </div>';
       html += '<div class="col-md-2" id="aT-Alignment_' + countAttractions + '" style="display: none;"><select name="attraction[' + countAttractions + '][alignment]" class="form-control m-input" onchange="showPosition(' + attraction_img + ',this)"> <option value="">--Select image alignment--</option><option value="left" selected>Left</option><option value="right">Right</option></select></div>';
@@ -596,7 +625,7 @@
 
 
 //**************Stay****************
-var countStay = 1;
+var countStay = {{count($edit_list['stay'])}};
    $("#addRowStay").click(function () {
 
       var stay_img = "'" + 'stayImg_' + countStay + "'";
@@ -627,7 +656,7 @@ var countStay = 1;
 // ****************Amenties*******************
 
 
-var countAmenties = 1;
+var countAmenties = {{count($edit_list['nearby_amenties'])}};
    $("#addRowAmenties").click(function () {
 
       var amenties_img = "'" + 'amentiesImg_' + countAmenties + "'";
