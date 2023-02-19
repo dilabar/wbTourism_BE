@@ -14,8 +14,8 @@
                             <img class="img-responsive w-100" src="{{ $book_detail->thumbnail_image }}">
                             <div class="position-absolute top-50 bottom-50 pdf_detail">
                                 {{-- <a class="btn btn-secondary btn-sm "  target="_blank">View</a> --}}
-                                <button  data-bs-toggle="modal" onclick="openPDF('{{ $book_detail->pdf }}')" data-bs-target="#staticBackdrop">View </button>
-                                <button class="btn btn-secondary btn-sm "
+                                <button class="btn btn-info " data-bs-toggle="modal" data-bs-target="#staticBackdrop">View </button>
+                                <button class="btn btn-primary btn-sm "
                                     onclick="downloadpdf('{{ $book_detail->pdf }}')">Download </button>
                             </div>
                         </div>
@@ -36,10 +36,10 @@
   
   <!-- Modal -->
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+          <h5 class="modal-title" id="staticBackdropLabel">{{ $book_detail->name }}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">

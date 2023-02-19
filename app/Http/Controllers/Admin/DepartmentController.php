@@ -16,9 +16,14 @@ use MongoDB\BSON\ObjectId as MongoObjectId;
 use MongoDB\BSON\UTCDateTime as UTCDateTime;
 use Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+
 class DepartmentController extends Controller
 {
-   
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(Request $request)
     {
         return view('Admin/department/create');
@@ -108,6 +113,8 @@ class DepartmentController extends Controller
         $model->is_approved=1;
         $model->type='tender';
         $model->main_type='department';
+        $model->created_by = Auth::user()->user_id;
+        $model->updated_by = Auth::user()->user_id;
 
         if($model->save()){
             // dd('Gallery uploaded successfully');
@@ -193,7 +200,8 @@ class DepartmentController extends Controller
         $model->is_approved=1;
         $model->type='rti';
         $model->main_type='department';
-
+        $model->created_by = Auth::user()->user_id;
+        $model->updated_by = Auth::user()->user_id;
         if($model->save()){
             // dd('Gallery uploaded successfully');
             return redirect("/admin/department/rti/create")->with('success', 'RTI Submitted successfully');
@@ -278,6 +286,8 @@ class DepartmentController extends Controller
         $model->is_approved=1;
         $model->type='circular';
         $model->main_type='department';
+        $model->created_by = Auth::user()->user_id;
+        $model->updated_by = Auth::user()->user_id;
 
         if($model->save()){
             // dd('Gallery uploaded successfully');
@@ -369,6 +379,8 @@ class DepartmentController extends Controller
         $model->is_approved=1;
         $model->type='notice';
         $model->main_type='department';
+        $model->created_by = Auth::user()->user_id;
+        $model->updated_by = Auth::user()->user_id;
 
         if($model->save()){
             // dd('Gallery uploaded successfully');
@@ -726,7 +738,7 @@ class DepartmentController extends Controller
     //     $cur_time=Carbon::now()->setTimezone('Asia/Kolkata');;
     //     $cur_time = $cur_time->format('Y-m-d H:i:s');
     //     $cur_time_mongo = new UTCDateTime(strtotime($cur_time)*1000);
-    //     $user_id=1;
+    //    $user_id = Auth::user()->user_id;
     //     $rules = [
     //         'id' => 'required',
     //         'cur_status' => 'required|integer|in:0,1',

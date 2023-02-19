@@ -250,7 +250,7 @@
                            @if($place_item->img)
                               <img src="{{$place_item->img}}" class="img-responsive" alt="">
                            @else
-                           <img src="../assets/img/place/dh-pic3.jpg" class="img-responsive" alt="">
+                           <img src="{{ asset('assets/img/default/600x400.png') }}" class="img-responsive" alt="">
                            @endif
 
                               <div class="gallery-info">
@@ -262,6 +262,9 @@
 
                                        @elseif($place_item->id =='63da580b171e967049012c2a')
                                           <a href="/legends-view">{{$place_item->name}} </a>
+                                     
+                                       @elseif($place_item->id =='63d8ff596327ed072c056a4a')
+                                       <a href="/shakti_peeth">{{$place_item->name}} </a>
                                        @else
                                        <a href="/destination/details?template_id=2&id={{$place_item->id}}">{{$place_item->name}} </a>
                                      

@@ -17,9 +17,14 @@ use MongoDB\BSON\ObjectId as MongoObjectId;
 use MongoDB\BSON\UTCDateTime as UTCDateTime;
 use Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class LegendsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function create(){
         return  view('Admin/legends/create');
     }
@@ -49,6 +54,8 @@ class LegendsController extends Controller
             $model1->img_data = $binary_legend;
             $model1->is_active = 1;
             $model1->is_approved = 1;
+            $model1->created_by = Auth::user()->user_id;
+            $model1->updated_by = Auth::user()->user_id;
             $legends_img_is_save = $model1->save();
         }
         $model2 = new Item();
@@ -59,6 +66,8 @@ class LegendsController extends Controller
         $model2->related_post = $request->related_post;
         $model2->is_active = 1;
         $model2->is_approved = 1;
+        $model2->created_by = Auth::user()->user_id;
+        $model2->updated_by = Auth::user()->user_id;
         $model2->legend_img_obj_id = new MongoObjectId($model1->getKey());
         if ($model2->save()) {
              //return ('legend uploaded sucessfully');

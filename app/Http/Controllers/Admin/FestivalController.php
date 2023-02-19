@@ -17,6 +17,10 @@ use Validator;
 use Carbon\Carbon;
 class FestivalController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(Request $request)
     {
         return view('Admin/festival/add');
@@ -51,6 +55,8 @@ class FestivalController extends Controller
             $model1->img_data=$binary_thumbnail;
             $model1->is_active=1;
             $model1->is_approved=1;
+            $model1->created_by = Auth::user()->user_id;
+            $model1->updated_by = Auth::user()->user_id;
             $thumbnail_image_is_save=$model1->save();           
         }
         $model2=new Item();
@@ -73,6 +79,8 @@ class FestivalController extends Controller
             $model2->img_data=$binary_full;
             $model2->is_active=1;
             $model2->is_approved=1;
+            $model2->created_by = Auth::user()->user_id;
+            $model2->updated_by = Auth::user()->user_id;
             $full_image_is_save=$model2->save();
            
         }
@@ -93,6 +101,8 @@ class FestivalController extends Controller
         $model->full_image_obj_id=new MongoObjectId($model2->getKey()) ;
         $model->page_type='home';
         $model->section_type='fest_event';
+        $model->created_by = Auth::user()->user_id;
+        $model->updated_by = Auth::user()->user_id;
         if($model->save()){
            // dd('Festival Uploaded successfully');
             return redirect("/admin/festival/list")->with('success', 'Festival Uploaded successfully');
@@ -217,7 +227,7 @@ class FestivalController extends Controller
         $cur_time=Carbon::now()->setTimezone('Asia/Kolkata');;
         $cur_time = $cur_time->format('Y-m-d H:i:s');
         $cur_time_mongo = new UTCDateTime(strtotime($cur_time)*1000);
-        $user_id=1;
+       $user_id = Auth::user()->user_id;
         $rules = [
             'id' => 'required',
             'cur_status' => 'required|integer|in:0,1',

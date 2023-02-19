@@ -17,9 +17,14 @@ use MongoDB\BSON\ObjectId as MongoObjectId;
 use MongoDB\BSON\UTCDateTime as UTCDateTime;
 use Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class DestinationController extends Controller
 {
+  public function __construct()
+  {
+      $this->middleware('auth');
+  }
   public function index(Request $request)
   {
     return view('Admin/destination/pageCreate');
@@ -45,24 +50,24 @@ class DestinationController extends Controller
   public function categoryCreate(Request $request){
         $rules = [
           'name' => 'required',
-          'full_image' => 'mimes:jpeg,jpg,png,gif|required|max:10000',
-          'thumbnail_image' => 'mimes:jpeg,jpg,png,gif|required|max:10000',
+          // 'full_image' => 'mimes:jpeg,jpg,png,gif|required|max:10000',
+          // 'thumbnail_image' => 'mimes:jpeg,jpg,png,gif|required|max:10000',
           // 'visible' => 'required',
           // 'gallery_type' => 'required',//0=img,1=video
       ];
       $messages = [
           'name.required' => 'The Name field is required',
           // 'visible.required'=>'The Visible field is required',
-          'full_image.required'=>'The Image field is required',
-          'thumbnail_image.required'=>'The Image field is required',
+          // 'full_image.required'=>'The Image field is required',
+          // 'thumbnail_image.required'=>'The Image field is required',
       ];
 
       
       $attributes = array();
     
       $attributes['name'] = $request->name;
-      $attributes['full_image'] = $request->full_image;
-      $attributes['thumbnail_image'] = $request->thumbnail_image;
+      // $attributes['full_image'] = $request->full_image;
+      // $attributes['thumbnail_image'] = $request->thumbnail_image;
 
       $validator = Validator::make($request->all(), $rules, $messages, $attributes);
       if ($validator->fails()) {
@@ -74,7 +79,7 @@ class DestinationController extends Controller
           array_push($destination_array, $request->name);
         }
 
-        $category_model->type = 'destination';
+        $category_model->type = 'dest-category';
         $category_model->main_type = 'category';
         $category_model->page_type = 'home';
         $category_model->section_type = 'destination';
@@ -104,6 +109,10 @@ class DestinationController extends Controller
           $model1->is_active = 1;
           $model1->is_approved = 1;
           $thumbnail_image_is_save = $model1->save();
+          if($thumbnail_image_is_save){
+            $category_model->thumbnail_image_obj_id = new MongoObjectId($model1->getKey());
+
+          }
         }
         $model2 = new Item();
         if ($full_image = $request->file('full_image')) {
@@ -126,6 +135,9 @@ class DestinationController extends Controller
           $model2->is_active = 1;
           $model2->is_approved = 1;
           $full_image_is_save = $model2->save();
+          if($full_image_is_save){
+            $category_model->full_image_obj_id = new MongoObjectId($model2->getKey());
+          }
         }
     
     
@@ -134,11 +146,11 @@ class DestinationController extends Controller
         if (!empty(trim($request->description)))
           $category_model->short_desc = trim($request->description);
 
-        $category_model->thumbnail_image_obj_id = new MongoObjectId($model1->getKey());
-        $category_model->full_image_obj_id = new MongoObjectId($model2->getKey());
+        $category_model->created_by = Auth::user()->user_id;
+        $category_model->updated_by = Auth::user()->user_id;
         try {
           $category_model->save();
-          return redirect("/admin/destination/list")->with('success', 'Destination Uploaded successfully');
+          return redirect("/admin/destination/category/list")->with('success', 'Destination Uploaded successfully');
         } catch (\Throwable $th) {
           return back()->withErrors($th->getMessage());
           // $th->getMessage();
@@ -364,7 +376,8 @@ class DestinationController extends Controller
     $destination_model->template_id = 2;
     $destination_model->is_active = 1;
     $destination_model->is_approved = 1;
-
+    $destination_model->created_by = Auth::user()->user_id;
+    $destination_model->updated_by = Auth::user()->user_id;
     $destination_model->thumbnail_image_obj_id = new MongoObjectId($model1->getKey());
     $destination_model->full_image_obj_id = new MongoObjectId($model2->getKey());
     if ($destination_model->save()) {
@@ -575,7 +588,7 @@ class DestinationController extends Controller
         $fullimg_mdl->img_data = $binary_full;
         $full_image_is_save = $fullimg_mdl->save();
     }
-
+    $place_db->updated_by = Auth::user()->user_id;
     if(!empty(trim($request->name))) {
       $place_db->name = trim($request->name);
     }
@@ -1000,6 +1013,8 @@ class DestinationController extends Controller
       }
       $place_model->is_active = 1;
       $place_model->is_approved = 1;
+      $place_model->created_by = Auth::user()->user_id;
+      $place_model->updated_by = Auth::user()->user_id;
       if ($place_model->save()) {
         if ($request->template_type == '1') {
           $turl = "place";
@@ -1182,6 +1197,7 @@ class DestinationController extends Controller
                             $model_img->image_type = 'Normal'; //for normal 600*400
                             $model_img->is_active = 1;
                             $model_img->is_approved = 1;
+                            $model_img->updated_by= Auth::user()->user_id;
                             $abt_img_is_save = $model_img->save();
                             $about_array->image_id = $abt['id'];
                         }
@@ -1205,6 +1221,8 @@ class DestinationController extends Controller
                         $img_mdl->image_type = 'Normal'; //for Normal image 600*400
                         $img_mdl->is_active = 1;
                         $img_mdl->is_approved = 1;
+                        $img_mdl->created_by= Auth::user()->user_id;
+                        $img_mdl->updated_by= Auth::user()->user_id;
                         $normal_image_is_save = $img_mdl->save();
                         if ($normal_image_is_save) {
                             $image_id = new MongoObjectId($img_mdl->getKey());
@@ -1251,6 +1269,7 @@ class DestinationController extends Controller
                             $model_img->image_type = 'ContentImage'; //for content image 600*400
                             $model_img->is_active = 1;
                             $model_img->is_approved = 1;
+                            $model_img->updated_by= Auth::user()->user_id;
                             $normal_image_is_save = $model_img->save();
                             $htr_array->image_id = $htr['id'];
                         }
@@ -1274,6 +1293,8 @@ class DestinationController extends Controller
                         $img_mdl->image_type = 'ContentImage'; //for content image 600*400
                         $img_mdl->is_active = 1;
                         $img_mdl->is_approved = 1;
+                        $img_mdl->created_by= Auth::user()->user_id;
+                        $img_mdl->updated_by= Auth::user()->user_id;
                         $normal_image_is_save = $img_mdl->save();
                         if ($normal_image_is_save) {
                             $image_id = new MongoObjectId($img_mdl->getKey());
@@ -1320,6 +1341,7 @@ class DestinationController extends Controller
                             $model_img->image_type = 'Normal'; //for content image 600*400
                             $model_img->is_active = 1;
                             $model_img->is_approved = 1;
+                            $model_img->updated_by= Auth::user()->user_id;
                             $normal_image_is_save = $model_img->save();
                             
                         }
@@ -1343,6 +1365,8 @@ class DestinationController extends Controller
                         $img_mdl->image_type = 'Normal'; //for content image 600*400
                         $img_mdl->is_active = 1;
                         $img_mdl->is_approved = 1;
+                        $img_mdl->created_by= Auth::user()->user_id;
+                        $img_mdl->updated_by= Auth::user()->user_id;
                         $atr_image_is_save = $img_mdl->save();
                         if ($atr_image_is_save) {
                             $image_id = new MongoObjectId($img_mdl->getKey());
@@ -1389,6 +1413,7 @@ class DestinationController extends Controller
                             $model_img->image_type = 'ContentImage'; //for content image 600*400
                             $model_img->is_active = 1;
                             $model_img->is_approved = 1;
+                            $model_img->created_by= Auth::user()->user_id;
                             $normal_image_is_save = $model_img->save();
                             $stay_array->image_id = $st['id'];
                         }
@@ -1411,6 +1436,8 @@ class DestinationController extends Controller
                         $img_mdl->image_type = 'ContentImage'; //for content image 600*400
                         $img_mdl->is_active = 1;
                         $img_mdl->is_approved = 1;
+                        $img_mdl->created_by= Auth::user()->user_id;
+                        $img_mdl->updated_by= Auth::user()->user_id;
                         $normal_image_is_save = $img_mdl->save();
                         if ($normal_image_is_save) {
                             $image_id = new MongoObjectId($img_mdl->getKey());
@@ -1446,6 +1473,7 @@ class DestinationController extends Controller
     $place_model->attractions = $attraction_model->all();
     $place_model->about_tab_some_info = $someInforArr->all();
     $place_model->stay = $stay_model->all();
+    $place_model->updated_by= Auth::user()->user_id;
     $place_model->save();
     return redirect('admin/destination/page/list')->with('success', 'Page detail updated successfully !!');
   }
@@ -1571,7 +1599,7 @@ class DestinationController extends Controller
     $cur_time = Carbon::now()->setTimezone('Asia/Kolkata');;
     $cur_time = $cur_time->format('Y-m-d H:i:s');
     $cur_time_mongo = new UTCDateTime(strtotime($cur_time) * 1000);
-    $user_id = 1;
+    $user_id = Auth::user()->user_id;
     $rules = [
       'id' => 'required',
       'cur_status' => 'required|integer|in:0,1',
@@ -1651,7 +1679,7 @@ class DestinationController extends Controller
     $cur_time = Carbon::now()->setTimezone('Asia/Kolkata');;
     $cur_time = $cur_time->format('Y-m-d H:i:s');
     $cur_time_mongo = new UTCDateTime(strtotime($cur_time) * 1000);
-    $user_id = 1;
+    $user_id = Auth::user()->user_id;
     $rules = [
       'id' => 'required',
       'cur_status' => 'required|integer|in:0,1',
@@ -1817,6 +1845,7 @@ class DestinationController extends Controller
           $fullimg_mdl->extension = $extension;
           $fullimg_mdl->mimType = $mimeType;
           $fullimg_mdl->img_data = $binary_full;
+          $fullimg_mdl->updated_by= Auth::user()->user_id;
           $full_image_is_save = $fullimg_mdl->save();
       }
       
@@ -1827,7 +1856,7 @@ class DestinationController extends Controller
           $gallery_db->name = trim($request->name);
       }
           // $gallery_db->reference = null;
-
+      $gallery_db->updated_by= Auth::user()->user_id;
       if ($gallery_db->save()) {
           return redirect("/admin/gallery/list")->with('success', 'Gallery Updated successfully');
       }

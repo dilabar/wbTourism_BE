@@ -123,6 +123,29 @@ class FrontPageController extends Controller
             $destination_array->gradient_text='';
             $destination_list->push($destination_array);
         }  
+        // $top_10_place = Item::where('is_active', 1)->where('is_approved', 1)->where('page_type', 'detail')->where('type', 'place')->offset(0)->limit(9)->get();
+        // $place_list=collect([]);
+        // foreach($top_10_place as $destination){
+        //     $place_array=collect();
+        //     $content=collect([]);
+        //     $document=collect([]);
+        //     $img ='';
+        //     $place_array->template_id=$destination->template_id;
+        //     $place_array->place_id=(string)$destination->_id;
+        //     $place_array->name=$destination->name;
+        //     $place_array->desc=$destination->short_desc;
+        //     $img_content=Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $destination->thumbnail_image_obj_id)->where('image_type', 'Thumbnail')->first();
+        //     if($img_content){
+        //         $type=$img_content->mimType;
+        //         $img = 'data:' . $type . ';base64,' . base64_encode($img_content->img_data); 
+        //         $place_array->img=$img;
+        //     }else{
+        //         $place_array->img=$img; 
+        //     }
+           
+        //     // $place_array->gradient_text='';
+        //     $place_list->push($place_array);
+        // }  
         $festival_list_db = Item::where('is_active', 1)->where('is_approved', 1)->where('section_type', 'fest_event')->where('type', 'festival')->get();
         $festival_list=collect([]);
         foreach($festival_list_db as $festival){
@@ -248,16 +271,141 @@ class FrontPageController extends Controller
 
     public function tsp(Request $request){
         if($request->id){
+            $tsp_details = tsp_details();
+            $tsp_lists = collect([]);
+            foreach($tsp_details as $tsp)
+            {
+                if($tsp->tsp_cat == $request->id)
+                {
+                    $tsp_lists->push($tsp);
+                }
+            }
             return view('frontpage/tspDetail', [
-             
+             'tsp_lists' => $tsp_lists
             ]);
         }
         return view('frontpage/tsp', [
           
         ]);
     }
-    public function attraction(){
-  
+    public function search(Request $request){
+        // dd($request);
+        $searchParam=$request->search;
+        $res = Item::where('page_type','detail')->where('type', 'place')->where('name', 'like',$searchParam)->get();
+       // $res1 = Item::whereRaw("page_type='detailpage' and type='place'")->get();
+       $detailpage = Item::where('page_type','detail')->where('type','detailpage')->
+        where(function ($query) use ($searchParam) {
+             $query
+                ->where('name', 'like', '%'.$searchParam.'%')
+                ->orWhere('about_text.text','like','%'.$searchParam.'%')
+                ->orWhere('how_to_reach.text','like','%'.$searchParam.'%')
+                ->orWhere('stay.text','like','%'.$searchParam.'%')
+                ->orWhere('attractions.text','like','%'.$searchParam.'%')
+                ->orWhere('attractions.name','like','%'.$searchParam.'%')
+                ->orWhere('attractions.how_to_reach','like','%'.$searchParam.'%');
+                // ->orWhereNull('end_date');
+        })
+        ->get();
+      
+    //  dd($detailpage);
+    $viewDetail = collect([]);
+    foreach($detailpage as $item)
+    {
+        $detail_array = collect();
+        foreach($item->about_text as $abt)
+        {
+            if(stristr($abt['text'],$searchParam))
+            {
+                $img_content=Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $item->banner_image)->first();
+                if($img_content)
+                {
+                    $type=$img_content->mimType;
+                    $img = 'data:' . $type . ';base64,' . base64_encode($img_content->img_data); 
+                    $detail_array->img=$img;
+                }else{
+                    $detail_array->img='';
+                }
+                $detail_array->url = "/place/details?template_id=1&id=".$item['_id'];
+                $detail_array->name = $item['name'];
+                $detail_array->attraction_name = '';
+                $detail_array->desc = $abt['text'];
+                $viewDetail->push($detail_array);
+                break;
+            }
+        }
+        if(count($detail_array) == 0)
+        {
+            foreach($item->attractions as $attraction)
+            {
+                if(stristr($attraction['name'],$searchParam))
+                {
+                    $detail_array->url = "/place/details?template_id=1&id=".$item['_id'];
+                    $detail_array->img='';
+                    $detail_array->attraction_name = @$attraction['name']?$attraction['name']:'';
+                    $detail_array->name = $item['name'];
+                    $detail_array->desc = $attraction['text'];
+                    $viewDetail->push($detail_array);
+                    break;
+                }
+                elseif(stristr($attraction['text'],$searchParam))
+                {
+                    $detail_array->url = "/place/details?template_id=1&id=".$item['_id'];
+                    $detail_array->img='';
+                    $detail_array->attraction_name = @$attraction['name']?$attraction['name']:'';
+                    $detail_array->name = $item['name'];
+                    $detail_array->desc = $attraction['text'];
+                    $viewDetail->push($detail_array);
+                    break;
+                }
+                // elseif(stristr(@$attraction['how_to_reach'],$searchParam))
+                // {
+                //     if(isset($attraction['how_to_reach']))
+                //     {
+                //         print_r('--------------------how_to_reach');
+                //     print_r('<pre>');
+                //     print_r($attraction);
+                //     print_r('</pre>');
+                //         $detail_array->url = "/place/details?template_id=1&id=".$item['_id'];
+                //         $detail_array->img='';
+                //         $detail_array->attraction_name = @$attraction['name']?$attraction['name']:'';
+                //         $detail_array->name = $item['name'];
+                //         $detail_array->desc = $attraction['how_to_reach'];
+                //         $viewDetail->push($detail_array);
+                //         break;
+                //     }  
+                // }
+            }
+        }
+        if(count($detail_array) == 0)
+        {
+           
+            foreach($item->stay as $stay)
+            {
+                if(stristr($stay['text'],$searchParam))
+                {
+                    $detail_array->url = "/place/details?template_id=1&id=".$item['_id'];
+                    $detail_array->img='';
+                    $detail_array->attraction_name = @$stay['name']?$stay['name']:'stay';
+                    $detail_array->name = $item['name'];
+                    $detail_array->desc = $stay['text'];
+                    $viewDetail->push($detail_array);
+                    break;
+                }
+                
+            }
+           
+        }
+        
+    }
+    // dd($viewDetail);
+    //    ->where('name','like','%'.$searchParam.'%')
+    //    ->where('about_text.text','like','%'.$searchParam.'%')
+    //    ->get();
+        return view('frontpage.search', [
+            'detailpage'=>$viewDetail,
+            'searchParam'=>$searchParam
+          
+        ]);
     }
  
 }

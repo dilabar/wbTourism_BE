@@ -18,6 +18,10 @@ use Validator;
 use Carbon\Carbon;
 class GalleryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
    
     public function index(Request $request)
     {
@@ -103,6 +107,8 @@ class GalleryController extends Controller
             $model2->img_data=$binary_full;
             $model2->is_active=1;
             $model2->is_approved=1;
+            $model2->created_by = Auth::user()->user_id;
+            $model2->updated_by = Auth::user()->user_id;
             $full_image_is_save=$model2->save();
            
         }
@@ -126,6 +132,8 @@ class GalleryController extends Controller
         $model->page_type='home';
         $model->section_type='gallery';
         $model->visible=$request->visible;
+        $model->created_by = Auth::user()->user_id;
+        $model->updated_by = Auth::user()->user_id;
         if($model->save()){
            // dd('Gallery uploaded successfully');
             return redirect("/admin/gallery/list")->with('success', 'Gallery Uploaded successfully');
@@ -213,6 +221,8 @@ class GalleryController extends Controller
             $model1->img_data=$binary_thumbnail;
             $model1->is_active=1;
             $model1->is_approved=1;
+            $model1->created_by = Auth::user()->user_id;
+            $model1->updated_by = Auth::user()->user_id;
             $thumbnail_image_is_save=$model1->save();  
             $model->gallery_image_obj_id=new MongoObjectId($model1->getKey()) ;         
         }
@@ -237,7 +247,8 @@ class GalleryController extends Controller
         $model->youtube_link=trim($request->youtube_link);
 
         //dd($objectId);
-       
+        $model->created_by = Auth::user()->user_id;
+        $model->updated_by = Auth::user()->user_id;
         if($model->save()){
             // dd('Gallery uploaded successfully');
              return redirect("/admin/gallery/image/add")->with('success', 'Gallery Image Uploaded successfully');
@@ -393,7 +404,7 @@ class GalleryController extends Controller
         $cur_time=Carbon::now()->setTimezone('Asia/Kolkata');;
         $cur_time = $cur_time->format('Y-m-d H:i:s');
         $cur_time_mongo = new UTCDateTime(strtotime($cur_time)*1000);
-        $user_id=1;
+       $user_id = Auth::user()->user_id;
         $rules = [
             'id' => 'required',
             'cur_status' => 'required|integer|in:0,1',
@@ -553,6 +564,7 @@ class GalleryController extends Controller
             $fullimg_mdl->extension = $extension;
             $fullimg_mdl->mimType = $mimeType;
             $fullimg_mdl->img_data = $binary_full;
+            $fullimg_mdl->updated_by = Auth::user()->user_id;
             $full_image_is_save = $fullimg_mdl->save();
         }
         
@@ -563,7 +575,7 @@ class GalleryController extends Controller
             $gallery_db->name = trim($request->name);
         }
             // $gallery_db->reference = null;
-
+        $gallery_db->updated_by = Auth::user()->user_id;
         if ($gallery_db->save()) {
             return redirect("/admin/gallery/list")->with('success', 'Gallery Updated successfully');
         }
@@ -764,6 +776,7 @@ class GalleryController extends Controller
             $gallery_img_mdl->extension = $extension;
             $gallery_img_mdl->mimType = $mimeType;
             $gallery_img_mdl->img_data = $binary_thumbnail;
+            $gallery_img_mdl->updated_by = Auth::user()->user_id;
             if(count($gallery_array)>0){
                 $gallery_img_mdl->gallery_tag=$gallery_array;
             }
@@ -784,7 +797,7 @@ class GalleryController extends Controller
 
         // if(!empty(trim($request->youtube_link)))
         // $gallery_db->youtube_link=trim($request->youtube_link);
-
+        $gallery_db->updated_by = Auth::user()->user_id;
         if ($gallery_db->save()) {
             return redirect("/admin/gallery/image/list")->with('success', 'Image Updated successfully');
         }

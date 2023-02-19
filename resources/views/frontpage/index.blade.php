@@ -39,7 +39,7 @@
                             </g> --}}
                             <g>
                                 {{-- <rect x="756" y="10" width="100" height="100" fill="red"></rect> --}}
-                                <text x="756" y="15" font-family="Verdana" font-size="20" fill="black">Click on the red dots for pop up details</text>
+                                <text x="756" y="35" font-family="Verdana" font-size="20" fill="black">Click on the red dots for pop up details</text>
                               </g>
                         
                          @foreach (getMapCordinate() as $item)
@@ -127,7 +127,7 @@
                         <div class="tours-slider top-style-two owl-carousel mb-30">
                             @foreach ($product_list as $product_item)
                                 <div class="boxes">
-                                    <a href="{{ $product_item->reference ? $product_item->reference : '' }}">
+                                    <a href="{{ $product_item->reference ? $product_item->reference : '#' }}">
                                         <div class="grid_4">
                                             <div class="figure">
                                                 <div><img class="" data-src="{{ $product_item->img }}"
@@ -559,6 +559,18 @@
 @endsection
 @section('script')
     <script>
+    //     $('#searchButton').magnificPopup(
+	// {
+	// 	removalDelay: 500,
+	// 	callbacks:
+	// 	{
+	// 		beforeOpen: function ()
+	// 		{
+	// 			this.st.mainClass = this.st.el.attr('data-effect');
+	// 		}
+	// 	},
+	// 	midClick: true
+	// });
         // var tooltip = document.querySelector('.map-tooltip');
 
         // // iterate throw all `path` tags

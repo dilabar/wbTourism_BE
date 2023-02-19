@@ -25,12 +25,12 @@ background-color:  #5d8fc9;
   
 }
 
-#email{
+/* #email{
     border-radius:30px;
     background-color: #ebf0fc;
     border-color: #ebf0fc;
     color: #9da3b0;
-}
+} */
 
 #button{
     border-radius:30px;

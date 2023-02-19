@@ -3,6 +3,7 @@
     <link rel="stylesheet" href="{{asset('assets/css/fontawesome.min.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css/boxicons.min.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css/animate.min.css')}}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/magnificpop.min.css') }}">
     <!-- <link rel="stylesheet" href="{{asset('assets/css/bootstrap-datepicker.min.css')}}"> -->
     <link rel="stylesheet" href="{{asset('assets/css/nice-select.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css/nice-select-with-search.css')}}" />
@@ -15,5 +16,6 @@
     <link rel="stylesheet" href="{{asset('assets/css/myresponsive.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css/theme-dark.css')}}" />
     <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+    
     @yield('css')
 

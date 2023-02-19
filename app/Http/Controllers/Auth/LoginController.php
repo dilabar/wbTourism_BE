@@ -17,6 +17,14 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    public function logout(Request $request) {
+        Auth::logout();
+        $request->session()->flush();
+        $request->session()->save();       
+        $request->session()->regenerate(true);
+        return redirect('/login');
+     }
+ 
     public function username()
     {
         return 'email';
@@ -31,7 +39,8 @@ class LoginController extends Controller
        
         $this->validate($request, [
                     'email' => 'required|max:255',
-                    'password' => 'required|max:255'
+                    'password' => 'required|max:255',
+                    'captcha' => 'required|captcha'
         ]);
         $credentials = [
             'email' => $request->email,
@@ -51,5 +60,8 @@ class LoginController extends Controller
         }
         return Redirect::back()->withErrors(['msg' => 'oops something happend 2 ']);
         
+    }
+    public function refreshCaptcha(){
+        return response()->json(['captcha' => captcha_img()]);
     }
 }

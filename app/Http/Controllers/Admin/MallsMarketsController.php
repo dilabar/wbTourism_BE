@@ -17,9 +17,14 @@ use MongoDB\BSON\ObjectId as MongoObjectId;
 use MongoDB\BSON\UTCDateTime as UTCDateTime;
 use Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class MallsMarketsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         return view('Admin/mallnmarkets/add');
@@ -55,6 +60,8 @@ class MallsMarketsController extends Controller
             $model1->img_data = $binary_market;
             $model1->is_active = 1;
             $model1->is_approved = 1;
+            $model1->created_by = Auth::user()->user_id;
+            $model1->updated_by = Auth::user()->user_id;
             $market_image_is_save = $model1->save();
         }
         $model2 = new Item();
@@ -63,6 +70,8 @@ class MallsMarketsController extends Controller
         $model2->address = $request->address;
         $model2->is_active = 1;
         $model2->is_approved = 1;
+        $model2->created_by = Auth::user()->user_id;
+        $model2->updated_by = Auth::user()->user_id;
         $model2->market_image_obj_id = new MongoObjectId($model1->getKey());
         if ($model2->save()) {
             return ('Market Save successfully');

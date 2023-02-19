@@ -16,8 +16,14 @@ use MongoDB\BSON\ObjectId as MongoObjectId;
 use MongoDB\BSON\UTCDateTime as UTCDateTime;
 use Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+
 class BookController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(Request $request)
     {
         return view('Admin/books/add');
@@ -76,6 +82,7 @@ class BookController extends Controller
         $model2->type=$request->type;
         $model2->is_active=1;
         $model2->is_approved=1;
+        $model2->created_by = Auth::user()->user_id;
         //dd($objectId);
         $model2->thumbnail_image_obj_id=new MongoObjectId($model1->getKey()) ;
         if($model2->save()){
@@ -282,6 +289,7 @@ class BookController extends Controller
             $bookimg->is_approved=1;
             $thumbnail_image_is_save=$bookimg->save();           
         }
+        $book_db->updated_by = Auth::user()->user_id;
         if (!empty(trim($request->name))) {
             $book_db->name = trim($request->name);
         }
@@ -305,7 +313,7 @@ class BookController extends Controller
         $cur_time=Carbon::now()->setTimezone('Asia/Kolkata');;
         $cur_time = $cur_time->format('Y-m-d H:i:s');
         $cur_time_mongo = new UTCDateTime(strtotime($cur_time)*1000);
-        $user_id=1;
+       $user_id = Auth::user()->user_id;
         $rules = [
             'id' => 'required',
             'cur_status' => 'required|integer|in:0,1',

@@ -112,10 +112,10 @@
                                     <a href="/gallery/image_gallery">Gallery</a>
                                 </li>
                                 <li>
-                                    <a href="#">Legends of Bengal</a>
+                                    <a href="/legends-view">Legends of Bengal</a>
                                 </li>
                                 <li>
-                                    <a href="#">Contact Us</a>
+                                    <a href="/contact-us">Contact Us</a>
                                 </li>
                             </ul>
                         </div>

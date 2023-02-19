@@ -17,9 +17,14 @@ use MongoDB\BSON\ObjectId as MongoObjectId;
 use MongoDB\BSON\UTCDateTime as UTCDateTime;
 use Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class NewsletterController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     //
     public function create(){
         return  view('admin/newsletter/create');
@@ -72,6 +77,8 @@ class NewsletterController extends Controller
             }
             $model1->is_active=1;
             $model1->is_approved=1;
+            $model1->created_by = Auth::user()->user_id;
+            $model1->updated_by = Auth::user()->user_id;
             $letter_pdf_is_save=$model1->save();  
         }
         $model2 = new Item();
@@ -81,6 +88,8 @@ class NewsletterController extends Controller
         $model2->newsletter_date = $request->letter_date;
         $model2->is_active = 1;
         $model2->is_approved = 1;
+        $model2->created_by = Auth::user()->user_id;
+        $model2->updated_by = Auth::user()->user_id;
         $model2->newsletter_pdf_obj_id = new MongoObjectId($model1->getKey());
         if ($model2->save()) {
             // return ('newsletter uploaded sucessfully');
@@ -258,6 +267,7 @@ class NewsletterController extends Controller
             $newsletterpdf_mdl->extension = $extension;
             $newsletterpdf_mdl->mimType = $mimeType;
             $newsletterpdf_mdl->file_data = $binary_full;
+            $newsletterpdf_mdl->updated_by = Auth::user()->user_id;
             $article_image_is_save = $newsletterpdf_mdl->save();
         }
         if (!empty(trim($request->letter_subject))) {
@@ -269,7 +279,7 @@ class NewsletterController extends Controller
         if (!empty(trim($request->letter_no))) {
             $newsletter_db->newsletter_no = trim($request->letter_no);
         }
-        // $newsletter_db->reference = null;
+        $newsletter_db->updated_by = Auth::user()->user_id;
 
         if ($newsletter_db->save()) {
             return redirect("/admin/newsletter/list")->with('success', 'Newsletter Updated successfully');

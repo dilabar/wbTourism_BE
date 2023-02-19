@@ -17,8 +17,14 @@ use MongoDB\BSON\ObjectId as MongoObjectId;
 use MongoDB\BSON\UTCDateTime as UTCDateTime;
 use Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index(Request $request)
     {
         return view('Admin/product/add');
@@ -81,6 +87,8 @@ class ProductController extends Controller
             $model1->img_data=$binary_thumbnail;
             $model1->is_active=1;
             $model1->is_approved=1;
+            $model1->created_by = Auth::user()->user_id;
+            $model1->updated_by = Auth::user()->user_id;
             $thumbnail_image_is_save=$model1->save();           
         }
         $model2=new Item();
@@ -103,6 +111,8 @@ class ProductController extends Controller
             $model2->img_data=$binary_full;
             $model2->is_active=1;
             $model2->is_approved=1;
+            $model2->created_by = Auth::user()->user_id;
+            $model2->updated_by = Auth::user()->user_id;
             $full_image_is_save=$model2->save();
            
         }
@@ -123,6 +133,8 @@ class ProductController extends Controller
         $product_model->gradient=trim($request->gradient);
         $product_model->page_type='home';
         $product_model->section_type='explore';
+        $product_model->created_by = Auth::user()->user_id;
+        $product_model->updated_by = Auth::user()->user_id;
         if($product_model->save()){
            // dd('Product uploaded successfully');
             return redirect("/admin/product/list")->with('success', 'Product Uploaded successfully');
@@ -312,6 +324,8 @@ class ProductController extends Controller
             $model1->img_data=$binary_thumbnail;
             $model1->is_active=1;
             $model1->is_approved=1;
+            $model1->created_by = Auth::user()->user_id;
+            $model1->updated_by = Auth::user()->user_id;
             $thumbnail_image_is_save=$model1->save();           
         }
         $model2=new Item();
@@ -335,6 +349,8 @@ class ProductController extends Controller
             $model2->img_data=$binary_full;
             $model2->is_active=1;
             $model2->is_approved=1;
+            $model2->created_by = Auth::user()->user_id;
+            $model2->updated_by = Auth::user()->user_id;
             $full_image_is_save=$model2->save();  
         }
        
@@ -374,6 +390,8 @@ class ProductController extends Controller
                                 $model_img->img_data=$binary_abt_img;
                                 $model_img->is_active=1;
                                 $model_img->is_approved=1;
+                                $model_img->created_by = Auth::user()->user_id;
+                                $model_img->updated_by = Auth::user()->user_id;
                                 $normal_image_is_save=$model_img->save();
                                 if($normal_image_is_save){
                                     $image_id=new MongoObjectId($model_img->getKey());
@@ -412,6 +430,8 @@ class ProductController extends Controller
                             $model_img->img_data=$binary_htr_img;
                             $model_img->is_active=1;
                             $model_img->is_approved=1;
+                            $model_img->created_by = Auth::user()->user_id;
+                            $model_img->updated_by = Auth::user()->user_id;
                             $normal_image_is_save=$model_img->save();
                             if($normal_image_is_save){
                                 $image_id=new MongoObjectId($model_img->getKey());
@@ -451,6 +471,8 @@ class ProductController extends Controller
                                 $model_img->img_data=$binary_at_img;
                                 $model_img->is_active=1;
                                 $model_img->is_approved=1;
+                                $model_img->created_by = Auth::user()->user_id;
+                                $model_img->updated_by = Auth::user()->user_id;
                                 $normal_image_is_save=$model_img->save();
                                 if($normal_image_is_save){
                                     $image_id=new MongoObjectId($model_img->getKey());
@@ -490,6 +512,8 @@ class ProductController extends Controller
                                 $model_img->img_data=$binary_at_img;
                                 $model_img->is_active=1;
                                 $model_img->is_approved=1;
+                                $model_img->created_by = Auth::user()->user_id;
+                                $model_img->updated_by = Auth::user()->user_id;
                                 $normal_image_is_save=$model_img->save();
                                 if($normal_image_is_save){
                                     $image_id=new MongoObjectId($model_img->getKey());
@@ -530,6 +554,8 @@ class ProductController extends Controller
                                 $model_img->img_data=$binary_at_img;
                                 $model_img->is_active=1;
                                 $model_img->is_approved=1;
+                                $model_img->created_by = Auth::user()->user_id;
+                                $model_img->updated_by = Auth::user()->user_id;
                                 $normal_image_is_save=$model_img->save();
                                 if($normal_image_is_save){
                                     $image_id=new MongoObjectId($model_img->getKey());
@@ -612,7 +638,8 @@ class ProductController extends Controller
     
         $product_model->is_active=1;
         $product_model->is_approved=1;
-
+        $product_model->created_by = Auth::user()->user_id;
+        $product_model->updated_by = Auth::user()->user_id;
         
       
         if($product_model->save()){
@@ -651,7 +678,7 @@ class ProductController extends Controller
         $cur_time=Carbon::now()->setTimezone('Asia/Kolkata');;
         $cur_time = $cur_time->format('Y-m-d H:i:s');
         $cur_time_mongo = new UTCDateTime(strtotime($cur_time)*1000);
-        $user_id=1;
+       $user_id = Auth::user()->user_id;
         $rules = [
             'id' => 'required',
             'cur_status' => 'required|integer|in:0,1',

@@ -219,7 +219,7 @@ class GalleryController extends Controller
         $cur_time=Carbon::now()->setTimezone('Asia/Kolkata');;
         $cur_time = $cur_time->format('Y-m-d H:i:s');
         $cur_time_mongo = new UTCDateTime(strtotime($cur_time)*1000);
-        $user_id=1;
+       $user_id = Auth::user()->user_id;
         $rules = [
             'id' => 'required',
             'cur_status' => 'required|integer|in:0,1',

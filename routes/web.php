@@ -101,6 +101,8 @@ Route::get('/festival-rathajatra','FestivalsPageController@showRathajatra')->nam
 Route::get('/festival-basantautshav','FestivalsPageController@showBasntaUtshav')->name('festival-basantautshav');
 Route::get('/mice/show-mice','MicPageController@showMICE')->name('show-mice');
 Route::get('/shakti_peeth','SatipeethController@index');
+Route::get('/search','FrontPageController@search');
+
 //errors
 Route::get('/error/page_not_found','ErrorPageController@pageNotFound')->name('page_not_found');
     Route::prefix('admin')->group(function () {
@@ -195,3 +197,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+Route::get('refresh_captcha', 'Auth\LoginController@refreshCaptcha')->name('refreshCaptcha');

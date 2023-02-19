@@ -14,8 +14,13 @@ use MongoDB\BSON\ObjectId as MongoObjectId;
 use MongoDB\BSON\UTCDateTime as UTCDateTime;
 use Validator;
 use Carbon\Carbon;
+
 class TemplateController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function getHtml(Request $request)
     {
         $template_type=Master::where('template_id',(int) $request->id)->where('master_type', 'template')->where('is_active', 1)->where('is_approved', 1)->first();

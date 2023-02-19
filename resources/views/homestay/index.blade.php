@@ -9,7 +9,7 @@
         </div>
         <div class="row hsty">
             <div class="col-lg-4">
-                <a href="https://wbtourism.gov.in/home/download/pdf/west_bengal_homestay_tourism_policy_2017_old.pdf">
+                <a href="{{ asset('assets/pdf/homestay/west_bengal_homestay_tourism_policy_2017_old.pdf') }}" target="_blank">
                     <div class=" card p-3 mb-2">
                         <span class="text-center">Home Stay Tourism Policy 2017</span>
                     </div>
@@ -18,7 +18,7 @@
             </div>
 
             <div class="col-lg-4">
-                <a href="https://wbtourism.gov.in/home/download/pdf/west_bengal_homestay_tourism_policy_2017.pdf">
+                <a href="{{ asset('assets/pdf/homestay/west_bengal_homestay_tourism_policy_2017.pdf')}}" target="_blank">
                     <div class="card p-3 mb-2">
                         <span class="text-center">Home Stay Tourism Policy 2017 Revision</span>
                     </div>
@@ -28,7 +28,7 @@
 
 
             <div class="col-lg-4">
-                <a href="https://wbtourism.gov.in/home/download/annexures/annexure_all_com.pdf">
+                <a href="{{ asset('assets/pdf/homestay/annexures/annexure_all_com.pdf')}}" target="_blank">
                     <div class="card p-3 mb-2">
                         <span class="text-center">Home Stay Tourism Policy 2017 Registration Form</span>
                     </div>
@@ -37,7 +37,7 @@
             </div>
 
             <div class="col-lg-4">
-                <a href="http://wbtpms.in/">
+                <a href="http://wbtpms.in/" target="_blank">
                     <div class="card p-3 mb-2">
                         <span class="text-center">TPMS (office use only)</span>
                     </div>
@@ -46,7 +46,7 @@
 
 
             <div class="col-lg-4">
-                <a href="http://49.50.66.67/tpms">
+                <a href="http://49.50.66.67/tpms" target="_blank">
                     <div class="card p-3 mb-2">
                         <span class="text-center">Apply Online</span>
                     </div>

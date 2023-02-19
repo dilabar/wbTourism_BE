@@ -22,7 +22,9 @@
 @endsection
 @section('script')
 <script type="text/javascript">
+
 $(document).ready(function(){
+    
     $(document).on("click", "#gallery_category_id", function(){
         var gallery_category_id = $(this).attr('title')
         $.ajax({

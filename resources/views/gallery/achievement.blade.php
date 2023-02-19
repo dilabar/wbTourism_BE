@@ -3,6 +3,9 @@
     .achievement_gallery img{width: 100%;height: 240px;border: solid 1px #fff;box-shadow: -5px 5px 5px -1px rgb(0 0 0 / 30%);-webkit-box-shadow: -5px 5px 5px -1px rgb(0 0 0 / 30%); -moz-box-shadow: -5px 5px 5px -1px rgba(0,0,0,0.3);}
     .achievement_gallery h4{margin-top: 10px}
 </style>
+@section('css')
+    <link rel="stylesheet" href="{{ asset('assets/css/viewer.min.css') }}">
+@endsection
 @section('content')
 <section class="pt-100">
     <div class="section-title title-style">
@@ -12,7 +15,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-10 offset-md-1">
-                <div class="achievement_gallery">
+                <div class="achievement_gallery" id="gallery">
                     <div class="row">
                         <div class="col-md-4">
                             <img src="{{ asset('assets/img/skoch_award_2021_tourism_department_government_of_west_bengal.jpg') }}"/>
@@ -44,8 +47,17 @@
         </div>
 
     </div>
-
-
-
 </section>
+@endsection
+@section('script')
+    <script src="{{ asset('assets/js/viewer.min.js') }}"></script>
+    <script>
+        const gallery = new Viewer(document.getElementById('gallery'), {
+            inline: false,
+            rotatable: false,
+            scalable: false,
+            zoomable: false,
+            movable: false
+        });
+    </script>
 @endsection

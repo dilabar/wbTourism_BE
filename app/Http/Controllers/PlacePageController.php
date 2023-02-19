@@ -22,22 +22,22 @@ class PlacePageController extends Controller
         $cacheKey ="detailpage_{$request->template_id}_id_{$request->id}";
         $cacheKey1 ="releted_destination_{$request->template_id}_id_{$request->id}";
 
-    if (Cache::has($cacheKey)) {
-        // $details=collect([]);
-        // $releted_destination=collect([]);
-        $details_db =Cache::get($cacheKey);
-        if(Cache::has($cacheKey1)){
-            $releted_destination =Cache::get($cacheKey1);
-        }
+    // if (Cache::has($cacheKey)) {
+    //     // $details=collect([]);
+    //     // $releted_destination=collect([]);
+    //     $details_db =Cache::get($cacheKey);
+    //     if(Cache::has($cacheKey1)){
+    //         $releted_destination =Cache::get($cacheKey1);
+    //     }
         
-        return view('place/'.$template_arr->slug.'-details',
-        [
-            'details' => $details_db,
-            'releted_destination' => $releted_destination,
+    //     return view('place/'.$template_arr->slug.'-details',
+    //     [
+    //         'details' => $details_db,
+    //         'releted_destination' => $releted_destination,
            
            
-        ]);
-    }
+    //     ]);
+    // }
        
         $id=new MongoObjectId($request->id);
       
@@ -211,6 +211,7 @@ class PlacePageController extends Controller
                 $document=collect([]);
                 $text_array->text=$item['text'];
                 $text_array->type=$item['type'];
+                $text_array->name=@$item['name'] ? @$item['name']:'';
                 
                 if($item['type']=='textwithimage'){
                     $content=Item::where('is_active', 1)->where('is_approved', 1)->where('_id', $item['image_id'])->where('type', 'Image')->first();
@@ -289,8 +290,8 @@ class PlacePageController extends Controller
         $details_db->popular_place=$popular_place;
         $details_db->title=$details_db->name;
         // dd($details_db);
-        Cache::forever("detailpage_{$request->template_id}_id_{$request->id}", $details_db);
-        Cache::forever("releted_destination_{$request->template_id}_id_{$request->id}", $releted_destination);
+        // Cache::forever("detailpage_{$request->template_id}_id_{$request->id}", $details_db);
+        // Cache::forever("releted_destination_{$request->template_id}_id_{$request->id}", $releted_destination);
         return view('place/'.$template_arr->slug.'-details',
         [
             'details' => $details_db,

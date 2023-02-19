@@ -17,6 +17,7 @@ use MongoDB\BSON\ObjectId as MongoObjectId;
 use MongoDB\BSON\UTCDateTime as UTCDateTime;
 use Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class AgentController extends Controller
 {
@@ -40,6 +41,8 @@ class AgentController extends Controller
         $model1->email=$request->email;
         $model1->is_active=1;
         $model1->is_approved=1;
+        $model1->created_by = Auth::user()->user_id;
+        $model1->updated_by = Auth::user()->user_id;
         if($model1->save()){
         return ('Marketing Agent Save successfully');
         }

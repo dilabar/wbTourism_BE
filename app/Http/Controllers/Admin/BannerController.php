@@ -17,6 +17,7 @@ use MongoDB\BSON\ObjectId as MongoObjectId;
 use MongoDB\BSON\UTCDateTime as UTCDateTime;
 use Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class BannerController extends Controller
 {
@@ -54,8 +55,7 @@ class BannerController extends Controller
             'thumbnail_image.required'=>'The Thumbnail Image field is required',
             'full_image.required'=>'The Full Image field is required',
         ];
-
-         
+        
         $attributes = array();
        
         $attributes['name'] = $request->name;
@@ -121,6 +121,7 @@ class BannerController extends Controller
         $banner_model->is_approved = 1;
         $banner_model->type = 'banner';
         $banner_model->template_id = 1;
+        $banner_model->created_by = Auth::user()->user_id;
 
         if (!empty(trim($request->name))) {
             $banner_model->name = trim($request->name);
@@ -343,6 +344,7 @@ class BannerController extends Controller
             if ($img_content) {
             }
         }
+        $banner_model->updated_by = Auth::user()->user_id;
         // $banner_model->page_type='home';
         // $banner_model->section_type='banner';
         // $banner_model->is_active=1;
@@ -379,7 +381,7 @@ class BannerController extends Controller
         $cur_time = Carbon::now()->setTimezone('Asia/Kolkata');;
         $cur_time = $cur_time->format('Y-m-d H:i:s');
         $cur_time_mongo = new UTCDateTime(strtotime($cur_time) * 1000);
-        $user_id = 1;
+        $user_id = Auth::user()->user_id;
         $rules = [
             'id' => 'required',
             'cur_status' => 'required|integer|in:0,1',

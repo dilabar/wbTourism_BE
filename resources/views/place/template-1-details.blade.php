@@ -293,6 +293,18 @@
               <div class="tab-pane fade show" id="stay" role="tabpanel" aria-labelledby="stay-tab">
               @if(!empty($details->stay_tab_content))
                   @foreach($details->stay_tab_content as $stItem)
+                  <div class="card pb-1 mb-1">
+
+                 
+                  @if(isset($stItem->name))
+                  <div class="card-header">
+                     <h3 class="text-capitalize">{{$stItem->name}}</h3>
+                  </div>
+                 
+                  @endif
+                  <div class="card-body">
+
+                  
                   @if($stItem->type =='textwithimage')
                   <div class="row align-items-center">
                      @if($stItem->imagealignment=='left')
@@ -326,8 +338,11 @@
                   {{$stItem->text}}
                   </p>
                   @endif
+                </div>
+                    </div>
                   @endforeach
                   @endif
+               
               </div>
               <div class="tab-pane fade show" id="nearby-amenties" role="tabpanel" aria-labelledby="nearby-amenties-tab">
               @if(!empty($details->nearby_amenties_tab_content))
@@ -431,6 +446,7 @@
                   @endisset
                  
                   @isset($releted_destination )
+                  @if(count($releted_destination)>0)
                       <div class="widget widget-gallery mb-30">
                       <h3 class="sub-title">Related top destinations</h3>
                       <ul class="instagram-post">
@@ -445,7 +461,8 @@
                         @endforeach
                 
                       </ul>
-                  </div> 
+                  </div>
+                  @endif 
                   @endisset
                  
                   @if ($details->map_url )

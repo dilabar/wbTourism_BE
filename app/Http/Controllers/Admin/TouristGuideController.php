@@ -17,9 +17,14 @@ use MongoDB\BSON\ObjectId as MongoObjectId;
 use MongoDB\BSON\UTCDateTime as UTCDateTime;
 use Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class TouristGuideController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function  index(Request $request){
         return view('Admin/touristguide/add');
     }
@@ -58,6 +63,8 @@ class TouristGuideController extends Controller
             $model1->img_data=$binary_thumbnail;
             $model1->is_active=1;
             $model1->is_approved=1;
+            $model1->created_by = Auth::user()->user_id;
+            $model1->updated_by = Auth::user()->user_id;
             $guide_image_is_save=$model1->save();           
         }
         $model2=new Master();
@@ -69,6 +76,8 @@ class TouristGuideController extends Controller
         $model2->contact_info=$request->contactinfo;
         $model2->is_active=1;
         $model2->is_approved=1;
+        $model2->created_by = Auth::user()->user_id;
+        $model2->updated_by = Auth::user()->user_id;
         $model2->guide_image_obj_id=new MongoObjectId($model1->getKey()) ;
         if($model2->save()){
         return ('Tourist Guide Save successfully');

@@ -76,7 +76,7 @@
             <form method="POST" action="{{ route('login') }}">
                 {{ csrf_field() }}
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" value="{{ old('email') }}">
                     
                     @if ($errors->has('email'))
                     <span class="help-block">
@@ -85,13 +85,29 @@
                 @endif
                 </div>
                 <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                    <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
-                    
+                    <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" value="{{ old('password') }}">
+                   
                     @if ($errors->has('password'))
                     <span class="help-block">
                         <strong>{{ $errors->first('password') }}</strong>
                     </span>
                     @endif
+                </div>
+                
+                <div class="form-group{{ $errors->has('captcha') ? ' has-error' : '' }}">
+                    <div class="captcha">
+                        <span>{!! captcha_img('flat') !!}</span>
+                        <button class="btn  btn-refresh" type="button" onclick="refreshCaptcha()"><img src="{{ asset('assets/img/refresh.png') }}" width="24" alt=""></button>
+
+                    </div>
+                   
+                    <input id="captcha" type="text" class="form-control" name="captcha" value="{{ old('captcha') }}" placeholder="Enter captcha" autocomplete="off"  autofocus>
+                    @if ($errors->has('captcha'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('captcha') }}</strong>
+                    </span>
+                    @endif
+
                 </div>
                 <button type="submit" id="button" class="btn btn-primary deep-purple btn-block ">Submit</button>
                 <br>
@@ -99,5 +115,28 @@
 
             </form>
         </div>
-        <div>
+    <div>
+        <script>
+            function refreshCaptcha(){
+                alert("ccc")
+                $.ajax({
+        
+                type:'GET',
+        
+                url:'/refresh_captcha',
+        
+                success:function(data){
+        
+                    $(".captcha span").html(data.captcha);
+        
+                }
+        
+                });
+        
+                };
+        </script>
+@endsection
+@section('script')
+{{-- refreshCaptcha --}}
+
 @endsection

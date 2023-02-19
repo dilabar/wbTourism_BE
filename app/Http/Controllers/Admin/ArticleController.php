@@ -17,9 +17,15 @@ use MongoDB\BSON\ObjectId as MongoObjectId;
 use MongoDB\BSON\UTCDateTime as UTCDateTime;
 use Validator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+
 
 class ArticleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function create()
     {
         return  view('admin/article/create');
@@ -82,6 +88,8 @@ class ArticleController extends Controller
             $model1->img_data = $binary_market;
             $model1->is_active = 1;
             $model1->is_approved = 1;
+            $model1->created_by = Auth::user()->user_id;
+            $model1->updated_by = Auth::user()->user_id;
             $article_image_is_save = $model1->save();
         }
         $model2 = new Item();
@@ -93,6 +101,8 @@ class ArticleController extends Controller
         $model2->category = $request->category;
         $model2->is_active = 1;
         $model2->is_approved = 1;
+        $model2->created_by = Auth::user()->user_id;
+        $model2->updated_by = Auth::user()->user_id;
         $model2->article_image_obj_id = new MongoObjectId($model1->getKey());
         if ($model2->save()) {
             return redirect("/admin/article/list")->with('success', 'Artilce Uploaded successfully');
@@ -219,7 +229,7 @@ class ArticleController extends Controller
         $cur_time = Carbon::now()->setTimezone('Asia/Kolkata');;
         $cur_time = $cur_time->format('Y-m-d H:i:s');
         $cur_time_mongo = new UTCDateTime(strtotime($cur_time) * 1000);
-        $user_id = 1;
+        $user_id = Auth::user()->user_id;
         $rules = [
             'id' => 'required',
             'cur_status' => 'required|integer|in:0,1',
@@ -355,6 +365,7 @@ class ArticleController extends Controller
             $articleimg_mdl->extension = $extension;
             $articleimg_mdl->mimType = $mimeType;
             $articleimg_mdl->img_data = $binary_full;
+            $articleimg_mdl->updated_by = Auth::user()->user_id;
             $article_image_is_save = $articleimg_mdl->save();
         }
         if (!empty(trim($request->title))) {
@@ -370,7 +381,7 @@ class ArticleController extends Controller
             $article_db->making = trim($request->making);
         }
         // $article_db->reference = null;
-
+        $article_db->updated_by = Auth::user()->user_id;
         if ($article_db->save()) {
             return redirect("/admin/article/list")->with('success', 'Article Updated successfully');
         }

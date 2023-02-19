@@ -345,7 +345,7 @@
                         <div class="col-md-12" id="sT-onlytext_{{$key}}" {{ (!empty($stay['image_id']))? "style = display:none": ''}}>
                            <div class="content mb-20 sT-contentText_0" id="sT-content_{{$key}}">
                               @if ($stay['type']=='onlytext')
-                                  <input type="text" class="form-control" name="stay[{{$key}}][name]" placeholder="Attraction name" value="{{$stay['name']}}" >
+                                  <input type="text" class="form-control" name="stay[{{$key}}][name]" placeholder="Attraction name" value="{{@$stay['name']}}" >
                               <textarea class="form-control" name="stay[{{$key}}][content]" id="" cols="10" rows="5"
                                  placeholder="Your Content Here . . .">{{$stay['text']}}</textarea>
                               @endif
@@ -465,7 +465,7 @@
                         <i class="fas fa-camera upload-button"  onClick="document.getElementById('v_file').click();"></i>
                         <input id="v_file" class="file_upload"   type="file" name="vImage" accept="image/*" onchange="loadFile(event,'v_image',1)" value="{{ getImage($edit_list->video_image)}}"/>
                      </div>
-                     <input  class="form-control mt-20" name="vUrl"  required type="text" value="{{$edit_list->vedio_link}}" placeholder="Youtube URL"/>
+                     <input  class="form-control mt-20" name="vUrl"  type="text" value="{{$edit_list->vedio_link}}" placeholder="Youtube URL"/>
                   </div>
                   <a href="https://www.youtube.com/watch?v=QSwvg9Rv2EI" class="youtube-popup video-btn">
                      <i class='bx bx-right-arrow'></i>

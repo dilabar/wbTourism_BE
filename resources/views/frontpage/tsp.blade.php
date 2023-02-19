@@ -17,7 +17,7 @@
          </div>
       
          <div class="col-lg-4">
-            <a href="{{url('tourism-service-provider?id=inbound-tour')}}">   
+            <a href="{{url('tourism-service-provider?id=domestic-tour')}}">   
                <div class="card p-3 mb-2" >
                <span class="text-center" >Domestic Tour Operator</span>
             </div>
@@ -27,7 +27,7 @@
         
     
              <div class="col-lg-4">
-               <a href="{{url('tourism-service-provider?id=inbound-tour')}}">
+               <a href="{{url('tourism-service-provider?id=mice-tour')}}">
                    <div class="card p-3 mb-2" >
                <span class="text-center">MICE Tour Operator</span>
             </div>
@@ -37,7 +37,7 @@
        
       
           <div class="col-lg-4">
-            <a href="{{url('tourism-service-provider?id=inbound-tour')}}"> 
+            <a href="{{url('tourism-service-provider?id=cruise-tour')}}"> 
                <div class="card p-3 mb-2" >
                <span class="text-center">Cruise Tour Operator</span>
             </div>
@@ -48,7 +48,7 @@
         
         
            <div class="col-lg-4">
-            <a href="{{url('tourism-service-provider?id=inbound-tour')}}">
+            <a href="{{url('tourism-service-provider?id=adventure-tour')}}">
             <div class="card p-3 mb-2" >
                <span class="text-center">Adventure Tour Operator</span>
             </div>
@@ -57,14 +57,14 @@
 
        
          <div class="col-lg-4">
-         <a href="{{url('tourism-service-provider?id=inbound-tour')}}">
+         <a href="{{url('tourism-service-provider?id=travel-tour')}}">
             <div class="card p-3 mb-2" >
                <span class="text-center">Travel Agents</span>
             </div>
          </a>
        </div>
        <div class="col-lg-4">
-         <a href="{{url('tourism-service-provider?id=inbound-tour')}}">
+         <a href="{{url('tourism-service-provider?id=transport-tour')}}">
             <div class="card p-3 mb-2" >
                <span class="text-center">Tourist Transport Operator-TTO</span>
             </div>
